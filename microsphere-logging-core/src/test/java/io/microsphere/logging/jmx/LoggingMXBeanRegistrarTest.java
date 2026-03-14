@@ -18,6 +18,7 @@
 package io.microsphere.logging.jmx;
 
 
+import io.microsphere.collection.CollectionUtils;
 import org.junit.jupiter.api.Test;
 
 import javax.management.InstanceNotFoundException;
@@ -25,24 +26,33 @@ import javax.management.MBeanServer;
 import javax.management.ObjectInstance;
 import javax.management.ObjectName;
 import java.util.List;
+import java.util.Set;
 
-import static io.microsphere.logging.jmx.PlatformLoggingMXBeanRegistrar.register;
+import static io.microsphere.collection.ListUtils.first;
+import static io.microsphere.logging.jmx.LoggingMXBeanRegistrar.JMX_DOMAIN;
+import static io.microsphere.logging.jmx.LoggingMXBeanRegistrar.getRegisteredLoggingObjectInstances;
+import static io.microsphere.logging.jmx.LoggingMXBeanRegistrar.registerAll;
 import static java.lang.management.ManagementFactory.getPlatformMBeanServer;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 /**
- * {@link PlatformLoggingMXBeanRegistrar}
+ * {@link LoggingMXBeanRegistrar}
  *
  * @author <a href="mailto:mercyblitz@gmail.com">Mercy</a>
- * @see PlatformLoggingMXBeanRegistrar
+ * @see LoggingMXBeanRegistrar
  * @since 1.0.0
  */
-class PlatformLoggingMXBeanRegistrarTest {
+class LoggingMXBeanRegistrarTest {
 
     @Test
-    void testRegister() throws InstanceNotFoundException {
-        List<ObjectInstance> instances = register();
+    void testConstants() {
+        assertEquals("io.microsphere.logging", JMX_DOMAIN);
+    }
+
+    @Test
+    void testRegisterAll() throws InstanceNotFoundException {
+        List<ObjectInstance> instances = registerAll();
         assertEquals(1, instances.size());
 
         ObjectInstance instance = instances.get(0);
@@ -52,6 +62,14 @@ class PlatformLoggingMXBeanRegistrarTest {
         MBeanServer mBeanServer = getPlatformMBeanServer();
         assertTrue(mBeanServer.isRegistered(objectName));
 
-        assertEquals(instance,mBeanServer.getObjectInstance(objectName));
+        assertEquals(instance, mBeanServer.getObjectInstance(objectName));
+    }
+
+    @Test
+    void testGetRegisteredLoggingObjectInstances() {
+        List<ObjectInstance> instances = registerAll();
+        Set<ObjectInstance> registeredInstances = getRegisteredLoggingObjectInstances();
+        assertEquals(1, instances.size());
+        assertEquals(first(instances), CollectionUtils.first(registeredInstances));
     }
 }
