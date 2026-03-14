@@ -17,10 +17,22 @@
 
 package io.microsphere.logging.logback;
 
+import ch.qos.logback.classic.Level;
+import ch.qos.logback.classic.Logger;
+import ch.qos.logback.classic.LoggerContext;
 import io.microsphere.logging.Logging;
 
 import java.util.List;
 import java.util.Set;
+
+import static ch.qos.logback.classic.Level.toLevel;
+import static io.microsphere.constants.SymbolConstants.DOT;
+import static io.microsphere.logging.DefaultLoggingLevelsResolver.INSTANCE;
+import static io.microsphere.util.StringUtils.substringBeforeLast;
+import static java.lang.String.valueOf;
+import static java.util.stream.Collectors.toList;
+import static org.slf4j.Logger.ROOT_LOGGER_NAME;
+import static org.slf4j.LoggerFactory.getILoggerFactory;
 
 /**
  * {@link Logging} class based on the logback framework.
@@ -31,33 +43,66 @@ import java.util.Set;
  */
 public class LogbackLogging implements Logging {
 
+    static final LoggerContext loggerContext = (LoggerContext) getILoggerFactory();
+
     @Override
     public List<String> getLoggerNames() {
-        return List.of();
+        return loggerContext.getLoggerList()
+                .stream().map(Logger::getName)
+                .collect(toList());
     }
 
     @Override
     public Set<String> getSupportedLoggingLevels() {
-        return Set.of();
+        return INSTANCE.resolve(Level.class);
     }
 
     @Override
     public String getLoggerLevel(String loggerName) {
-        return "";
+        Logger logger = getLogger(loggerName);
+        Level level = null;
+        if (logger != null) {
+            level = logger.getLevel();
+            if (level == null) {
+                level = logger.getEffectiveLevel();
+            }
+        }
+        return valueOf(level);
     }
 
     @Override
     public void setLoggerLevel(String loggerName, String levelName) {
+        Logger logger = getLogger(loggerName);
+        setLoggerLevel(logger, levelName);
+    }
 
+    protected void setLoggerLevel(Logger logger, String levelName) {
+        if (logger != null) {
+            logger.setLevel(toLevel(levelName));
+        }
     }
 
     @Override
     public String getParentLoggerName(String loggerName) {
-        return "";
+        if (ROOT_LOGGER_NAME.equals(loggerName)) {
+            return null;
+        }
+        String parentLoggerName = substringBeforeLast(loggerName, DOT);
+        if (!loggerName.equals(parentLoggerName)) {
+            Logger logger = getLogger(parentLoggerName);
+            if (logger != null) {
+                return parentLoggerName;
+            }
+        }
+        return ROOT_LOGGER_NAME;
     }
 
     @Override
     public String getName() {
-        return "";
+        return "Logback";
+    }
+
+    protected Logger getLogger(String loggerName) {
+        return loggerContext.getLogger(loggerName);
     }
 }

@@ -27,12 +27,6 @@
             <version>${revision}</version>
         </dependency>
 
-        <dependency>
-            <groupId>io.github.microsphere-projects</groupId>
-            <artifactId>microsphere-java-core</artifactId>
-            <optional>true</optional>
-        </dependency>
-
         <!-- Microsphere Java -->
         <dependency>
             <groupId>io.github.microsphere-projects</groupId>
@@ -45,7 +39,6 @@
             <artifactId>microsphere-java-core</artifactId>
             <optional>true</optional>
         </dependency>
-
 
         <!-- SLF4j -->
         <dependency>
