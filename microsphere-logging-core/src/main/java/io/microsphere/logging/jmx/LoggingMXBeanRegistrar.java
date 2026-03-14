@@ -49,7 +49,7 @@ import static javax.management.ObjectName.getInstance;
  * @see ServiceLoader
  * @since 1.0.0
  */
-public class LoggingMXBeanRegistrar {
+public abstract class LoggingMXBeanRegistrar {
 
     private static final Logger logger = getLogger(LoggingMXBeanRegistrar.class);
 
@@ -135,5 +135,8 @@ public class LoggingMXBeanRegistrar {
 
     private static ObjectName createObjectName(String type) throws MalformedObjectNameException {
         return getInstance(JMX_DOMAIN + ":type=" + type);
+    }
+
+    private LoggingMXBeanRegistrar() {
     }
 }
