@@ -19,20 +19,20 @@ package io.microsphere.logging.logback;
 
 import ch.qos.logback.classic.Level;
 import ch.qos.logback.classic.Logger;
-import ch.qos.logback.classic.LoggerContext;
 import io.microsphere.logging.Logging;
+import io.microsphere.logging.logback.util.LoggerUtils;
 
 import java.util.List;
 import java.util.Set;
 
-import static ch.qos.logback.classic.Level.toLevel;
 import static io.microsphere.constants.SymbolConstants.DOT;
 import static io.microsphere.logging.DefaultLoggingLevelsResolver.INSTANCE;
+import static io.microsphere.logging.logback.util.LoggerUtils.getLevelString;
+import static io.microsphere.logging.logback.util.LoggerUtils.getLogger;
+import static io.microsphere.logging.logback.util.LoggerUtils.getLoggerContext;
 import static io.microsphere.util.StringUtils.substringBeforeLast;
-import static java.lang.String.valueOf;
 import static java.util.stream.Collectors.toList;
 import static org.slf4j.Logger.ROOT_LOGGER_NAME;
-import static org.slf4j.LoggerFactory.getILoggerFactory;
 
 /**
  * {@link Logging} class based on the logback framework.
@@ -43,11 +43,10 @@ import static org.slf4j.LoggerFactory.getILoggerFactory;
  */
 public class LogbackLogging implements Logging {
 
-    static final LoggerContext loggerContext = (LoggerContext) getILoggerFactory();
-
     @Override
     public List<String> getLoggerNames() {
-        return loggerContext.getLoggerList()
+        return getLoggerContext()
+                .getLoggerList()
                 .stream().map(Logger::getName)
                 .collect(toList());
     }
@@ -59,27 +58,12 @@ public class LogbackLogging implements Logging {
 
     @Override
     public String getLoggerLevel(String loggerName) {
-        Logger logger = getLogger(loggerName);
-        Level level = null;
-        if (logger != null) {
-            level = logger.getLevel();
-            if (level == null) {
-                level = logger.getEffectiveLevel();
-            }
-        }
-        return valueOf(level);
+        return getLevelString(loggerName);
     }
 
     @Override
     public void setLoggerLevel(String loggerName, String levelName) {
-        Logger logger = getLogger(loggerName);
-        setLoggerLevel(logger, levelName);
-    }
-
-    protected void setLoggerLevel(Logger logger, String levelName) {
-        if (logger != null) {
-            logger.setLevel(toLevel(levelName));
-        }
+        LoggerUtils.setLoggerLevel(loggerName, levelName);
     }
 
     @Override
@@ -100,9 +84,5 @@ public class LogbackLogging implements Logging {
     @Override
     public String getName() {
         return "Logback";
-    }
-
-    protected Logger getLogger(String loggerName) {
-        return loggerContext.getLogger(loggerName);
     }
 }

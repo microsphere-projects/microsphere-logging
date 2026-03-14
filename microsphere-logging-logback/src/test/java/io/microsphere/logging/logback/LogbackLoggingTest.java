@@ -79,8 +79,6 @@ class LogbackLoggingTest {
         String level = "DEBUG";
         this.logging.setLoggerLevel(loggerName, level);
         assertEquals(level, this.logging.getLoggerLevel(loggerName));
-
-        this.logging.setLoggerLevel((ch.qos.logback.classic.Logger) null, level);
     }
 
     @Test
