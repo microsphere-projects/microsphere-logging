@@ -30,9 +30,10 @@ import java.util.ServiceLoader;
 import java.util.logging.LoggingMXBean;
 
 import static io.microsphere.logging.LoggerFactory.getLogger;
+import static io.microsphere.util.ClassLoaderUtils.getClassLoader;
+import static io.microsphere.util.ServiceLoaderUtils.loadServicesList;
 import static java.lang.management.ManagementFactory.getPlatformMBeanServer;
 import static java.util.Collections.unmodifiableList;
-import static java.util.ServiceLoader.load;
 import static javax.management.ObjectName.getInstance;
 
 /**
@@ -49,10 +50,14 @@ public class PlatformLoggingMXBeanRegistrar {
     private static final Logger logger = getLogger(PlatformLoggingMXBeanRegistrar.class);
 
     public static List<ObjectInstance> register() {
+        return register(getClassLoader(PlatformLoggingMXBeanRegistrar.class));
+    }
+
+    public static List<ObjectInstance> register(ClassLoader classLoader) {
         List<ObjectInstance> instances = new LinkedList<>();
         MBeanServer mBeanServer = getPlatformMBeanServer();
         try {
-            ServiceLoader<Logging> serviceLoader = load(Logging.class);
+            Iterable<Logging> serviceLoader = loadServicesList(Logging.class, classLoader);
             for (Logging logging : serviceLoader) {
                 logger.info("Registering LoggingMXBean [{}]", logging);
                 LoggingMXBeanAdapter adapter = new LoggingMXBeanAdapter(logging);
