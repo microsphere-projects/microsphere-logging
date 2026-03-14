@@ -18,6 +18,7 @@ package io.microsphere.logging;
 
 import io.microsphere.annotation.Nonnull;
 import io.microsphere.annotation.Nullable;
+import io.microsphere.lang.Prioritized;
 
 import java.util.List;
 import java.util.Set;
@@ -32,7 +33,7 @@ import java.util.logging.LoggingMXBean;
  * @see LoggingMXBean
  * @since 1.0.0
  */
-public interface Logging {
+public interface Logging extends Prioritized {
 
     /**
      * Returns the list of currently registered logger names.

@@ -81,4 +81,9 @@ public class StandardLogging implements Logging {
     public String getName() {
         return "Java Logging";
     }
+
+    @Override
+    public int getPriority() {
+        return MIN_PRIORITY;
+    }
 }

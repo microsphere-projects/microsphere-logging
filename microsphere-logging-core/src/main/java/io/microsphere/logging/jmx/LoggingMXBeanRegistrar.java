@@ -34,10 +34,10 @@ import java.util.logging.LoggingMXBean;
 
 import static io.microsphere.lang.function.ThrowableSupplier.execute;
 import static io.microsphere.logging.LoggerFactory.getLogger;
+import static io.microsphere.logging.LoggingUtils.loadAll;
 import static io.microsphere.util.ClassLoaderUtils.getClassLoader;
 import static java.lang.management.ManagementFactory.getPlatformMBeanServer;
 import static java.util.Collections.unmodifiableList;
-import static java.util.ServiceLoader.load;
 import static javax.management.ObjectName.getInstance;
 
 /**
@@ -76,7 +76,7 @@ public abstract class LoggingMXBeanRegistrar {
     @Nonnull
     public static List<ObjectInstance> registerAll(ClassLoader classLoader) {
         List<ObjectInstance> instances = new LinkedList<>();
-        Iterable<Logging> loggings = load(Logging.class, classLoader);
+        Iterable<Logging> loggings = loadAll(classLoader);
         for (Logging logging : loggings) {
             ObjectInstance instance = register(logging);
             if (instance != null) {
