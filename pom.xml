@@ -62,5 +62,5 @@
         <module>microsphere-logging-core</module>
         <module>microsphere-logging-test</module>
     </modules>
-    
+
 </project>
