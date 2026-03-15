@@ -31,13 +31,6 @@ import static org.junit.runner.Description.createTestDescription;
 
 /**
  * The {@link Statement} repeats the execution with the specified logging levels.
- * <p>
- * The implementation class must have and only have a constructor with types in order:
- * <ol>
- *     <li>{@link Statement}</li>
- *     <li>{@link Description}</li>
- *     <li>{@link String}[]</li>
- * </ol>
  *
  * @author <a href="mailto:mercyblitz@gmail.com">Mercy</a>
  * @see Statement
