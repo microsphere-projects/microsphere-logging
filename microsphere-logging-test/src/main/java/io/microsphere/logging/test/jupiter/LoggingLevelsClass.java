@@ -17,8 +17,8 @@
 
 package io.microsphere.logging.test.jupiter;
 
-import io.microsphere.logging.test.jupiter.extension.logging.LoggingLevelsTestExtension;
-import org.junit.jupiter.api.TestTemplate;
+import io.microsphere.logging.test.jupiter.extension.logging.LoggingLevelsClassExtension;
+import org.junit.jupiter.api.ClassTemplate;
 import org.junit.jupiter.api.extension.ExtendWith;
 
 import java.lang.annotation.Documented;
@@ -27,23 +27,23 @@ import java.lang.annotation.Retention;
 import java.lang.annotation.Target;
 
 import static java.lang.annotation.ElementType.ANNOTATION_TYPE;
-import static java.lang.annotation.ElementType.METHOD;
+import static java.lang.annotation.ElementType.TYPE;
 import static java.lang.annotation.RetentionPolicy.RUNTIME;
 
 /**
- * {@link TestTemplate @TestTemplate} for Logging Levels.
+ * {@link ClassTemplate @ClassTemplate} for Logging Levels.
  *
  * @author <a href="mailto:mercyblitz@gmail.com">Mercy</a>
- * @see TestTemplate
+ * @see ClassTemplate
  * @since 1.0.0
  */
-@Target({ANNOTATION_TYPE, METHOD})
+@Target({ANNOTATION_TYPE, TYPE})
 @Retention(RUNTIME)
 @Inherited
 @Documented
-@TestTemplate
-@ExtendWith(LoggingLevelsTestExtension.class)
-public @interface LoggingLevelsTest {
+@ClassTemplate
+@ExtendWith(LoggingLevelsClassExtension.class)
+public @interface LoggingLevelsClass {
 
     /**
      * The target class(es) which will be applied Logging Levels

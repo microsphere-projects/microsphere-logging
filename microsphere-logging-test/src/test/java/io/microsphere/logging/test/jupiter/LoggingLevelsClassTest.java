@@ -17,19 +17,28 @@
 
 package io.microsphere.logging.test.jupiter;
 
+import org.junit.jupiter.api.Test;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
+
 /**
- * {@link LoggingLevelsTest} Test
+ * {@link LoggingLevelsClass} Test
  *
  * @author <a href="mailto:mercyblitz@gmail.com">Mercy</a>
- * @see LoggingLevelsTest
+ * @see LoggingLevelsClass
  * @since 1.0.0
  */
-//class LoggingLevelsTestMethodTest {
-//
-//    @Test
-//    @LoggingLevelsTest(levels = {"WARN", "ERROR"})
-//    void testMethod(String level, int index) {
-//        String[] levels = ofArray("WARN", "ERROR");
-//        assertEquals(levels[index], level);
-//    }
-//}
+@LoggingLevelsClass(levels = {
+        "TRACE",
+        "DEBUG",
+        "INFO"
+})
+class LoggingLevelsClassTest {
+
+    @Test
+    void test(String level, int index) {
+        LoggingLevelsClass annotation = LoggingLevelsClassTest.class.getAnnotation(LoggingLevelsClass.class);
+        String[] levels = annotation.levels();
+        assertEquals(levels[index], level);
+    }
+}

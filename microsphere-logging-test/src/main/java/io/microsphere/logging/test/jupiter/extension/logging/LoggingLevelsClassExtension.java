@@ -15,33 +15,18 @@
  * limitations under the License.
  */
 
-package io.microsphere.logging.test.jupiter;
+package io.microsphere.logging.test.jupiter.extension.logging;
 
-import io.microsphere.logging.Logging;
-import org.junit.jupiter.api.Test;
-
-import java.util.List;
-
-import static io.microsphere.logging.LoggingUtils.loadAll;
-import static org.junit.Assert.assertNotEquals;
+import io.microsphere.logging.test.jupiter.LoggingLevelsClass;
+import org.junit.jupiter.api.extension.Extension;
 
 /**
- * {@link LoggingLevelsTest} Test
+ * The {@link Extension} repeats the execution with the specified logging levels.
  *
  * @author <a href="mailto:mercyblitz@gmail.com">Mercy</a>
- * @see LoggingLevelsTest
+ * @see LoggingLevelsClass
+ * @see LoggingLevelsExtension
  * @since 1.0.0
  */
-class LoggingLevelsTestTest {
-
-    @Test
-    @LoggingLevelsTest(loggingClasses = {LoggingLevelsTest.class, LoggingLevelsTestTest.class},
-            levels = {"WARN", "ERROR"})
-    void test() {
-        List<Logging> loggins = loadAll();
-        for (Logging logging : loggins) {
-            String loggerName = LoggingLevelsTest.class.getName();
-            assertNotEquals("INFO", logging.getLoggerLevel(loggerName));
-        }
-    }
+public class LoggingLevelsClassExtension extends LoggingLevelsExtension<LoggingLevelsClass> {
 }
