@@ -20,6 +20,9 @@ package io.microsphere.logging;
 import java.util.List;
 import java.util.Set;
 
+import static java.util.Collections.emptyList;
+import static java.util.Collections.emptySet;
+
 /**
  * Throwable {@link Logging}
  *
@@ -31,12 +34,12 @@ public class ThrowableLogging implements Logging {
 
     @Override
     public List<String> getLoggerNames() {
-        return List.of();
+        return emptyList();
     }
 
     @Override
     public Set<String> getSupportedLoggingLevels() {
-        return Set.of();
+        return emptySet();
     }
 
     @Override
@@ -46,7 +49,6 @@ public class ThrowableLogging implements Logging {
 
     @Override
     public void setLoggerLevel(String loggerName, String levelName) {
-
     }
 
     @Override

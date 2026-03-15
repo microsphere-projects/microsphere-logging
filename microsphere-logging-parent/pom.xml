@@ -22,16 +22,32 @@
         <microsphere-java.version>0.1.8</microsphere-java.version>
         <jsr305.version>3.0.2</jsr305.version>
         <apache-commons-logging.version>1.3.2</apache-commons-logging.version>
-        <slf4j.version>2.0.17</slf4j.version>
+        <slf4j.version>1.7.36</slf4j.version>
+        <logback.version>1.2.12</logback.version>
         <log4j.version>1.2.17</log4j.version>
         <log4j2.version>2.25.3</log4j2.version>
-        <logback.version>1.5.32</logback.version>
         <junit.version>4.13.2</junit.version>
-        <junit-jupiter.version>6.0.3</junit-jupiter.version>
+        <junit-jupiter.version>5.14.3</junit-jupiter.version>
     </properties>
 
     <dependencyManagement>
         <dependencies>
+
+            <!-- JUnit BOM -->
+            <dependency>
+                <groupId>org.junit</groupId>
+                <artifactId>junit-bom</artifactId>
+                <version>${junit-jupiter.version}</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+
+            <!-- JUnit -->
+            <dependency>
+                <groupId>junit</groupId>
+                <artifactId>junit</artifactId>
+                <version>${junit.version}</version>
+            </dependency>
 
             <!-- Microsphere Java Dependencies -->
             <dependency>
@@ -88,22 +104,6 @@
                 <groupId>ch.qos.logback</groupId>
                 <artifactId>logback-classic</artifactId>
                 <version>${logback.version}</version>
-            </dependency>
-
-            <!-- JUnit BOM -->
-            <dependency>
-                <groupId>org.junit</groupId>
-                <artifactId>junit-bom</artifactId>
-                <version>${junit-jupiter.version}</version>
-                <type>pom</type>
-                <scope>import</scope>
-            </dependency>
-
-            <!-- JUnit -->
-            <dependency>
-                <groupId>junit</groupId>
-                <artifactId>junit</artifactId>
-                <version>${junit.version}</version>
             </dependency>
 
         </dependencies>

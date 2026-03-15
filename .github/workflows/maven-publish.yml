@@ -10,13 +10,13 @@ name: Maven Publish
 
 on:
   push:
-    branches: [ 'release' ]
+    branches: [ 'release-1.x' ]
   workflow_dispatch:
     inputs:
       revision:
         description: 'The version to publish'
         required: true
-        default: '2.0.0-SNAPSHOT'
+        default: '1.0.0-SNAPSHOT'
 
 jobs:
   build:

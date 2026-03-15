@@ -10,16 +10,16 @@ name: Maven Build
 
 on:
   push:
-    branches: [ 'dev' ]
+    branches: [ 'dev-1.x' ]
   pull_request:
-    branches: [ 'main', 'dev' , 'release' ]
+    branches: [ 'dev-1.x' , 'release-1.x' ]
 
 jobs:
   build:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        java: [ '17' , '21' , '25' ]
+        java: [ '8', '11' , '17' , '21' ,' 25' ]
     steps:
       - name: Checkout Source
         uses: actions/checkout@v5
