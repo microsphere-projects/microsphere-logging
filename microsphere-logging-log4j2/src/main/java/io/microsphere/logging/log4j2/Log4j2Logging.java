@@ -15,49 +15,70 @@
  * limitations under the License.
  */
 
-package io.microsphere.logging;
+package io.microsphere.logging.log4j2;
+
+import io.microsphere.logging.Logging;
+import io.microsphere.logging.log4j2.util.LoggerUtils;
+import org.apache.logging.log4j.Level;
+import org.apache.logging.log4j.Logger;
 
 import java.util.List;
 import java.util.Set;
 
-import static java.util.Collections.emptyList;
-import static java.util.Collections.emptySet;
+import static io.microsphere.constants.SymbolConstants.DOT;
+import static io.microsphere.logging.DefaultLoggingLevelsResolver.INSTANCE;
+import static io.microsphere.logging.log4j2.util.LoggerUtils.getLevelString;
+import static io.microsphere.logging.log4j2.util.LoggerUtils.getLoggerContext;
+import static java.util.stream.Collectors.toList;
+import static org.apache.logging.log4j.LogManager.ROOT_LOGGER_NAME;
 
 /**
- * Throwable {@link Logging}
+ * {@link Logging} class based on the log4j2 framework.
  *
  * @author <a href="mailto:mercyblitz@gmail.com">Mercy</a>
  * @see Logging
  * @since 1.0.0
  */
-public class ThrowableLogging implements Logging {
+public class Log4j2Logging implements Logging {
 
     @Override
     public List<String> getLoggerNames() {
-        return emptyList();
+        return getLoggerContext()
+                .getLoggers()
+                .stream().map(Logger::getName)
+                .collect(toList());
     }
 
     @Override
     public Set<String> getSupportedLoggingLevels() {
-        return emptySet();
+        return INSTANCE.resolve(Level.class);
     }
 
     @Override
     public String getLoggerLevel(String loggerName) {
-        return "";
+        return getLevelString(loggerName);
     }
 
     @Override
     public void setLoggerLevel(String loggerName, String levelName) {
+        LoggerUtils.setLoggerLevel(loggerName, levelName);
     }
 
     @Override
     public String getParentLoggerName(String loggerName) {
-        return "";
+        if (ROOT_LOGGER_NAME.equals(loggerName)) {
+            return null;
+        }
+        int lastDotIndex = loggerName.lastIndexOf(DOT);
+        if (lastDotIndex == -1) {
+            return ROOT_LOGGER_NAME;
+        }
+        String parentLoggerName = loggerName.substring(0, lastDotIndex);
+        return parentLoggerName;
     }
 
     @Override
     public String getName() {
-        throw new RuntimeException("For testing...");
+        return "Log4j2";
     }
 }

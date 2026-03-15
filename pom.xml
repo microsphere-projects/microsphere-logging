@@ -61,6 +61,7 @@
         <module>microsphere-logging-dependencies</module>
         <module>microsphere-logging-core</module>
         <module>microsphere-logging-logback</module>
+        <module>microsphere-logging-log4j2</module>
         <module>microsphere-logging-test</module>
     </modules>
 
