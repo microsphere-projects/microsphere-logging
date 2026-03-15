@@ -4,7 +4,7 @@
 
 [![Ask DeepWiki](https://deepwiki.com/badge.svg)](https://deepwiki.com/microsphere-projects/microsphere-logging)
 [![Maven Build](https://github.com/microsphere-projects/microsphere-logging/actions/workflows/maven-build.yml/badge.svg)](https://github.com/microsphere-projects/microsphere-logging/actions/workflows/maven-build.yml)
-[![Codecov](https://codecov.io/gh/microsphere-projects/microsphere-logging/branch/dev/graph/badge.svg)](https://app.codecov.io/gh/microsphere-projects/microsphere-logging)
+[![Codecov](https://codecov.io/gh/microsphere-projects/microsphere-logging/branch/dev-1.x/graph/badge.svg)](https://app.codecov.io/gh/microsphere-projects/microsphere-logging)
 ![Maven](https://img.shields.io/maven-central/v/io.github.microsphere-projects/microsphere-logging.svg)
 ![License](https://img.shields.io/github/license/microsphere-projects/microsphere-logging.svg)
 
