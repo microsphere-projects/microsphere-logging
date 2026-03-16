@@ -57,7 +57,7 @@ class LoggingMXBeanRegistrarTest {
 
         ObjectInstance instance = instances.get(0);
         ObjectName objectName = instance.getObjectName();
-        assertEquals("io.microsphere.logging:type=Java Logging", objectName.toString());
+        assertEquals("io.microsphere.logging:type=Testing", objectName.toString());
 
         MBeanServer mBeanServer = getPlatformMBeanServer();
         assertTrue(mBeanServer.isRegistered(objectName));

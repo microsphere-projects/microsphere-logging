@@ -1,2 +1,2 @@
-io.microsphere.logging.jdk.StandardLogging
+io.microsphere.logging.TestingLogging
 io.microsphere.logging.ThrowableLogging

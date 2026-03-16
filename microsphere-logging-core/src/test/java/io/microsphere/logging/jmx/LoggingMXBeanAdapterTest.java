@@ -18,14 +18,12 @@
 package io.microsphere.logging.jmx;
 
 
-import io.microsphere.logging.Logging;
-import io.microsphere.logging.jdk.StandardLogging;
+import io.microsphere.logging.TestingLogging;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import java.util.List;
 
-import static io.microsphere.logging.jdk.StandardLogging.ALL_LEVELS;
 import static io.microsphere.util.StringUtils.isBlank;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertSame;
@@ -40,13 +38,18 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
  */
 class LoggingMXBeanAdapterTest {
 
-    private Logging logging;
+    private TestingLogging logging;
 
     private LoggingMXBeanAdapter loggingMXBeanAdapter;
 
     @BeforeEach
     void setUp() {
-        this.logging = new StandardLogging();
+        this.logging = new TestingLogging();
+        this.logging.init(
+                "io.microsphere.logging", "DEBUG",
+                "io.microsphere", "INFO",
+                "io", "WARN"
+        );
         this.loggingMXBeanAdapter = new LoggingMXBeanAdapter(logging);
     }
 
@@ -71,7 +74,7 @@ class LoggingMXBeanAdapterTest {
             if (isBlank(level)) {
                 continue;
             }
-            for (String newLevel : ALL_LEVELS) {
+            for (String newLevel : this.logging.getSupportedLoggingLevels()) {
                 this.loggingMXBeanAdapter.setLoggerLevel(loggerName, newLevel);
                 assertEquals(newLevel, this.logging.getLoggerLevel(loggerName));
             }
