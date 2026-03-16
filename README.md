@@ -26,6 +26,7 @@ The framework is organized into several key modules:
  microsphere-logging-dependencies | Manages dependency versions across the project.                         
  microsphere-logging-core         | Provides the core features for logging.                                 
  microsphere-logging-logback      | Provides the extensions features for logback.                           
+ microsphere-logging-log4j2       | Provides the extensions features for log4j2.                            
  microsphere-logging-test         | Provides the extensions of JUnit4 or JUnit Jupiter for logging testing. 
 
 ## Getting Started
