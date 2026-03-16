@@ -26,6 +26,8 @@ import java.util.Set;
 
 import static io.microsphere.collection.Sets.ofSet;
 import static io.microsphere.logging.LoggerFactory.getLogger;
+import static io.microsphere.logging.log4j2.Log4j2Logging.ALL_LEVELS;
+import static io.microsphere.logging.log4j2.Log4j2Logging.PRIORITY;
 import static org.apache.logging.log4j.LogManager.ROOT_LOGGER_NAME;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
@@ -52,6 +54,12 @@ class Log4j2LoggingTest {
     @BeforeEach
     void setUp() {
         this.logging = new Log4j2Logging();
+    }
+
+    @Test
+    void testConstants() {
+        assertEquals(-5, PRIORITY);
+        assertEquals(LOG4J2_LEVELS, ALL_LEVELS);
     }
 
     @Test
@@ -95,5 +103,10 @@ class Log4j2LoggingTest {
     @Test
     void testGetName() {
         assertEquals("Log4j2", this.logging.getName());
+    }
+
+    @Test
+    void testGetPriority() {
+        assertEquals(PRIORITY, this.logging.getPriority());
     }
 }
