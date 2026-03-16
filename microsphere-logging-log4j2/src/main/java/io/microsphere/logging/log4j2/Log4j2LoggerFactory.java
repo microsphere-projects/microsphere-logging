@@ -20,6 +20,8 @@ package io.microsphere.logging.log4j2;
 import io.microsphere.logging.Logger;
 import io.microsphere.logging.LoggerFactory;
 
+import static io.microsphere.logging.log4j2.Log4j2Logging.PRIORITY;
+
 /**
  * {@link LoggerFactory} for Log4j2
  *
@@ -43,6 +45,6 @@ public class Log4j2LoggerFactory extends LoggerFactory {
 
     @Override
     public int getPriority() {
-        return NORMAL_PRIORITY - 5;
+        return PRIORITY;
     }
 }

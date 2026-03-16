@@ -25,6 +25,7 @@ The framework is organized into several key modules:
  microsphere-logging-parent       | Parent POM with shared configurations.                                  
  microsphere-logging-dependencies | Manages dependency versions across the project.                         
  microsphere-logging-core         | Provides the core features for logging.                                 
+ microsphere-logging-jdk          | Provides the extensions features for Java Logging.                      
  microsphere-logging-logback      | Provides the extensions features for logback.                           
  microsphere-logging-log4j2       | Provides the extensions features for log4j2.                            
  microsphere-logging-test         | Provides the extensions of JUnit4 or JUnit Jupiter for logging testing. 
@@ -62,12 +63,6 @@ Then add the specific modules you need:
         <artifactId>microsphere-logging-core</artifactId>
     </dependency>
 </dependencies>
-```
-
-### Quick Examples
-
-```java
-
 ```
 
 ## Building from Source

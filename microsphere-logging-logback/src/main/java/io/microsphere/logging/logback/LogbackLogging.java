@@ -41,6 +41,18 @@ import static org.slf4j.Logger.ROOT_LOGGER_NAME;
  */
 public class LogbackLogging implements Logging {
 
+    /**
+     * The priority of {@link LogbackLogging}
+     */
+    public static final int PRIORITY = NORMAL_PRIORITY;
+
+    /**
+     * All Logging Levels : "OFF", "ERROR", "WARN", "INFO", "DEBUG", "TRACE", "ALL"
+     *
+     * @see Level
+     */
+    public static final Set<String> ALL_LEVELS = INSTANCE.resolve(Level.class);
+
     @Override
     public List<String> getLoggerNames() {
         return getLoggerContext()
@@ -80,5 +92,10 @@ public class LogbackLogging implements Logging {
     @Override
     public String getName() {
         return "Logback";
+    }
+
+    @Override
+    public int getPriority() {
+        return PRIORITY;
     }
 }

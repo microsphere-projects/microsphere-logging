@@ -41,6 +41,18 @@ import static org.apache.logging.log4j.LogManager.ROOT_LOGGER_NAME;
  */
 public class Log4j2Logging implements Logging {
 
+    /**
+     * The priority of {@link Log4j2Logging}
+     */
+    public static final int PRIORITY = NORMAL_PRIORITY - 5;
+
+    /**
+     * All Logging Levels : "OFF", "FATAL", "ERROR", "WARN", "INFO", "DEBUG", "TRACE", "ALL"
+     *
+     * @see Level
+     */
+    public static final Set<String> ALL_LEVELS = INSTANCE.resolve(Level.class);
+
     @Override
     public List<String> getLoggerNames() {
         return getLoggerContext()
@@ -51,7 +63,7 @@ public class Log4j2Logging implements Logging {
 
     @Override
     public Set<String> getSupportedLoggingLevels() {
-        return INSTANCE.resolve(Level.class);
+        return ALL_LEVELS;
     }
 
     @Override
@@ -80,5 +92,10 @@ public class Log4j2Logging implements Logging {
     @Override
     public String getName() {
         return "Log4j2";
+    }
+
+    @Override
+    public int getPriority() {
+        return PRIORITY;
     }
 }

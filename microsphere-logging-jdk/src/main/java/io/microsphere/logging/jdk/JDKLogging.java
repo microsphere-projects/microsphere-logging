@@ -17,38 +17,36 @@
 package io.microsphere.logging.jdk;
 
 import io.microsphere.logging.Logging;
-import io.microsphere.reflect.MemberUtils;
 
 import java.util.List;
 import java.util.Set;
 import java.util.logging.Level;
 import java.util.logging.LoggingMXBean;
 
-import static java.util.Collections.unmodifiableSet;
+import static io.microsphere.logging.DefaultLoggingLevelsResolver.INSTANCE;
 import static java.util.logging.LogManager.getLoggingMXBean;
-import static java.util.stream.Collectors.toSet;
-import static java.util.stream.Stream.of;
 
 /**
- * The Standard JDK {@link Logging}
+ * The Java {@link Logging}
  *
  * @author <a href="mailto:mercyblitz@gmail.com">Mercy</a>
  * @see Logging
  * @see LoggingMXBean
  * @since 1.0.0
  */
-public class StandardLogging implements Logging {
+public class JDKLogging implements Logging {
 
-    public static final Set<String> ALL_LEVELS = findAllLevels();
+    /**
+     * The priority of {@link JDKLogging}
+     */
+    public static final int PRIORITY = NORMAL_PRIORITY + 10;
 
-    private static Set<String> findAllLevels() {
-        return unmodifiableSet(of(Level.class.getFields())
-                .filter(MemberUtils::isStatic)
-                .filter(MemberUtils::isFinal)
-                .filter(field -> field.getType().equals(Level.class))
-                .map(field -> field.getName())
-                .collect(toSet()));
-    }
+    /**
+     * All Logging Levels : "OFF", "SEVERE", "WARNING", "INFO", "CONFIG", "FINE", "FINER", "FINEST", "ALL"
+     *
+     * @see Level
+     */
+    public static final Set<String> ALL_LEVELS = INSTANCE.resolve(Level.class);
 
     static final LoggingMXBean loggingMXBean = getLoggingMXBean();
 
@@ -84,6 +82,6 @@ public class StandardLogging implements Logging {
 
     @Override
     public int getPriority() {
-        return MIN_PRIORITY;
+        return PRIORITY;
     }
 }
