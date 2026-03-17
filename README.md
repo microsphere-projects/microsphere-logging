@@ -218,6 +218,7 @@ We welcome your contributions! Please read [Code of Conduct](./CODE_OF_CONDUCT.m
 - [microsphere-logging-test](https://javadoc.io/doc/io.github.microsphere-projects/microsphere-logging-test)
 - [microsphere-java-logging](https://javadoc.io/doc/io.github.microsphere-projects/microsphere-java-logging)
 - [microsphere-logback](https://javadoc.io/doc/io.github.microsphere-projects/microsphere-logback)
+- [microsphere-log4j](https://javadoc.io/doc/io.github.microsphere-projects/microsphere-log4j)
 - [microsphere-log4j2](https://javadoc.io/doc/io.github.microsphere-projects/microsphere-log4j2)
 
 ## License
