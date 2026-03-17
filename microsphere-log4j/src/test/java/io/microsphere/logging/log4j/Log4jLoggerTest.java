@@ -30,21 +30,21 @@ import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 /**
- * {@link Log4j2Logger} Test
+ * {@link Log4jLogger} Test
  *
  * @author <a href="mailto:mercyblitz@gmail.com">Mercy</a>
- * @see Log4j2Logger
+ * @see Log4jLogger
  * @since 1.0.0
  */
 class Log4jLoggerTest {
 
     private static final String LOGGER_NAME = Log4jLoggerTest.class.getName();
 
-    protected Log4j2Logger logger;
+    protected Log4jLogger logger;
 
     @BeforeEach
     void setUp() {
-        this.logger = new Log4j2Logger(LOGGER_NAME);
+        this.logger = new Log4jLogger(LOGGER_NAME);
     }
 
     @Test

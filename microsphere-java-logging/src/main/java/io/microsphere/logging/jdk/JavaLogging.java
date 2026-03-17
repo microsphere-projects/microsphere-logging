@@ -37,6 +37,11 @@ import static java.util.logging.LogManager.getLoggingMXBean;
 public class JavaLogging implements Logging {
 
     /**
+     * The root logger name : ""
+     */
+    public static final String ROOT_LOGGER_NAME = "";
+
+    /**
      * The priority of {@link JavaLogging}
      */
     public static final int PRIORITY = NORMAL_PRIORITY + 10;
@@ -49,6 +54,11 @@ public class JavaLogging implements Logging {
     public static final Set<String> ALL_LEVELS = INSTANCE.resolve(Level.class);
 
     static final LoggingMXBean loggingMXBean = getLoggingMXBean();
+
+    @Override
+    public String getRootLoggerName() {
+        return ROOT_LOGGER_NAME;
+    }
 
     @Override
     public List<String> getLoggerNames() {

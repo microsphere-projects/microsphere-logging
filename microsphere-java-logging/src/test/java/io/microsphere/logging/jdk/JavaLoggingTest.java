@@ -28,6 +28,7 @@ import static io.microsphere.collection.Sets.ofSet;
 import static io.microsphere.logging.LoggingUtils.load;
 import static io.microsphere.logging.jdk.JavaLogging.ALL_LEVELS;
 import static io.microsphere.logging.jdk.JavaLogging.PRIORITY;
+import static io.microsphere.logging.jdk.JavaLogging.ROOT_LOGGER_NAME;
 import static io.microsphere.logging.jdk.JavaLogging.loggingMXBean;
 import static io.microsphere.util.StringUtils.isBlank;
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -46,66 +47,72 @@ class JavaLoggingTest {
      */
     public static final Set<String> JAVA_LOGGING_LEVELS = ofSet("OFF", "SEVERE", "WARNING", "INFO", "CONFIG", "FINE", "FINER", "FINEST", "ALL");
 
-    private JavaLogging JavaLogging;
+    private JavaLogging logging;
 
     @BeforeEach
     void setUp() {
-        this.JavaLogging = (JavaLogging) load();
+        this.logging = (JavaLogging) load();
     }
 
     @Test
     void testConstants() {
+        assertEquals("", ROOT_LOGGER_NAME);
         assertEquals(10, PRIORITY);
         assertEquals(JAVA_LOGGING_LEVELS, ALL_LEVELS);
     }
 
     @Test
+    void testGetRootLoggerName() {
+        assertEquals(ROOT_LOGGER_NAME, this.logging.getRootLoggerName());
+    }
+
+    @Test
     void testGetLoggerNames() {
-        assertEquals(this.JavaLogging.getLoggerNames(), loggingMXBean.getLoggerNames());
+        assertEquals(this.logging.getLoggerNames(), loggingMXBean.getLoggerNames());
     }
 
     @Test
     void testGetSupportedLoggingLevels() {
-        assertEquals(JAVA_LOGGING_LEVELS, this.JavaLogging.getSupportedLoggingLevels());
+        assertEquals(JAVA_LOGGING_LEVELS, this.logging.getSupportedLoggingLevels());
     }
 
     @Test
     void testGetLoggerLevel() {
-        List<String> loggerNames = this.JavaLogging.getLoggerNames();
-        loggerNames.forEach(loggerName -> assertEquals(this.JavaLogging.getLoggerLevel(loggerName), loggingMXBean.getLoggerLevel(loggerName)));
+        List<String> loggerNames = this.logging.getLoggerNames();
+        loggerNames.forEach(loggerName -> assertEquals(this.logging.getLoggerLevel(loggerName), loggingMXBean.getLoggerLevel(loggerName)));
     }
 
     @Test
     void testSetLoggerLevel() {
-        List<String> loggerNames = this.JavaLogging.getLoggerNames();
+        List<String> loggerNames = this.logging.getLoggerNames();
         for (String loggerName : loggerNames) {
-            String level = this.JavaLogging.getLoggerLevel(loggerName);
+            String level = this.logging.getLoggerLevel(loggerName);
             if (isBlank(level)) {
                 continue;
             }
             for (String newLevel : ALL_LEVELS) {
-                this.JavaLogging.setLoggerLevel(loggerName, newLevel);
-                assertEquals(newLevel, this.JavaLogging.getLoggerLevel(loggerName));
+                this.logging.setLoggerLevel(loggerName, newLevel);
+                assertEquals(newLevel, this.logging.getLoggerLevel(loggerName));
             }
-            this.JavaLogging.setLoggerLevel(loggerName, level);
+            this.logging.setLoggerLevel(loggerName, level);
         }
     }
 
     @Test
     void testGetParentLoggerName() {
-        List<String> loggerNames = this.JavaLogging.getLoggerNames();
+        List<String> loggerNames = this.logging.getLoggerNames();
         for (String loggerName : loggerNames) {
-            assertEquals(this.JavaLogging.getParentLoggerName(loggerName), loggingMXBean.getParentLoggerName(loggerName));
+            assertEquals(this.logging.getParentLoggerName(loggerName), loggingMXBean.getParentLoggerName(loggerName));
         }
     }
 
     @Test
     void testGetName() {
-        assertEquals("Java Logging", this.JavaLogging.getName());
+        assertEquals("Java Logging", this.logging.getName());
     }
 
     @Test
     void testGetPriority() {
-        assertEquals(PRIORITY, this.JavaLogging.getPriority());
+        assertEquals(PRIORITY, this.logging.getPriority());
     }
 }

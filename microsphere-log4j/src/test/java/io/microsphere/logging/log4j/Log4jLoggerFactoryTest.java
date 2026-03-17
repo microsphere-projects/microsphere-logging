@@ -51,7 +51,7 @@ class Log4jLoggerFactoryTest {
     @Test
     void testCreateLogger() {
         Logger logger = factory.createLogger("name");
-        assertInstanceOf(Log4j2Logger.class, logger);
+        assertInstanceOf(Log4jLogger.class, logger);
     }
 
     @Test

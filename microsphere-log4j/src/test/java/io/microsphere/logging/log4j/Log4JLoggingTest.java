@@ -59,8 +59,14 @@ class Log4JLoggingTest {
 
     @Test
     void testConstants() {
+        assertEquals("root", ROOT_LOGGER_NAME);
         assertEquals(-3, PRIORITY);
         assertEquals(LOG4J_LEVELS, ALL_LEVELS);
+    }
+
+    @Test
+    void testGetRootLoggerName() {
+        assertEquals(ROOT_LOGGER_NAME, this.logging.getRootLoggerName());
     }
 
     @Test

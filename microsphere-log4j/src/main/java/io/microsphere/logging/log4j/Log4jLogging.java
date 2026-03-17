@@ -28,7 +28,6 @@ import java.util.List;
 import java.util.Set;
 
 import static io.microsphere.collection.CollectionUtils.toIterable;
-import static io.microsphere.constants.SymbolConstants.DOT;
 import static io.microsphere.logging.DefaultLoggingLevelsResolver.INSTANCE;
 import static io.microsphere.logging.log4j.util.LoggerUtils.ROOT_LOGGER_NAME;
 import static io.microsphere.logging.log4j.util.LoggerUtils.getLevelString;
@@ -58,6 +57,11 @@ public class Log4jLogging implements Logging {
     public static final Set<String> ALL_LEVELS = INSTANCE.resolve(Level.class);
 
     @Override
+    public String getRootLoggerName() {
+        return ROOT_LOGGER_NAME;
+    }
+
+    @Override
     public List<String> getLoggerNames() {
         LoggerRepository loggerRepository = getLoggerRepository();
         Enumeration loggers = loggerRepository.getCurrentLoggers();
@@ -80,19 +84,6 @@ public class Log4jLogging implements Logging {
     @Override
     public void setLoggerLevel(String loggerName, String levelName) {
         LoggerUtils.setLoggerLevel(loggerName, levelName);
-    }
-
-    @Override
-    public String getParentLoggerName(String loggerName) {
-        if (ROOT_LOGGER_NAME.equals(loggerName)) {
-            return null;
-        }
-        int lastDotIndex = loggerName.lastIndexOf(DOT);
-        if (lastDotIndex == -1) {
-            return ROOT_LOGGER_NAME;
-        }
-        String parentLoggerName = loggerName.substring(0, lastDotIndex);
-        return parentLoggerName;
     }
 
     @Override

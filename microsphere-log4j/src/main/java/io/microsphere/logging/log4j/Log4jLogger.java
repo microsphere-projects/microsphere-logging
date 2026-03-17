@@ -33,11 +33,11 @@ import static org.apache.log4j.Level.WARN;
  * @see Logger
  * @since 1.0.0
  */
-class Log4j2Logger extends AbstractLogger implements DelegatingWrapper {
+class Log4jLogger extends AbstractLogger implements DelegatingWrapper {
 
     private final Logger logger;
 
-    public Log4j2Logger(String loggerName) {
+    public Log4jLogger(String loggerName) {
         super(loggerName);
         this.logger = getLogger(loggerName);
     }

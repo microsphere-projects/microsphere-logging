@@ -33,6 +33,11 @@ import static java.util.Collections.emptySet;
 public class ThrowableLogging implements Logging {
 
     @Override
+    public String getRootLoggerName() {
+        return "";
+    }
+
+    @Override
     public List<String> getLoggerNames() {
         return emptyList();
     }
@@ -49,11 +54,6 @@ public class ThrowableLogging implements Logging {
 
     @Override
     public void setLoggerLevel(String loggerName, String levelName) {
-    }
-
-    @Override
-    public String getParentLoggerName(String loggerName) {
-        return "";
     }
 
     @Override

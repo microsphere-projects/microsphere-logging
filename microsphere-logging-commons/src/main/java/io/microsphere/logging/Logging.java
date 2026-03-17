@@ -21,8 +21,11 @@ import io.microsphere.annotation.Nullable;
 import io.microsphere.lang.Prioritized;
 
 import java.util.List;
+import java.util.Objects;
 import java.util.Set;
 import java.util.logging.LoggingMXBean;
+
+import static io.microsphere.constants.SymbolConstants.DOT;
 
 /**
  * The management interface for the logging facility.
@@ -34,6 +37,14 @@ import java.util.logging.LoggingMXBean;
  * @since 1.0.0
  */
 public interface Logging extends Prioritized {
+
+    /**
+     * Returns the name of the root logger.
+     *
+     * @return non-null
+     */
+    @Nonnull
+    String getRootLoggerName();
 
     /**
      * Returns the list of currently registered logger names.
@@ -104,7 +115,17 @@ public interface Logging extends Prioritized {
      * is returned.
      */
     @Nullable
-    String getParentLoggerName(String loggerName);
+    default String getParentLoggerName(String loggerName) {
+        if (Objects.equals(getRootLoggerName(), loggerName)) {
+            return null;
+        }
+        int lastDotIndex = loggerName.lastIndexOf(DOT);
+        if (lastDotIndex == -1) {
+            return getRootLoggerName();
+        }
+        String parentLoggerName = loggerName.substring(0, lastDotIndex);
+        return parentLoggerName;
+    }
 
     /**
      * Returns the name of the logging.

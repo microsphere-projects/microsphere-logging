@@ -29,7 +29,7 @@ import static org.apache.log4j.Level.toLevel;
 import static org.apache.log4j.LogManager.getRootLogger;
 
 /**
- * The Utilities class of Log4j2 Logger
+ * The Utilities class of Log4j Logger
  *
  * @author <a href="mailto:mercyblitz@gmail.com">Mercy</a>
  * @see Logger
@@ -39,6 +39,9 @@ public abstract class LoggerUtils {
 
     static final LoggerRepository loggerRepository = LogManager.getLoggerRepository();
 
+    /**
+     * The name of Root Logger: "root"
+     */
     public static final String ROOT_LOGGER_NAME = getRootLogger().getName();
 
     /**

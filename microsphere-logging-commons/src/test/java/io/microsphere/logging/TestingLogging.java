@@ -17,12 +17,12 @@
 
 package io.microsphere.logging;
 
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
 import static io.microsphere.collection.ListUtils.ofList;
+import static io.microsphere.collection.MapUtils.newLinkedHashMap;
 import static io.microsphere.collection.MapUtils.ofMap;
 import static io.microsphere.logging.DefaultLoggingLevelsResolverTest.JAVA_LOGGING_LEVELS;
 
@@ -35,7 +35,12 @@ import static io.microsphere.logging.DefaultLoggingLevelsResolverTest.JAVA_LOGGI
  */
 public class TestingLogging implements Logging {
 
-    private final Map<String, String> loggerNameToLevelMap = new HashMap<>();
+    private final Map<String, String> loggerNameToLevelMap = newLinkedHashMap();
+
+    @Override
+    public String getRootLoggerName() {
+        return "";
+    }
 
     @Override
     public List<String> getLoggerNames() {
@@ -55,11 +60,6 @@ public class TestingLogging implements Logging {
     @Override
     public void setLoggerLevel(String loggerName, String levelName) {
         this.loggerNameToLevelMap.put(loggerName, levelName);
-    }
-
-    @Override
-    public String getParentLoggerName(String loggerName) {
-        return "";
     }
 
     public void init(String... loggerNamesAndLevels) {

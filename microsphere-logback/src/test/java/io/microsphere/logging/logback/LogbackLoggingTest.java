@@ -66,6 +66,11 @@ class LogbackLoggingTest {
     }
 
     @Test
+    void testGetRootLoggerName() {
+        assertEquals(ROOT_LOGGER_NAME, this.logging.getRootLoggerName());
+    }
+
+    @Test
     void testGetLoggerNames() {
         assertFalse(this.logging.getLoggerNames().isEmpty());
     }

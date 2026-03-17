@@ -40,7 +40,7 @@ public class Log4jLoggerFactory extends LoggerFactory {
 
     @Override
     public Logger createLogger(String name) {
-        return new Log4j2Logger(name);
+        return new Log4jLogger(name);
     }
 
     @Override
