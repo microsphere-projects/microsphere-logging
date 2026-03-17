@@ -10,11 +10,17 @@
 
 ## Introduction
 
-TODO
+Microsphere Logging Framework, a unified abstraction layer designed to simplify logging management across multiple Java
+logging frameworks. This framework provides a consistent API for dynamically managing log levels, querying logger
+information, and integrating with various logging backends including Logback, Log4j2, and Java Logging.
 
 ## Features
 
-- TODO
+- Runtime Log Level Management: Dynamically adjust logging levels in production without restarting services
+- Framework-Agnostic Code: Write management code that works across different logging backends
+- Operational Control: Expose logging configuration through JMX for operations teams
+- Testing Infrastructure: Test logging-dependent behavior across multiple log configurations
+- Multi-Tenant Systems: Apply different logging configurations per tenant or module
 
 ## Modules
 
@@ -24,11 +30,38 @@ The framework is organized into several key modules:
 ----------------------------------|-------------------------------------------------------------------------
  microsphere-logging-parent       | Parent POM with shared configurations.                                  
  microsphere-logging-dependencies | Manages dependency versions across the project.                         
- microsphere-logging-core         | Provides the core features for logging.                                 
- microsphere-logging-jdk          | Provides the extensions features for Java Logging.                      
- microsphere-logging-logback      | Provides the extensions features for logback.                           
- microsphere-logging-log4j2       | Provides the extensions features for log4j2.                            
+ microsphere-logging-commons      | Provides the commons features for logging.                              
  microsphere-logging-test         | Provides the extensions of JUnit4 or JUnit Jupiter for logging testing. 
+ microsphere-logging-examples     | Provides the eamples of Microshere Logging.                             
+ microsphere-java-logging         | Provides the extensions features for Java Logging.                      
+ microsphere-logback              | Provides the extensions features for logback.                           
+ microsphere-log4j2               | Provides the extensions features for log4j2.                            
+
+## Versions
+
+| **Versions** | **Purpose**                        | **Latest Version** |
+|--------------|------------------------------------|--------------------|
+| **0.2.x**    | Binary Compatible with Java 17+    | 0.2.0-SNAPSHOT     |        
+| **0.1.x**    | Binary Compatible with Java 8 - 25 | 0.1.0-SNAPSHOT     |
+
+## Compatibility
+
+### 0.2.x
+
+- Java 17+
+- JUnit Jupiter 6.0+
+- SLF4J 2.0+
+- Logback 1.5+
+- Log4j2 2.5+
+
+### 0.1.x
+
+- Java 8+
+- JUnit 4+
+- JUnit Jupiter 5.13+
+- SLF4J 1.7+
+- Logback 1.2+
+- Log4j2 2.0+
 
 ## Getting Started
 
@@ -57,13 +90,77 @@ Then add the specific modules you need:
 ```xml
 
 <dependencies>
-    <!-- Logging Core -->
+    <!-- Microsphere Java Logging -->
     <dependency>
         <groupId>io.github.microsphere-projects</groupId>
-        <artifactId>microsphere-logging-core</artifactId>
+        <artifactId>microsphere-java-logging</artifactId>
     </dependency>
+
+    <!-- Microsphere Logback -->
+    <dependency>
+        <groupId>io.github.microsphere-projects</groupId>
+        <artifactId>microsphere-logback</artifactId>
+    </dependency>
+
+    <!-- Logback -->
+    <dependency>
+        <groupId>ch.qos.logback</groupId>
+        <artifactId>logback-classic</artifactId>
+        <version>${logback.version}</version>
+    </dependency>
+
+    <!-- Microsphere Log4j2 -->
+    <dependency>
+        <groupId>io.github.microsphere-projects</groupId>
+        <artifactId>microsphere-log4j2</artifactId>
+    </dependency>
+
+    <!-- Log4j2 -->
+    <dependency>
+        <groupId>org.apache.logging.log4j</groupId>
+        <artifactId>log4j-core</artifactId>
+        <version>${log4j2.version}</version>
+    </dependency>
+
 </dependencies>
 ```
+
+Usually, you only need one of 'microsphere-java-logging' or 'microsphere-logback' or 'microsphere-log4j2' with their
+transitive dependencies. Above dependencies just is an example, you can use the API of the
+'microsphere-logging-commons' module to load the instance of `Logging` that you need:
+
+```java
+package io.microsphere.logging.examples;
+
+import io.microsphere.logging.Logger;
+import io.microsphere.logging.Logging;
+
+import static io.microsphere.logging.LoggerFactory.getLogger;
+import static io.microsphere.logging.LoggingUtils.load;
+
+public class LoggingExample {
+
+    private static final Logger logger = getLogger(LoggingExample.class);
+
+    public static void main(String[] args) {
+        // The highest priority Logging instance will be loaded
+        Logging logging = load();
+        logger.info("The name of Logging : {}", logging.getName());
+
+        // The all logger names of Logging
+        logger.info("All logger names of Logging : {}", logging.getLoggerNames());
+    }
+}
+```
+
+The run result:
+
+```
+[main] INFO io.microsphere.logging.examples.LoggingExample - The name of Logging : Log4j2
+[main] INFO io.microsphere.logging.examples.LoggingExample - All logger names of Logging : ...
+```
+
+The more examples can be found in the [microsphere-logging-examples](microsphere-logging-examples) module.
 
 ## Building from Source
 
@@ -118,7 +215,11 @@ We welcome your contributions! Please read [Code of Conduct](./CODE_OF_CONDUCT.m
 
 ### JavaDoc
 
-- TODO
+- [microsphere-logging-commons](https://javadoc.io/doc/io.github.microsphere-projects/microsphere-logging-commons)
+- [microsphere-logging-test](https://javadoc.io/doc/io.github.microsphere-projects/microsphere-logging-test)
+- [microsphere-java-logging](https://javadoc.io/doc/io.github.microsphere-projects/microsphere-java-logging)
+- [microsphere-logback](https://javadoc.io/doc/io.github.microsphere-projects/microsphere-logback)
+- [microsphere-log4j2](https://javadoc.io/doc/io.github.microsphere-projects/microsphere-log4j2)
 
 ## License
 
