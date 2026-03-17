@@ -53,6 +53,19 @@
             <version>${logback.version}</version>
         </dependency>
 
+        <!-- Microsphere Log4j -->
+        <dependency>
+            <groupId>io.github.microsphere-projects</groupId>
+            <artifactId>microsphere-log4j</artifactId>
+        </dependency>
+
+        <!-- Log4j-->
+        <dependency>
+            <groupId>log4j</groupId>
+            <artifactId>log4j</artifactId>
+            <version>${log4j.version}</version>
+        </dependency>
+
         <!-- Microsphere Log4j2 -->
         <dependency>
             <groupId>io.github.microsphere-projects</groupId>

@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<configuration>
+
+    <!-- Console Appender -->
+    <appender name="STDOUT" class="org.apache.log4j.ConsoleAppender">
+        <layout class="org.apache.log4j.PatternLayout">
+            <param name="ConversionPattern" value="%d{ABSOLUTE} %5p %c{1} - %m%n"/>
+        </layout>
+    </appender>
+
+    <!-- Root Logger -->
+    <root>
+        <level value="TRACE"/>
+        <appender-ref ref="STDOUT"/>
+    </root>
+
+    <logger name="io.microsphere.logging">
+        <level value="INFO"/>
+        <appender-ref ref="STDOUT"/>
+    </logger>
+
+</configuration>

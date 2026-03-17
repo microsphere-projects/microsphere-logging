@@ -35,26 +35,10 @@ The framework is organized into several key modules:
  microsphere-logging-examples     | Provides the eamples of Microshere Logging.                             
  microsphere-java-logging         | Provides the extensions features for Java Logging.                      
  microsphere-logback              | Provides the extensions features for logback.                           
+ microsphere-log4j                | Provides the extensions features for log4j.                             
  microsphere-log4j2               | Provides the extensions features for log4j2.                            
 
-## Versions
-
-| **Versions** | **Purpose**                        | **Latest Version** |
-|--------------|------------------------------------|--------------------|
-| **0.2.x**    | Binary Compatible with Java 17+    | 0.2.0-SNAPSHOT     |        
-| **0.1.x**    | Binary Compatible with Java 8 - 25 | 0.1.0-SNAPSHOT     |
-
 ## Compatibility
-
-### 0.2.x
-
-- Java 17+
-- JUnit Jupiter 6.0+
-- SLF4J 2.0+
-- Logback 1.5+
-- Log4j2 2.5+
-
-### 0.1.x
 
 - Java 8+
 - JUnit 4+
@@ -91,6 +75,7 @@ Then add the specific modules you need:
 ```xml
 
 <dependencies>
+
     <!-- Microsphere Java Logging -->
     <dependency>
         <groupId>io.github.microsphere-projects</groupId>
@@ -108,6 +93,19 @@ Then add the specific modules you need:
         <groupId>ch.qos.logback</groupId>
         <artifactId>logback-classic</artifactId>
         <version>${logback.version}</version>
+    </dependency>
+
+    <!-- Microsphere Log4j -->
+    <dependency>
+        <groupId>io.github.microsphere-projects</groupId>
+        <artifactId>microsphere-log4j</artifactId>
+    </dependency>
+
+    <!-- Log4j-->
+    <dependency>
+        <groupId>log4j</groupId>
+        <artifactId>log4j</artifactId>
+        <version>${log4j.version}</version>
     </dependency>
 
     <!-- Microsphere Log4j2 -->
