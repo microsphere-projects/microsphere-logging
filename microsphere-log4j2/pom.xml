@@ -15,7 +15,7 @@
     <version>${revision}</version>
     <packaging>jar</packaging>
 
-    <name>Microsphere :: Logging :: Logj4</name>
+    <name>Microsphere :: Logging :: Log4j2</name>
     <description>Microsphere Logging Log4j2</description>
 
     <dependencies>
