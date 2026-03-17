@@ -18,7 +18,6 @@
 package io.microsphere.logging.jdk;
 
 
-import io.microsphere.logging.Logging;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -26,10 +25,10 @@ import java.util.List;
 import java.util.Set;
 
 import static io.microsphere.collection.Sets.ofSet;
+import static io.microsphere.logging.LoggingUtils.load;
 import static io.microsphere.logging.jdk.JavaLogging.ALL_LEVELS;
 import static io.microsphere.logging.jdk.JavaLogging.PRIORITY;
 import static io.microsphere.logging.jdk.JavaLogging.loggingMXBean;
-import static io.microsphere.util.ServiceLoaderUtils.loadFirstService;
 import static io.microsphere.util.StringUtils.isBlank;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
@@ -51,7 +50,7 @@ class JavaLoggingTest {
 
     @BeforeEach
     void setUp() {
-        this.JavaLogging = (JavaLogging) loadFirstService(Logging.class);
+        this.JavaLogging = (JavaLogging) load();
     }
 
     @Test
