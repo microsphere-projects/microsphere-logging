@@ -25,6 +25,7 @@ import static io.microsphere.lang.Prioritized.MAX_PRIORITY;
 import static io.microsphere.logging.DefaultLoggingLevelsResolverTest.JAVA_LOGGING_LEVELS;
 import static io.microsphere.logging.LoggingUtils.load;
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNull;
 
 /**
  * {@link Logging} Test
@@ -80,6 +81,7 @@ class LoggingTest {
         assertEquals("com.acme", this.logging.getParentLoggerName("com.acme.Test"));
         assertEquals("com", this.logging.getParentLoggerName("com.acme"));
         assertEquals("", this.logging.getParentLoggerName("com"));
+        assertNull(this.logging.getParentLoggerName(""));
     }
 
     @Test
