@@ -19,10 +19,12 @@ package io.microsphere.logging;
 
 import io.microsphere.annotation.Nonnull;
 import io.microsphere.annotation.Nullable;
+import io.microsphere.lang.Prioritized;
 
 import java.util.List;
 
 import static io.microsphere.util.ClassLoaderUtils.getClassLoader;
+import static io.microsphere.util.ServiceLoaderUtils.loadFirstService;
 import static io.microsphere.util.ServiceLoaderUtils.loadServicesList;
 
 /**
@@ -35,9 +37,9 @@ import static io.microsphere.util.ServiceLoaderUtils.loadServicesList;
 public abstract class LoggingUtils {
 
     /**
-     * Load all {@link Logging} implementations from SPI
+     * Load all {@link Logging} implementations in priority from SPI
      *
-     * @return
+     * @return non-null
      */
     @Nonnull
     public static List<Logging> loadAll() {
@@ -45,7 +47,7 @@ public abstract class LoggingUtils {
     }
 
     /**
-     * Load all {@link Logging} implementations from SPI
+     * Load all {@link Logging} implementations in priority from SPI
      *
      * @param classLoader the {@link ClassLoader} which is used to load {@link Logging} implementations
      * @return non-null
@@ -54,6 +56,29 @@ public abstract class LoggingUtils {
     @Nonnull
     public static List<Logging> loadAll(@Nullable ClassLoader classLoader) throws IllegalArgumentException {
         return loadServicesList(Logging.class, classLoader, true);
+    }
+
+    /**
+     * Load the highest {@link Prioritized priority} {@link Logging} from SPI
+     *
+     * @return non-null
+     * @throws IllegalArgumentException
+     */
+    @Nonnull
+    public static Logging load() throws IllegalArgumentException {
+        return load(getClassLoader(LoggingUtils.class));
+    }
+
+    /**
+     * Load the highest {@link Prioritized priority} {@link Logging} from SPI
+     *
+     * @param classLoader the {@link ClassLoader} which is used to load {@link Logging} implementations
+     * @return non-null
+     * @throws IllegalArgumentException
+     */
+    @Nonnull
+    public static Logging load(@Nullable ClassLoader classLoader) throws IllegalArgumentException {
+        return loadFirstService(Logging.class, classLoader, true);
     }
 
     private LoggingUtils() {

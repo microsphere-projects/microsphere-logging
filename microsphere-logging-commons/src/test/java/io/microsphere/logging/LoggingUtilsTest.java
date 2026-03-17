@@ -22,8 +22,10 @@ import org.junit.jupiter.api.Test;
 
 import java.util.List;
 
+import static io.microsphere.logging.LoggingUtils.load;
 import static io.microsphere.logging.LoggingUtils.loadAll;
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertInstanceOf;
 
 /**
  * {@link LoggingUtils}
@@ -39,5 +41,11 @@ class LoggingUtilsTest {
         List<Logging> loggings = loadAll();
         assertEquals(2, loggings.size());
         assertEquals(loadAll(), loggings);
+    }
+
+    @Test
+    void testLoad() {
+        Logging logging = load();
+        assertInstanceOf(TestingLogging.class, logging);
     }
 }

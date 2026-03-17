@@ -70,4 +70,9 @@ public class TestingLogging implements Logging {
     public String getName() {
         return "Testing";
     }
+
+    @Override
+    public int getPriority() {
+        return MAX_PRIORITY;
+    }
 }
