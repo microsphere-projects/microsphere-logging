@@ -60,8 +60,9 @@ The framework is organized into several key modules:
 - JUnit 4+
 - JUnit Jupiter 5.13+
 - SLF4J 1.7+
+- Log4j 1.2+
 - Logback 1.2+
-- Log4j2 2.0+
+- Log4j2 2.4+
 
 ## Getting Started
 
