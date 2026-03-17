@@ -10,11 +10,17 @@
 
 ## Introduction
 
-TODO
+Microsphere Logging Framework, a unified abstraction layer designed to simplify logging management across multiple Java
+logging frameworks. This framework provides a consistent API for dynamically managing log levels, querying logger
+information, and integrating with various logging backends including Logback, Log4j2, and Java Logging.
 
 ## Features
 
-- TODO
+- Runtime Log Level Management: Dynamically adjust logging levels in production without restarting services
+- Framework-Agnostic Code: Write management code that works across different logging backends
+- Operational Control: Expose logging configuration through JMX for operations teams
+- Testing Infrastructure: Test logging-dependent behavior across multiple log configurations
+- Multi-Tenant Systems: Apply different logging configurations per tenant or module
 
 ## Modules
 
