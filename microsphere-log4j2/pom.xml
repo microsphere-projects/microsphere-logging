@@ -11,19 +11,19 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>io.github.microsphere-projects</groupId>
-    <artifactId>microsphere-logging-jdk</artifactId>
+    <artifactId>microsphere-log4j2</artifactId>
     <version>${revision}</version>
     <packaging>jar</packaging>
 
-    <name>Microsphere :: Logging :: JDK</name>
-    <description>Microsphere Logging JDK</description>
+    <name>Microsphere :: Logging :: Logj4</name>
+    <description>Microsphere Logging Log4j2</description>
 
     <dependencies>
 
         <!-- Microsphere Logging -->
         <dependency>
             <groupId>io.github.microsphere-projects</groupId>
-            <artifactId>microsphere-logging-core</artifactId>
+            <artifactId>microsphere-logging-commons</artifactId>
             <version>${revision}</version>
         </dependency>
 
@@ -37,6 +37,19 @@
         <dependency>
             <groupId>io.github.microsphere-projects</groupId>
             <artifactId>microsphere-java-core</artifactId>
+            <optional>true</optional>
+        </dependency>
+
+        <!-- Log4j2 -->
+        <dependency>
+            <groupId>org.apache.logging.log4j</groupId>
+            <artifactId>log4j-api</artifactId>
+            <optional>true</optional>
+        </dependency>
+
+        <dependency>
+            <groupId>org.apache.logging.log4j</groupId>
+            <artifactId>log4j-core</artifactId>
             <optional>true</optional>
         </dependency>
 

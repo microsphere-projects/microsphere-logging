@@ -34,10 +34,10 @@ import static java.util.logging.LogManager.getLoggingMXBean;
  * @see LoggingMXBean
  * @since 1.0.0
  */
-public class JDKLogging implements Logging {
+public class JavaLogging implements Logging {
 
     /**
-     * The priority of {@link JDKLogging}
+     * The priority of {@link JavaLogging}
      */
     public static final int PRIORITY = NORMAL_PRIORITY + 10;
 

@@ -59,10 +59,10 @@
     <modules>
         <module>microsphere-logging-parent</module>
         <module>microsphere-logging-dependencies</module>
-        <module>microsphere-logging-core</module>
-        <module>microsphere-logging-jdk</module>
-        <module>microsphere-logging-logback</module>
-        <module>microsphere-logging-log4j2</module>
+        <module>microsphere-logging-commons</module>
+        <module>microsphere-java-logging</module>
+        <module>microsphere-logback</module>
+        <module>microsphere-log4j2</module>
         <module>microsphere-logging-test</module>
     </modules>
 

@@ -11,19 +11,19 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>io.github.microsphere-projects</groupId>
-    <artifactId>microsphere-logging-log4j2</artifactId>
+    <artifactId>microsphere-logback</artifactId>
     <version>${revision}</version>
     <packaging>jar</packaging>
 
-    <name>Microsphere :: Logging :: Logj4</name>
-    <description>Microsphere Logging Log4j2</description>
+    <name>Microsphere :: Logging :: Logback</name>
+    <description>Microsphere Logging Logback</description>
 
     <dependencies>
 
         <!-- Microsphere Logging -->
         <dependency>
             <groupId>io.github.microsphere-projects</groupId>
-            <artifactId>microsphere-logging-core</artifactId>
+            <artifactId>microsphere-logging-commons</artifactId>
             <version>${revision}</version>
         </dependency>
 
@@ -40,16 +40,17 @@
             <optional>true</optional>
         </dependency>
 
-        <!-- Log4j2 -->
+        <!-- SLF4j -->
         <dependency>
-            <groupId>org.apache.logging.log4j</groupId>
-            <artifactId>log4j-api</artifactId>
+            <groupId>org.slf4j</groupId>
+            <artifactId>slf4j-api</artifactId>
             <optional>true</optional>
         </dependency>
 
+        <!-- Logback -->
         <dependency>
-            <groupId>org.apache.logging.log4j</groupId>
-            <artifactId>log4j-core</artifactId>
+            <groupId>ch.qos.logback</groupId>
+            <artifactId>logback-classic</artifactId>
             <optional>true</optional>
         </dependency>
 

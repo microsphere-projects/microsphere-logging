@@ -26,32 +26,32 @@ import java.util.List;
 import java.util.Set;
 
 import static io.microsphere.collection.Sets.ofSet;
-import static io.microsphere.logging.jdk.JDKLogging.ALL_LEVELS;
-import static io.microsphere.logging.jdk.JDKLogging.PRIORITY;
-import static io.microsphere.logging.jdk.JDKLogging.loggingMXBean;
+import static io.microsphere.logging.jdk.JavaLogging.ALL_LEVELS;
+import static io.microsphere.logging.jdk.JavaLogging.PRIORITY;
+import static io.microsphere.logging.jdk.JavaLogging.loggingMXBean;
 import static io.microsphere.util.ServiceLoaderUtils.loadFirstService;
 import static io.microsphere.util.StringUtils.isBlank;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 /**
- * {@link JDKLogging} Test
+ * {@link JavaLogging} Test
  *
  * @author <a href="mailto:mercyblitz@gmail.com">Mercy</a>
- * @see JDKLogging
+ * @see JavaLogging
  * @since 1.0.0
  */
-class JDKLoggingTest {
+class JavaLoggingTest {
 
     /**
      * @see java.util.logging.Level
      */
     public static final Set<String> JAVA_LOGGING_LEVELS = ofSet("OFF", "SEVERE", "WARNING", "INFO", "CONFIG", "FINE", "FINER", "FINEST", "ALL");
 
-    private JDKLogging JDKLogging;
+    private JavaLogging JavaLogging;
 
     @BeforeEach
     void setUp() {
-        this.JDKLogging = (JDKLogging) loadFirstService(Logging.class);
+        this.JavaLogging = (JavaLogging) loadFirstService(Logging.class);
     }
 
     @Test
@@ -62,51 +62,51 @@ class JDKLoggingTest {
 
     @Test
     void testGetLoggerNames() {
-        assertEquals(this.JDKLogging.getLoggerNames(), loggingMXBean.getLoggerNames());
+        assertEquals(this.JavaLogging.getLoggerNames(), loggingMXBean.getLoggerNames());
     }
 
     @Test
     void testGetSupportedLoggingLevels() {
-        assertEquals(JAVA_LOGGING_LEVELS, this.JDKLogging.getSupportedLoggingLevels());
+        assertEquals(JAVA_LOGGING_LEVELS, this.JavaLogging.getSupportedLoggingLevels());
     }
 
     @Test
     void testGetLoggerLevel() {
-        List<String> loggerNames = this.JDKLogging.getLoggerNames();
-        loggerNames.forEach(loggerName -> assertEquals(this.JDKLogging.getLoggerLevel(loggerName), loggingMXBean.getLoggerLevel(loggerName)));
+        List<String> loggerNames = this.JavaLogging.getLoggerNames();
+        loggerNames.forEach(loggerName -> assertEquals(this.JavaLogging.getLoggerLevel(loggerName), loggingMXBean.getLoggerLevel(loggerName)));
     }
 
     @Test
     void testSetLoggerLevel() {
-        List<String> loggerNames = this.JDKLogging.getLoggerNames();
+        List<String> loggerNames = this.JavaLogging.getLoggerNames();
         for (String loggerName : loggerNames) {
-            String level = this.JDKLogging.getLoggerLevel(loggerName);
+            String level = this.JavaLogging.getLoggerLevel(loggerName);
             if (isBlank(level)) {
                 continue;
             }
             for (String newLevel : ALL_LEVELS) {
-                this.JDKLogging.setLoggerLevel(loggerName, newLevel);
-                assertEquals(newLevel, this.JDKLogging.getLoggerLevel(loggerName));
+                this.JavaLogging.setLoggerLevel(loggerName, newLevel);
+                assertEquals(newLevel, this.JavaLogging.getLoggerLevel(loggerName));
             }
-            this.JDKLogging.setLoggerLevel(loggerName, level);
+            this.JavaLogging.setLoggerLevel(loggerName, level);
         }
     }
 
     @Test
     void testGetParentLoggerName() {
-        List<String> loggerNames = this.JDKLogging.getLoggerNames();
+        List<String> loggerNames = this.JavaLogging.getLoggerNames();
         for (String loggerName : loggerNames) {
-            assertEquals(this.JDKLogging.getParentLoggerName(loggerName), loggingMXBean.getParentLoggerName(loggerName));
+            assertEquals(this.JavaLogging.getParentLoggerName(loggerName), loggingMXBean.getParentLoggerName(loggerName));
         }
     }
 
     @Test
     void testGetName() {
-        assertEquals("Java Logging", this.JDKLogging.getName());
+        assertEquals("Java Logging", this.JavaLogging.getName());
     }
 
     @Test
     void testGetPriority() {
-        assertEquals(PRIORITY, this.JDKLogging.getPriority());
+        assertEquals(PRIORITY, this.JavaLogging.getPriority());
     }
 }

@@ -23,7 +23,7 @@
         <!-- Microsphere Logging -->
         <dependency>
             <groupId>io.github.microsphere-projects</groupId>
-            <artifactId>microsphere-logging-core</artifactId>
+            <artifactId>microsphere-logging-commons</artifactId>
             <version>${revision}</version>
         </dependency>
 
@@ -77,7 +77,7 @@
 
         <dependency>
             <groupId>io.github.microsphere-projects</groupId>
-            <artifactId>microsphere-logging-logback</artifactId>
+            <artifactId>microsphere-logback</artifactId>
             <version>${revision}</version>
             <scope>test</scope>
         </dependency>
