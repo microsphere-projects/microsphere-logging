@@ -26,7 +26,7 @@
         <logback.version>1.5.32</logback.version>
         <log4j2.version>2.25.3</log4j2.version>
         <junit.version>4.13.2</junit.version>
-        <junit-jupiter.version>5.14.3</junit-jupiter.version>
+        <junit-jupiter.version>6.0.3</junit-jupiter.version>
     </properties>
 
     <dependencyManagement>
@@ -114,13 +114,12 @@
         </profile>
 
         <profile>
-            <id>java17+</id>
+            <id>java8-16</id>
             <activation>
-                <jdk>[17,)</jdk>
+                <jdk>[1.8,17)</jdk>
             </activation>
             <properties>
-                <java.version>17</java.version>
-                <junit-jupiter.version>6.0.3</junit-jupiter.version>
+                <junit-jupiter.version>5.14.3</junit-jupiter.version>
             </properties>
         </profile>
     </profiles>
