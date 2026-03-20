@@ -1,4 +1,4 @@
-# This workflow publishes all markdown files from the 'wiki' directory
+# This workflow publishes all markdown files from the './wiki' directory
 # to the project's GitHub Wiki whenever they are updated on the main branch.
 #
 # Prerequisites:
@@ -34,7 +34,7 @@ jobs:
 
       - name: Sync Wiki Content
         run: |
-          rsync -av --include='*.md' --exclude='*' --delete wiki/ .wiki/
+          rsync -av --include='*.md' --exclude='*' --delete ./wiki/ .wiki/
 
       - name: Commit and Push
         working-directory: .wiki
