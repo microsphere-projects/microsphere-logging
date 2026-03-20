@@ -65,7 +65,7 @@ public class JavaLoggingExample {
         // Output: Name: Java Logging
 
         System.out.println("Root Logger: " + logging.getRootLoggerName());
-        // Output: Root Logger:   (empty string)
+        // Output: Root Logger: (empty string)
 
         System.out.println("Supported Levels: " + logging.getSupportedLoggingLevels());
         // Output: Supported Levels: [OFF, SEVERE, WARNING, INFO, CONFIG, FINE, FINER, FINEST, ALL]
