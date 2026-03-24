@@ -15,28 +15,25 @@
  * limitations under the License.
  */
 
-package io.microsphere.logging.test.jupiter;
+package io.microsphere.logging.test;
 
-import io.microsphere.logging.test.DefaultLoggingLevelsClass;
-import org.junit.jupiter.api.Test;
+import io.microsphere.logging.test.jupiter.LoggingLevelsClass;
 
-import static io.microsphere.util.AnnotationUtils.findMetaAnnotation;
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import java.lang.annotation.Retention;
+import java.lang.annotation.Target;
+
+import static java.lang.annotation.ElementType.TYPE;
+import static java.lang.annotation.RetentionPolicy.RUNTIME;
 
 /**
- * {@link LoggingLevelsClass} Test
+ * The default {@link LoggingLevelsClass} annotation with levels : TRACE , INFO , WARN
  *
  * @author <a href="mailto:mercyblitz@gmail.com">Mercy</a>
  * @see LoggingLevelsClass
  * @since 1.0.0
  */
-@DefaultLoggingLevelsClass
-class LoggingLevelsClassTest {
-
-    @Test
-    void test(String level, int index) {
-        LoggingLevelsClass annotation = findMetaAnnotation(LoggingLevelsClassTest.class, LoggingLevelsClass.class);
-        String[] levels = annotation.levels();
-        assertEquals(levels[index], level);
-    }
+@Target(TYPE)
+@Retention(RUNTIME)
+@LoggingLevelsClass(levels = {"TRACE", "INFO", "WARN"})
+public @interface DefaultLoggingLevelsClass {
 }

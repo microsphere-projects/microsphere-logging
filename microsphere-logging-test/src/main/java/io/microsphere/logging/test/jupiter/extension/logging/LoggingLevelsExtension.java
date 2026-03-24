@@ -28,13 +28,16 @@ import org.junit.jupiter.api.extension.TestTemplateInvocationContextProvider;
 import java.lang.annotation.Annotation;
 import java.lang.reflect.AnnotatedElement;
 import java.util.List;
+import java.util.Map;
 import java.util.stream.Stream;
 
 import static io.microsphere.collection.ListUtils.newArrayList;
 import static io.microsphere.logging.LoggingUtils.loadAll;
 import static io.microsphere.reflect.JavaType.from;
-import static io.microsphere.reflect.MethodUtils.invokeMethod;
+import static io.microsphere.util.AnnotationUtils.findMetaAnnotation;
+import static io.microsphere.util.AnnotationUtils.getAttributesMap;
 import static io.microsphere.util.ArrayUtils.isEmpty;
+import static io.microsphere.util.ArrayUtils.length;
 import static io.microsphere.util.ArrayUtils.ofArray;
 import static io.microsphere.util.ClassLoaderUtils.getClassLoader;
 import static java.util.stream.Stream.of;
@@ -84,9 +87,13 @@ public abstract class LoggingLevelsExtension<A extends Annotation> implements Cl
     protected LoggingLevelsAttributes getLoggingLevelsAttributes(ExtensionContext context, boolean isClassTemplate) {
         AnnotatedElement annotatedElement = isClassTemplate ? context.getRequiredTestClass() : context.getRequiredTestMethod();
         A annotation = annotatedElement.getAnnotation(annotationType);
+        if (annotation == null) { // Try to find meta-annotation
+            annotation = findMetaAnnotation(annotatedElement, annotationType);
+        }
+        Map<String, Object> annotationAttributes = getAttributesMap(annotation);
         LoggingLevelsAttributes attributes = new LoggingLevelsAttributes();
-        attributes.loggingClasses = invokeMethod(annotation, "loggingClasses");
-        attributes.levels = invokeMethod(annotation, "levels");
+        attributes.loggingClasses = (Class<?>[]) annotationAttributes.get("loggingClasses");
+        attributes.levels = (String[]) annotationAttributes.get("levels");
         return attributes;
     }
 
@@ -102,7 +109,7 @@ public abstract class LoggingLevelsExtension<A extends Annotation> implements Cl
         String[] levels = attributes.levels;
         String[] loggerNames = getLoggerNames(context, attributes);
 
-        int length = levels.length;
+        int length = length(levels);
 
         List<LoggingLevelTemplateInvocationContext> contexts = newArrayList(length);
 
