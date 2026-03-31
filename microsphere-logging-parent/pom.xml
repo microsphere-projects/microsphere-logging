@@ -19,56 +19,20 @@
     <description>Microsphere Logging Parent</description>
 
     <properties>
-        <microsphere-java.version>0.2.1</microsphere-java.version>
         <jsr305.version>3.0.2</jsr305.version>
-        <slf4j.version>2.0.17</slf4j.version>
         <log4j.version>1.2.17</log4j.version>
-        <logback.version>1.5.32</logback.version>
         <log4j2.version>2.25.3</log4j2.version>
         <junit.version>4.13.2</junit.version>
-        <junit-jupiter.version>6.0.3</junit-jupiter.version>
     </properties>
 
     <dependencyManagement>
         <dependencies>
-
-            <!-- JUnit BOM -->
-            <dependency>
-                <groupId>org.junit</groupId>
-                <artifactId>junit-bom</artifactId>
-                <version>${junit-jupiter.version}</version>
-                <type>pom</type>
-                <scope>import</scope>
-            </dependency>
 
             <!-- JUnit -->
             <dependency>
                 <groupId>junit</groupId>
                 <artifactId>junit</artifactId>
                 <version>${junit.version}</version>
-            </dependency>
-
-            <!-- Microsphere Java Dependencies -->
-            <dependency>
-                <groupId>io.github.microsphere-projects</groupId>
-                <artifactId>microsphere-java-dependencies</artifactId>
-                <version>${microsphere-java.version}</version>
-                <type>pom</type>
-                <scope>import</scope>
-            </dependency>
-
-            <!-- JSR 305 -->
-            <dependency>
-                <groupId>com.google.code.findbugs</groupId>
-                <artifactId>jsr305</artifactId>
-                <version>${jsr305.version}</version>
-            </dependency>
-
-            <!-- Slf4j -->
-            <dependency>
-                <groupId>org.slf4j</groupId>
-                <artifactId>slf4j-api</artifactId>
-                <version>${slf4j.version}</version>
             </dependency>
 
             <!-- Log4j -->
@@ -91,37 +55,7 @@
                 <version>${log4j2.version}</version>
             </dependency>
 
-            <!-- Logback -->
-            <dependency>
-                <groupId>ch.qos.logback</groupId>
-                <artifactId>logback-classic</artifactId>
-                <version>${logback.version}</version>
-            </dependency>
-
         </dependencies>
     </dependencyManagement>
-
-    <profiles>
-        <profile>
-            <id>java8-10</id>
-            <activation>
-                <jdk>[1.8,11)</jdk>
-            </activation>
-            <properties>
-                <slf4j.version>1.7.36</slf4j.version>
-                <logback.version>1.2.12</logback.version>
-            </properties>
-        </profile>
-
-        <profile>
-            <id>java8-16</id>
-            <activation>
-                <jdk>[1.8,17)</jdk>
-            </activation>
-            <properties>
-                <junit-jupiter.version>5.14.3</junit-jupiter.version>
-            </properties>
-        </profile>
-    </profiles>
 
 </project>
