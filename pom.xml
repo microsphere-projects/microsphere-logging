@@ -5,8 +5,8 @@
     <modelVersion>4.0.0</modelVersion>
     <parent>
         <groupId>io.github.microsphere-projects</groupId>
-        <artifactId>microsphere-java-dependencies</artifactId>
-        <version>0.2.1</version>
+        <artifactId>microsphere-java-parent</artifactId>
+        <version>0.2.2</version>
     </parent>
 
     <groupId>io.github.microsphere-projects</groupId>
@@ -52,8 +52,7 @@
     </scm>
 
     <properties>
-        <revision>0.1.3-SNAPSHOT</revision>
-        <java.version>8</java.version>
+        <revision>0.1.3</revision>
     </properties>
 
     <modules>
