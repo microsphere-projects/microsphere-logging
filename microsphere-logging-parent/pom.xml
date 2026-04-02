@@ -19,7 +19,7 @@
     <description>Microsphere Logging Parent</description>
 
     <properties>
-        <microsphere-java.version>0.2.4</microsphere-java.version>
+        <microsphere-java.version>0.2.5</microsphere-java.version>
     </properties>
 
     <dependencyManagement>
