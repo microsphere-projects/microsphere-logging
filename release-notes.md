@@ -15,3 +15,23 @@
 - Fixed Java matrix setup and added necessary workflow permissions. ([fb35565](https://example.com/commit/fb35565))
 - Bumped version to prepare for the next patch release. ([98b983a](https://example.com/commit/98b983a))
 
+## v0.1.7
+
+# Release Notes - Version 0.1.7
+
+## Dependency Updates
+- **microsphere-java**: Bumped to version `0.2.9`.  
+- **Parent POM**: Upgraded to version `0.2.7`.  
+
+## Build and Workflow Enhancements
+- Updated Maven wrapper to version `3.9.14`.  
+- Improved GitHub workflows for release notes generation and Java setup.  
+- Normalized spacing in `maven-build.yml`.  
+
+## Other Changes
+- Routine merges from main branch into release to maintain consistency.  
+
+---  
+**Full Changelog**: [0.1.6...0.1.7](https://github.com/microsphere-projects/microsphere-logging/compare/0.1.6...0.1.7)  
+
+**Full Changelog**: https://github.com/microsphere-projects/microsphere-logging/compare/0.1.6...0.1.7
