@@ -34,4 +34,19 @@
 ---  
 **Full Changelog**: [0.1.6...0.1.7](https://github.com/microsphere-projects/microsphere-logging/compare/0.1.6...0.1.7)  
 
-**Full Changelog**: https://github.com/microsphere-projects/microsphere-logging/compare/0.1.6...0.1.7
+**Full Changelog**: https://github.com/microsphere-projects/microsphere-logging/compare/0.1.6...0.1.7## v0.1.8
+
+# Release Notes - Version 0.1.8
+
+## Dependency Updates
+- **Upgraded microsphere-java to version 0.3.0** for compatibility and feature enhancements.
+- **Updated Maven wrapper to 3.9.15** using Aliyun mirror.
+
+## Build and Workflow Enhancements
+- **Switched to official Maven Central wrapper URL** to improve build stability.
+
+## Other Changes
+- Updated versioning scheme post-0.1.7 publication.
+- Routine merges from `main` into release branches for alignment.
+
+**Full Changelog**: https://github.com/microsphere-projects/microsphere-logging/compare/0.1.7...0.1.8
