@@ -190,30 +190,83 @@ public abstract class Log4j2Utils implements Utils {
         return getLoggerContext().getLoggers();
     }
 
+    /**
+     * Apply the given {@link Consumer} to each {@link Logger} in the current {@link LoggerContext}.
+     *
+     * @param loggerConsumer the consumer to apply
+     *
+     * <h3>Example Usage</h3>
+     * <pre>{@code
+     *   Log4j2Utils.doInLogger(logger -> logger.setLevel(Level.DEBUG));
+     * }</pre>
+     */
     public static void doInLogger(Consumer<Logger> loggerConsumer) {
         getLoggers().forEach(loggerConsumer);
     }
 
     /**
+     * Add the given {@link Appender} to the specified {@link Logger} instances.
      *
-     * @param appender
-     * @param loggers
+     * @param appender the {@link Appender} to add
+     * @param loggers  the {@link Logger} instances to which the appender is added
+     *
+     * <h3>Example Usage</h3>
+     * <pre>{@code
+     *   InMemoryAppender appender = new InMemoryAppender();
+     *   Collection<Logger> loggers = Log4j2Utils.getLoggers();
+     *   Log4j2Utils.addAppender(appender, loggers);
+     * }</pre>
      */
     public static void addAppender(Appender appender, Iterable<Logger> loggers) {
         LoggerContext loggerContext = getLoggerContext();
         addAppender(loggerContext, appender, loggers);
     }
 
+    /**
+     * Add the given {@link Appender} to all {@link Logger} instances in the current {@link LoggerContext}.
+     *
+     * @param appender the {@link Appender} to add to all loggers
+     *
+     * <h3>Example Usage</h3>
+     * <pre>{@code
+     *   InMemoryAppender appender = new InMemoryAppender();
+     *   Log4j2Utils.addAppenderForAllLoggers(appender);
+     * }</pre>
+     */
     public static void addAppenderForAllLoggers(Appender appender) {
         LoggerContext loggerContext = getLoggerContext();
         addAppender(loggerContext, appender, loggerContext.getLoggers());
     }
 
+    /**
+     * Remove the given {@link Appender} from the specified {@link Logger} instances.
+     *
+     * @param appender the {@link Appender} to remove
+     * @param loggers  the {@link Logger} instances from which the appender is removed
+     *
+     * <h3>Example Usage</h3>
+     * <pre>{@code
+     *   InMemoryAppender appender = new InMemoryAppender();
+     *   Collection<Logger> loggers = Log4j2Utils.getLoggers();
+     *   Log4j2Utils.removeAppender(appender, loggers);
+     * }</pre>
+     */
     public static void removeAppender(Appender appender, Iterable<Logger> loggers) {
         LoggerContext loggerContext = getLoggerContext();
         removeAppender(loggerContext, appender, loggers);
     }
 
+    /**
+     * Remove the given {@link Appender} from all {@link Logger} instances in the current {@link LoggerContext}.
+     *
+     * @param appender the {@link Appender} to remove from all loggers
+     *
+     * <h3>Example Usage</h3>
+     * <pre>{@code
+     *   InMemoryAppender appender = Log4j2Utils.findAppender(InMemoryAppender.NAME);
+     *   Log4j2Utils.removeAppenderForAllLoggers(appender);
+     * }</pre>
+     */
     public static void removeAppenderForAllLoggers(Appender appender) {
         LoggerContext loggerContext = getLoggerContext();
         removeAppender(loggerContext, appender, loggerContext.getLoggers());

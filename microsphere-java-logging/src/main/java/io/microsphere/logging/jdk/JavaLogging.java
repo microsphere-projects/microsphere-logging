@@ -55,41 +55,117 @@ public class JavaLogging implements Logging {
 
     static final LoggingMXBean loggingMXBean = getLoggingMXBean();
 
+    /**
+     * {@inheritDoc}
+     *
+     * <h3>Example Usage</h3>
+     * <pre>{@code
+     *   JavaLogging logging = new JavaLogging();
+     *   String rootName = logging.getRootLoggerName();
+     *   // returns "" (empty string for the JDK root logger)
+     * }</pre>
+     */
     @Override
     public String getRootLoggerName() {
         return ROOT_LOGGER_NAME;
     }
 
+    /**
+     * {@inheritDoc}
+     *
+     * <h3>Example Usage</h3>
+     * <pre>{@code
+     *   JavaLogging logging = new JavaLogging();
+     *   List<String> names = logging.getLoggerNames();
+     * }</pre>
+     */
     @Override
     public List<String> getLoggerNames() {
         return loggingMXBean.getLoggerNames();
     }
 
+    /**
+     * {@inheritDoc}
+     *
+     * <h3>Example Usage</h3>
+     * <pre>{@code
+     *   JavaLogging logging = new JavaLogging();
+     *   Set<String> levels = logging.getSupportedLoggingLevels();
+     *   // e.g. ["OFF", "SEVERE", "WARNING", "INFO", "CONFIG", "FINE", "FINER", "FINEST", "ALL"]
+     * }</pre>
+     */
     @Override
     public Set<String> getSupportedLoggingLevels() {
         return ALL_LEVELS;
     }
 
+    /**
+     * {@inheritDoc}
+     *
+     * <h3>Example Usage</h3>
+     * <pre>{@code
+     *   JavaLogging logging = new JavaLogging();
+     *   String level = logging.getLoggerLevel("io.microsphere"); // e.g. "INFO"
+     * }</pre>
+     */
     @Override
     public String getLoggerLevel(String loggerName) {
         return loggingMXBean.getLoggerLevel(loggerName);
     }
 
+    /**
+     * {@inheritDoc}
+     *
+     * <h3>Example Usage</h3>
+     * <pre>{@code
+     *   JavaLogging logging = new JavaLogging();
+     *   logging.setLoggerLevel("io.microsphere", "FINE");
+     * }</pre>
+     */
     @Override
     public void setLoggerLevel(String loggerName, String levelName) {
         loggingMXBean.setLoggerLevel(loggerName, levelName);
     }
 
+    /**
+     * {@inheritDoc}
+     *
+     * <h3>Example Usage</h3>
+     * <pre>{@code
+     *   JavaLogging logging = new JavaLogging();
+     *   String parentName = logging.getParentLoggerName("io.microsphere.logging");
+     *   // returns "io.microsphere"
+     * }</pre>
+     */
     @Override
     public String getParentLoggerName(String loggerName) {
         return loggingMXBean.getParentLoggerName(loggerName);
     }
 
+    /**
+     * {@inheritDoc}
+     *
+     * <h3>Example Usage</h3>
+     * <pre>{@code
+     *   JavaLogging logging = new JavaLogging();
+     *   String name = logging.getName(); // "Java Logging"
+     * }</pre>
+     */
     @Override
     public String getName() {
         return "Java Logging";
     }
 
+    /**
+     * {@inheritDoc}
+     *
+     * <h3>Example Usage</h3>
+     * <pre>{@code
+     *   JavaLogging logging = new JavaLogging();
+     *   int priority = logging.getPriority();
+     *   // returns JavaLogging.PRIORITY
+     * }</pre>
+     */
     @Override
     public int getPriority() {
         return PRIORITY;

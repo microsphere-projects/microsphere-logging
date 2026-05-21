@@ -49,6 +49,18 @@ public class SmartFileAppenderLayout<T extends Serializable> implements Layout<T
 
     private final Map<String, Layout> delegatingLayouts;
 
+    /**
+     * Creates a new {@link SmartFileAppenderLayout} that inspects the given {@link LoggerContext}
+     * to select the appropriate delegating {@link Layout} per logger name.
+     *
+     * @param context the {@link LoggerContext} used to discover file appenders
+     *
+     * <h3>Example Usage</h3>
+     * <pre>{@code
+     *   LoggerContext context = (LoggerContext) LogManager.getContext(false);
+     *   SmartFileAppenderLayout<?> layout = new SmartFileAppenderLayout<>(context);
+     * }</pre>
+     */
     public SmartFileAppenderLayout(LoggerContext context) {
         this.delegatingLayouts = initDelegatingLayouts(context);
     }
@@ -100,38 +112,101 @@ public class SmartFileAppenderLayout<T extends Serializable> implements Layout<T
     }
 
 
+    /**
+     * {@inheritDoc}
+     *
+     * <h3>Example Usage</h3>
+     * <pre>{@code
+     *   SmartFileAppenderLayout<?> layout = new SmartFileAppenderLayout<>(context);
+     *   byte[] footer = layout.getFooter();
+     * }</pre>
+     */
     @Override
     public byte[] getFooter() {
         return DEFAULT_LAYOUT.getFooter();
     }
 
+    /**
+     * {@inheritDoc}
+     *
+     * <h3>Example Usage</h3>
+     * <pre>{@code
+     *   SmartFileAppenderLayout<?> layout = new SmartFileAppenderLayout<>(context);
+     *   byte[] header = layout.getHeader();
+     * }</pre>
+     */
     @Override
     public byte[] getHeader() {
         return DEFAULT_LAYOUT.getHeader();
     }
 
+    /**
+     * {@inheritDoc}
+     *
+     * <h3>Example Usage</h3>
+     * <pre>{@code
+     *   SmartFileAppenderLayout<?> layout = new SmartFileAppenderLayout<>(context);
+     *   byte[] bytes = layout.toByteArray(logEvent);
+     * }</pre>
+     */
     @Override
     public byte[] toByteArray(LogEvent event) {
         Layout delegate = getDelegate(event);
         return delegate.toByteArray(event);
     }
 
+    /**
+     * {@inheritDoc}
+     *
+     * <h3>Example Usage</h3>
+     * <pre>{@code
+     *   SmartFileAppenderLayout<?> layout = new SmartFileAppenderLayout<>(context);
+     *   Object serialized = layout.toSerializable(logEvent);
+     * }</pre>
+     */
     @Override
     public T toSerializable(LogEvent event) {
         Layout delegate = getDelegate(event);
         return (T) delegate.toSerializable(event);
     }
 
+    /**
+     * {@inheritDoc}
+     *
+     * <h3>Example Usage</h3>
+     * <pre>{@code
+     *   SmartFileAppenderLayout<?> layout = new SmartFileAppenderLayout<>(context);
+     *   String contentType = layout.getContentType();
+     * }</pre>
+     */
     @Override
     public String getContentType() {
         return DEFAULT_LAYOUT.getContentType();
     }
 
+    /**
+     * {@inheritDoc}
+     *
+     * <h3>Example Usage</h3>
+     * <pre>{@code
+     *   SmartFileAppenderLayout<?> layout = new SmartFileAppenderLayout<>(context);
+     *   Map<String, String> format = layout.getContentFormat();
+     * }</pre>
+     */
     @Override
     public Map<String, String> getContentFormat() {
         return DEFAULT_LAYOUT.getContentFormat();
     }
 
+    /**
+     * {@inheritDoc}
+     *
+     * <h3>Example Usage</h3>
+     * <pre>{@code
+     *   SmartFileAppenderLayout<?> layout = new SmartFileAppenderLayout<>(context);
+     *   layout.encode(logEvent, destination);
+     * }</pre>
+     */
     @Override
     public void encode(LogEvent source, ByteBufferDestination destination) {
         Layout delegate = getDelegate(source);
