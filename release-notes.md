@@ -63,4 +63,33 @@
 
 ---
 
-**Full Changelog**: https://github.com/microsphere-projects/microsphere-logging/compare/0.1.8...0.1.9
+**Full Changelog**: https://github.com/microsphere-projects/microsphere-logging/compare/0.1.8...0.1.9## v0.1.10
+
+# Release Notes for v0.1.10
+
+## New Features
+- Introduced utility enhancements: renamed `LoggerUtils`, added Log4j2 utilities and layouts. ([30c76f6](#))
+
+## Bug Fixes
+- Improved `LogEvent` comparison by using full instant time. ([66aa10c](#))
+- Enhanced `LogEvent` precision with nanosecond-level accuracy. ([ddd916e](#))
+
+## Dependency Updates
+- Removed `microsphere-java-core` dependency. ([320a12b](#))
+- Upgraded parent and `microsphere-java` versions. ([749aae6](#))
+
+## Build and Workflow Enhancements
+- Introduced Maven wrapper and adjusted Maven cache strategy. ([5a91714](#), [c4e57bb](#))
+
+## Test Improvements
+- Removed redundant `InMemoryAppender` test. ([a22397e](#))
+
+## Other Changes
+- Routine merges from `main` to `release`. ([1bbfab1](#), [798c76b](#), [3fb0fd9](#), [ad053d0](#), [6897b75](#), [10a6c82](#))
+- Bump version to prepare for next patch. ([024d93b](#)) 
+
+---
+
+**Full Changelog:** [v0.1.9...v0.1.10](#)
+
+**Full Changelog**: https://github.com/microsphere-projects/microsphere-logging/compare/0.1.9...0.1.10
