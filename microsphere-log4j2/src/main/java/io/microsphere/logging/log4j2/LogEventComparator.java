@@ -17,6 +17,7 @@
 package io.microsphere.logging.log4j2;
 
 import org.apache.logging.log4j.core.LogEvent;
+import org.apache.logging.log4j.core.time.Instant;
 
 import java.util.Comparator;
 
@@ -39,10 +40,11 @@ public class LogEventComparator implements Comparator<LogEvent> {
 
     @Override
     public int compare(LogEvent o1, LogEvent o2) {
-        return Long.compare(getNanoOfMillisecond(o1), getNanoOfMillisecond(o2));
+        return Long.compare(getTime(o1), getTime(o2));
     }
 
-    private int getNanoOfMillisecond(LogEvent logEvent) {
-        return logEvent.getInstant().getNanoOfMillisecond();
+    private long getTime(LogEvent logEvent) {
+        Instant instant = logEvent.getInstant();
+        return instant.getEpochMillisecond() + instant.getNanoOfMillisecond();
     }
 }
