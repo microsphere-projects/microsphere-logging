@@ -39,6 +39,10 @@ public class LogEventComparator implements Comparator<LogEvent> {
 
     @Override
     public int compare(LogEvent o1, LogEvent o2) {
-        return Long.compare(o1.getTimeMillis(), o2.getTimeMillis());
+        return Long.compare(getNanoOfMillisecond(o1), getNanoOfMillisecond(o2));
+    }
+
+    private int getNanoOfMillisecond(LogEvent logEvent) {
+        return logEvent.getInstant().getNanoOfMillisecond();
     }
 }
