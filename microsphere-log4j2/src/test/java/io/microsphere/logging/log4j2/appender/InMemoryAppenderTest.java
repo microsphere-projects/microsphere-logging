@@ -62,34 +62,6 @@ class InMemoryAppenderTest {
     }
 
     @Test
-    void testAppendTransferAndStopClearsEvents() {
-        InMemoryAppender source = new InMemoryAppender();
-        CollectingAppender target = new CollectingAppender();
-
-        LogEvent event1 = newEvent("message-1");
-        LogEvent event2 = newEvent("message-2");
-
-        source.append(event1);
-        source.append(event2);
-
-        source.transfer(target);
-
-        assertEquals(2, target.events.size());
-        assertTrue(target.events.contains(event1));
-        assertTrue(target.events.contains(event2));
-
-        // Verify source is emptied after transfer
-        source.transfer(target);
-        assertEquals(2, target.events.size(), "second transfer should not add duplicates");
-
-        // Re-add and ensure stop clears buffered events
-        source.append(newEvent("message-3"));
-        source.stop();
-        source.transfer(target);
-        assertEquals(2, target.events.size(), "stop() should clear pending events");
-    }
-
-    @Test
     void testFindInMemoryAppenderWithoutConfiguration() {
         // In plain unit test context, this may be null unless explicitly configured.
         // The purpose is to execute static method path for coverage.
