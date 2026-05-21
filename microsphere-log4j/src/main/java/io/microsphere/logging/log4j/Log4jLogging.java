@@ -18,7 +18,7 @@
 package io.microsphere.logging.log4j;
 
 import io.microsphere.logging.Logging;
-import io.microsphere.logging.log4j.util.LoggerUtils;
+import io.microsphere.logging.log4j.util.Log4jUtils;
 import org.apache.log4j.Level;
 import org.apache.log4j.Logger;
 import org.apache.log4j.spi.LoggerRepository;
@@ -29,9 +29,9 @@ import java.util.Set;
 
 import static io.microsphere.collection.CollectionUtils.toIterable;
 import static io.microsphere.logging.DefaultLoggingLevelsResolver.INSTANCE;
-import static io.microsphere.logging.log4j.util.LoggerUtils.ROOT_LOGGER_NAME;
-import static io.microsphere.logging.log4j.util.LoggerUtils.getLevelString;
-import static io.microsphere.logging.log4j.util.LoggerUtils.getLoggerRepository;
+import static io.microsphere.logging.log4j.util.Log4jUtils.ROOT_LOGGER_NAME;
+import static io.microsphere.logging.log4j.util.Log4jUtils.getLevelString;
+import static io.microsphere.logging.log4j.util.Log4jUtils.getLoggerRepository;
 import static java.util.stream.Collectors.toList;
 import static java.util.stream.StreamSupport.stream;
 
@@ -83,7 +83,7 @@ public class Log4jLogging implements Logging {
 
     @Override
     public void setLoggerLevel(String loggerName, String levelName) {
-        LoggerUtils.setLoggerLevel(loggerName, levelName);
+        Log4jUtils.setLoggerLevel(loggerName, levelName);
     }
 
     @Override

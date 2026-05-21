@@ -21,7 +21,7 @@ import io.microsphere.lang.DelegatingWrapper;
 import io.microsphere.logging.AbstractLogger;
 import org.apache.logging.log4j.Logger;
 
-import static io.microsphere.logging.log4j2.util.LoggerUtils.getLogger;
+import static io.microsphere.logging.log4j2.util.Log4j2Utils.getLogger;
 
 /**
  * The Logger adapter class based Log4j2 {@link Logger}

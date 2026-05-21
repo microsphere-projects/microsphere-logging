@@ -15,36 +15,43 @@
  * limitations under the License.
  */
 
-package io.microsphere.logging.logback.util;
+package io.microsphere.logging.log4j.util;
 
-import ch.qos.logback.classic.Level;
-import ch.qos.logback.classic.Logger;
-import ch.qos.logback.classic.LoggerContext;
+
 import io.microsphere.annotation.Nonnull;
 import io.microsphere.annotation.Nullable;
+import org.apache.log4j.Level;
+import org.apache.log4j.LogManager;
+import org.apache.log4j.Logger;
+import org.apache.log4j.spi.LoggerRepository;
 
-import static ch.qos.logback.classic.Level.toLevel;
-import static org.slf4j.LoggerFactory.getILoggerFactory;
+import static org.apache.log4j.Level.toLevel;
+import static org.apache.log4j.LogManager.getRootLogger;
 
 /**
- * The Utilities class of Logback Logger
+ * The Utilities class of Log4j Logger
  *
  * @author <a href="mailto:mercyblitz@gmail.com">Mercy</a>
  * @see Logger
  * @since 1.0.0
  */
-public abstract class LoggerUtils {
+public abstract class Log4jUtils {
 
-    static final LoggerContext loggerContext = (LoggerContext) getILoggerFactory();
+    static final LoggerRepository loggerRepository = LogManager.getLoggerRepository();
 
     /**
-     * Get the LoggerContext
+     * The name of Root Logger: "root"
+     */
+    public static final String ROOT_LOGGER_NAME = getRootLogger().getName();
+
+    /**
+     * Get the LoggerRepository
      *
-     * @return LoggerContext , never be null
+     * @return LoggerRepository , never be null
      */
     @Nonnull
-    public static LoggerContext getLoggerContext() {
-        return loggerContext;
+    public static LoggerRepository getLoggerRepository() {
+        return loggerRepository;
     }
 
     /**
@@ -55,7 +62,7 @@ public abstract class LoggerUtils {
      */
     @Nullable
     public static Logger getLogger(@Nonnull String loggerName) {
-        return loggerContext.getLogger(loggerName);
+        return loggerRepository.getLogger(loggerName);
     }
 
     /**
@@ -91,10 +98,7 @@ public abstract class LoggerUtils {
     public static Level getLevel(@Nullable Logger logger) {
         Level level = null;
         if (logger != null) {
-            level = logger.getLevel();
-            if (level == null) {
-                level = logger.getEffectiveLevel();
-            }
+            level = logger.getEffectiveLevel();
         }
         return level;
     }
@@ -156,6 +160,6 @@ public abstract class LoggerUtils {
         return level == null ? null : level.toString();
     }
 
-    private LoggerUtils() {
+    private Log4jUtils() {
     }
 }
