@@ -15,58 +15,58 @@
  * limitations under the License.
  */
 
-package io.microsphere.logging.log4j.util;
+package io.microsphere.logging.logback.util;
 
 
-import org.apache.log4j.Level;
-import org.apache.log4j.LogManager;
-import org.apache.log4j.Logger;
+import ch.qos.logback.classic.Level;
+import ch.qos.logback.classic.Logger;
 import org.junit.jupiter.api.Test;
 
-import static io.microsphere.logging.log4j.util.LoggerUtils.getLevel;
-import static io.microsphere.logging.log4j.util.LoggerUtils.getLevelString;
-import static io.microsphere.logging.log4j.util.LoggerUtils.getLogger;
-import static io.microsphere.logging.log4j.util.LoggerUtils.getLoggerRepository;
-import static io.microsphere.logging.log4j.util.LoggerUtils.setLoggerLevel;
-import static org.apache.log4j.Level.INFO;
-import static org.apache.log4j.Level.TRACE;
+import static ch.qos.logback.classic.Level.INFO;
+import static ch.qos.logback.classic.Level.TRACE;
+import static io.microsphere.logging.logback.util.LogbackUtils.getLevel;
+import static io.microsphere.logging.logback.util.LogbackUtils.getLevelString;
+import static io.microsphere.logging.logback.util.LogbackUtils.getLogger;
+import static io.microsphere.logging.logback.util.LogbackUtils.getLoggerContext;
+import static io.microsphere.logging.logback.util.LogbackUtils.setLoggerLevel;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.slf4j.LoggerFactory.getILoggerFactory;
 
 /**
- * {@link LoggerUtils} Test
+ * {@link LogbackUtils} Test
  *
  * @author <a href="mailto:mercyblitz@gmail.com">Mercy</a>
- * @see LoggerUtils
+ * @see LogbackUtils
  * @since 1.0.0
  */
-class LoggerUtilsTest {
+class LogbackUtilsTest {
 
     @Test
-    void testGetLoggerRepository() {
-        assertSame(LogManager.getLoggerRepository(), getLoggerRepository());
+    void testGetLoggerContext() {
+        assertSame(getILoggerFactory(), getLoggerContext());
     }
 
     @Test
     void testGetLogger() {
         assertNotNull(getLogger("test"));
-        assertNotNull(getLogger(LoggerUtilsTest.class));
+        assertNotNull(getLogger(LogbackUtilsTest.class));
         assertThrows(NullPointerException.class, () -> getLogger((Class<?>) null));
-        assertThrows(NullPointerException.class, () -> getLogger((String) null));
+        assertThrows(IllegalArgumentException.class, () -> getLogger((String) null));
     }
 
     @Test
     void testGetLevel() {
         assertNull(getLevel((Logger) null));
-        assertEquals(INFO, getLevel("io.microsphere.logging.log4j.util.LoggerUtils"));
-        assertEquals(INFO, getLevel("io.microsphere.logging.log4j.util"));
-        assertEquals(INFO, getLevel("io.microsphere.logging.log4j"));
-        assertEquals(INFO, getLevel("io.microsphere.logging"));
+        assertEquals(TRACE, getLevel("io.microsphere.logging.logback.util.LoggerUtils"));
+        assertEquals(TRACE, getLevel("io.microsphere.logging.logback.util"));
+        assertEquals(TRACE, getLevel("io.microsphere.logging.logback"));
+        assertEquals(TRACE, getLevel("io.microsphere.logging"));
         assertEquals(TRACE, getLevel("io.microsphere"));
-        assertEquals(TRACE, getLevel("io"));
+        assertEquals(INFO, getLevel("io"));
     }
 
     @Test
@@ -79,7 +79,7 @@ class LoggerUtilsTest {
     @Test
     void testSetLoggerLevel() {
         setLoggerLevel((Logger) null, "DEBUG");
-        assertLoggerLevel("io.microsphere.logging.log4j.util.LoggerUtils", "DEBUG");
+        assertLoggerLevel("io.microsphere.logging.logback.util.LoggerUtils", "DEBUG");
     }
 
     void assertLoggerLevel(String loggerName, String levelString) {

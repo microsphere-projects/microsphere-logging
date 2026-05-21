@@ -15,28 +15,27 @@
  * limitations under the License.
  */
 
-package io.microsphere.logging.log4j2.util;
+package io.microsphere.logging.logback.util;
 
-
+import ch.qos.logback.classic.Level;
+import ch.qos.logback.classic.Logger;
+import ch.qos.logback.classic.LoggerContext;
 import io.microsphere.annotation.Nonnull;
 import io.microsphere.annotation.Nullable;
-import org.apache.logging.log4j.Level;
-import org.apache.logging.log4j.core.Logger;
-import org.apache.logging.log4j.core.LoggerContext;
 
-import static org.apache.logging.log4j.Level.toLevel;
-import static org.apache.logging.log4j.core.LoggerContext.getContext;
+import static ch.qos.logback.classic.Level.toLevel;
+import static org.slf4j.LoggerFactory.getILoggerFactory;
 
 /**
- * The Utilities class of Log4j2 Logger
+ * The Utilities class of Logback Logger
  *
  * @author <a href="mailto:mercyblitz@gmail.com">Mercy</a>
  * @see Logger
  * @since 1.0.0
  */
-public abstract class LoggerUtils {
+public abstract class LogbackUtils {
 
-    static final LoggerContext loggerContext = getContext();
+    static final LoggerContext loggerContext = (LoggerContext) getILoggerFactory();
 
     /**
      * Get the LoggerContext
@@ -93,6 +92,9 @@ public abstract class LoggerUtils {
         Level level = null;
         if (logger != null) {
             level = logger.getLevel();
+            if (level == null) {
+                level = logger.getEffectiveLevel();
+            }
         }
         return level;
     }
@@ -154,6 +156,6 @@ public abstract class LoggerUtils {
         return level == null ? null : level.toString();
     }
 
-    private LoggerUtils() {
+    private LogbackUtils() {
     }
 }

@@ -29,7 +29,7 @@ import static io.microsphere.logging.LoggerFactory.getLogger;
 import static io.microsphere.logging.LoggingUtils.load;
 import static io.microsphere.logging.log4j.Log4jLogging.ALL_LEVELS;
 import static io.microsphere.logging.log4j.Log4jLogging.PRIORITY;
-import static io.microsphere.logging.log4j.util.LoggerUtils.ROOT_LOGGER_NAME;
+import static io.microsphere.logging.log4j.util.Log4jUtils.ROOT_LOGGER_NAME;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNull;

@@ -20,14 +20,14 @@ package io.microsphere.logging.logback;
 import ch.qos.logback.classic.Level;
 import ch.qos.logback.classic.Logger;
 import io.microsphere.logging.Logging;
-import io.microsphere.logging.logback.util.LoggerUtils;
+import io.microsphere.logging.logback.util.LogbackUtils;
 
 import java.util.List;
 import java.util.Set;
 
 import static io.microsphere.logging.DefaultLoggingLevelsResolver.INSTANCE;
-import static io.microsphere.logging.logback.util.LoggerUtils.getLevelString;
-import static io.microsphere.logging.logback.util.LoggerUtils.getLoggerContext;
+import static io.microsphere.logging.logback.util.LogbackUtils.getLevelString;
+import static io.microsphere.logging.logback.util.LogbackUtils.getLoggerContext;
 import static java.util.stream.Collectors.toList;
 import static org.slf4j.Logger.ROOT_LOGGER_NAME;
 
@@ -77,7 +77,7 @@ public class LogbackLogging implements Logging {
 
     @Override
     public void setLoggerLevel(String loggerName, String levelName) {
-        LoggerUtils.setLoggerLevel(loggerName, levelName);
+        LogbackUtils.setLoggerLevel(loggerName, levelName);
     }
 
     @Override
