@@ -38,11 +38,31 @@ class LoggingLevelParameterResolver implements ParameterResolver {
 
     private final int index;
 
+    /**
+     * Creates a new {@link LoggingLevelParameterResolver} with the given level and index.
+     *
+     * @param level the logging level string (e.g. "DEBUG", "INFO")
+     * @param index the zero-based index of the level in the levels array
+     *
+     * <h3>Example Usage</h3>
+     * <pre>{@code
+     *   LoggingLevelParameterResolver resolver = new LoggingLevelParameterResolver("DEBUG", 0);
+     * }</pre>
+     */
     LoggingLevelParameterResolver(String level, int index) {
         this.level = level;
         this.index = index;
     }
 
+    /**
+     * {@inheritDoc}
+     *
+     * <h3>Example Usage</h3>
+     * <pre>{@code
+     *   // Returns true if the parameter type is String (for level) or int (for index)
+     *   boolean supported = resolver.supportsParameter(parameterContext, extensionContext);
+     * }</pre>
+     */
     @Override
     public boolean supportsParameter(ParameterContext parameterContext, ExtensionContext extensionContext) throws ParameterResolutionException {
         Parameter parameter = parameterContext.getParameter();
@@ -50,6 +70,15 @@ class LoggingLevelParameterResolver implements ParameterResolver {
         return String.class.equals(parameterType) || int.class.equals(parameterType);
     }
 
+    /**
+     * {@inheritDoc}
+     *
+     * <h3>Example Usage</h3>
+     * <pre>{@code
+     *   // Returns the level string for String parameters, or the index for int parameters
+     *   Object value = resolver.resolveParameter(parameterContext, extensionContext);
+     * }</pre>
+     */
     @Override
     public Object resolveParameter(ParameterContext parameterContext, ExtensionContext extensionContext) throws ParameterResolutionException {
         Parameter parameter = parameterContext.getParameter();

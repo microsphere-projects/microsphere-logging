@@ -33,16 +33,45 @@ public class Log4jLoggerFactory extends LoggerFactory {
 
     public static final String LOG4J_LOGGER_CLASS_NAME = "org.apache.log4j.Logger";
 
+    /**
+     * {@inheritDoc}
+     *
+     * <h3>Example Usage</h3>
+     * <pre>{@code
+     *   Log4jLoggerFactory factory = new Log4jLoggerFactory();
+     *   String className = factory.getDelegateLoggerClassName();
+     *   // returns "org.apache.log4j.Logger"
+     * }</pre>
+     */
     @Override
     protected String getDelegateLoggerClassName() {
         return LOG4J_LOGGER_CLASS_NAME;
     }
 
+    /**
+     * {@inheritDoc}
+     *
+     * <h3>Example Usage</h3>
+     * <pre>{@code
+     *   Log4jLoggerFactory factory = new Log4jLoggerFactory();
+     *   Logger logger = factory.createLogger("io.microsphere");
+     * }</pre>
+     */
     @Override
     public Logger createLogger(String name) {
         return new Log4jLogger(name);
     }
 
+    /**
+     * {@inheritDoc}
+     *
+     * <h3>Example Usage</h3>
+     * <pre>{@code
+     *   Log4jLoggerFactory factory = new Log4jLoggerFactory();
+     *   int priority = factory.getPriority();
+     *   // returns Log4jLogging.PRIORITY
+     * }</pre>
+     */
     @Override
     public int getPriority() {
         return PRIORITY;
