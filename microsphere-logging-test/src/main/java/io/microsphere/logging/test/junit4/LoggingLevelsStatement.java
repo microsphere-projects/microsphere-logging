@@ -46,6 +46,18 @@ public class LoggingLevelsStatement extends Statement {
 
     protected final Set<String> levels;
 
+    /**
+     * Creates a new {@link LoggingLevelsStatement} with the specified statement, description, and logging levels.
+     *
+     * @param next        the original JUnit {@link Statement} to wrap
+     * @param description the test {@link Description}
+     * @param levels      the logging level names to iterate
+     *
+     * <h3>Example Usage</h3>
+     * <pre>{@code
+     *   LoggingLevelsStatement statement = new LoggingLevelsStatement(base, description, "TRACE", "DEBUG", "INFO");
+     * }</pre>
+     */
     protected LoggingLevelsStatement(Statement next, Description description, String... levels) {
         this.next = next;
         this.description = description;
@@ -53,6 +65,17 @@ public class LoggingLevelsStatement extends Statement {
         this.levels = ofSet(levels);
     }
 
+    /**
+     * Evaluates the wrapped statement once per logging level, changing the logger level before each iteration
+     * and restoring the original level afterwards.
+     *
+     * <h3>Example Usage</h3>
+     * <pre>{@code
+     *   // Used internally by LoggingLevelsRule; each test method is executed with TRACE, DEBUG and INFO level
+     *   @ClassRule
+     *   public static final LoggingLevelsRule rule = LoggingLevelsRule.levels("TRACE", "DEBUG", "INFO");
+     * }</pre>
+     */
     @Override
     public void evaluate() throws Throwable {
         Class<?> testClass = this.testClass;

@@ -46,45 +46,147 @@ public class InMemoryAppender extends AbstractLifeCycle implements Appender {
 
     private final Set<LogEvent> logEvents = new ConcurrentSkipListSet<>(INSTANCE);
 
+    /**
+     * Appends the given {@link LogEvent} to the in-memory collection.
+     *
+     * @param event the {@link LogEvent} to record
+     *
+     * <h3>Example Usage</h3>
+     * <pre>{@code
+     *   InMemoryAppender appender = new InMemoryAppender();
+     *   appender.start();
+     *   LogEvent event = Log4jLogEvent.newBuilder()
+     *       .setLoggerName("test.logger")
+     *       .setLevel(Level.INFO)
+     *       .setMessage(new SimpleMessage("hello"))
+     *       .build();
+     *   appender.append(event);
+     * }</pre>
+     */
     @Override
     public void append(LogEvent event) {
         logEvents.add(event);
     }
 
+    /**
+     * Returns the name of this appender, which is {@value #NAME}.
+     *
+     * @return the constant name {@value #NAME}
+     *
+     * <h3>Example Usage</h3>
+     * <pre>{@code
+     *   InMemoryAppender appender = new InMemoryAppender();
+     *   String name = appender.getName(); // "InMemory"
+     * }</pre>
+     */
     @Override
     public String getName() {
         return NAME;
     }
 
+    /**
+     * Returns {@code null} because this appender does not use a {@link Layout}.
+     *
+     * @return always {@code null}
+     *
+     * <h3>Example Usage</h3>
+     * <pre>{@code
+     *   InMemoryAppender appender = new InMemoryAppender();
+     *   Layout<?> layout = appender.getLayout(); // null
+     * }</pre>
+     */
     @Override
     public Layout<? extends Serializable> getLayout() {
         return null;
     }
 
+    /**
+     * Returns {@code false} because this appender does not silently ignore exceptions.
+     *
+     * @return always {@code false}
+     *
+     * <h3>Example Usage</h3>
+     * <pre>{@code
+     *   InMemoryAppender appender = new InMemoryAppender();
+     *   boolean ignore = appender.ignoreExceptions(); // false
+     * }</pre>
+     */
     @Override
     public boolean ignoreExceptions() {
         return false;
     }
 
+    /**
+     * Returns {@code null} because this appender does not use an {@link ErrorHandler}.
+     *
+     * @return always {@code null}
+     *
+     * <h3>Example Usage</h3>
+     * <pre>{@code
+     *   InMemoryAppender appender = new InMemoryAppender();
+     *   ErrorHandler handler = appender.getHandler(); // null
+     * }</pre>
+     */
     @Override
     public ErrorHandler getHandler() {
         return null;
     }
 
+    /**
+     * No-op: this appender does not support setting an {@link ErrorHandler}.
+     *
+     * @param handler ignored
+     *
+     * <h3>Example Usage</h3>
+     * <pre>{@code
+     *   InMemoryAppender appender = new InMemoryAppender();
+     *   appender.setHandler(null); // no-op
+     * }</pre>
+     */
     @Override
     public void setHandler(ErrorHandler handler) {
     }
 
+    /**
+     * Initializes the appender lifecycle.
+     *
+     * <h3>Example Usage</h3>
+     * <pre>{@code
+     *   InMemoryAppender appender = new InMemoryAppender();
+     *   appender.initialize();
+     * }</pre>
+     */
     @Override
     public void initialize() {
         super.initialize();
     }
 
+    /**
+     * Starts the appender lifecycle.
+     *
+     * <h3>Example Usage</h3>
+     * <pre>{@code
+     *   InMemoryAppender appender = new InMemoryAppender();
+     *   appender.start();
+     *   // appender is now ready to record events
+     * }</pre>
+     */
     @Override
     public void start() {
         super.start();
     }
 
+    /**
+     * Stops the appender lifecycle and clears all recorded {@link LogEvent} instances.
+     *
+     * <h3>Example Usage</h3>
+     * <pre>{@code
+     *   InMemoryAppender appender = new InMemoryAppender();
+     *   appender.start();
+     *   appender.append(event);
+     *   appender.stop(); // clears buffered events
+     * }</pre>
+     */
     @Override
     public void stop() {
         super.stop();
@@ -95,6 +197,15 @@ public class InMemoryAppender extends AbstractLifeCycle implements Appender {
      * Transfer all log events to another {@link Appender}
      *
      * @param appender another {@link Appender}
+     *
+     * <h3>Example Usage</h3>
+     * <pre>{@code
+     *   InMemoryAppender source = new InMemoryAppender();
+     *   source.start();
+     *   source.append(event);
+     *   FileAppender target = ...;
+     *   source.transfer(target);
+     * }</pre>
      */
     public void transfer(Appender appender) {
         Iterator<LogEvent> iterator = logEvents.iterator();
@@ -105,6 +216,20 @@ public class InMemoryAppender extends AbstractLifeCycle implements Appender {
         }
     }
 
+    /**
+     * Finds and returns the {@link InMemoryAppender} registered in the current Log4j2 configuration,
+     * or {@code null} if none is registered.
+     *
+     * @return the registered {@link InMemoryAppender}, or {@code null} if not found
+     *
+     * <h3>Example Usage</h3>
+     * <pre>{@code
+     *   InMemoryAppender appender = InMemoryAppender.findInMemoryAppender();
+     *   if (appender != null) {
+     *     appender.transfer(anotherAppender);
+     *   }
+     * }</pre>
+     */
     public static InMemoryAppender findInMemoryAppender() {
         return findAppender(NAME);
     }

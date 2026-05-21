@@ -47,6 +47,22 @@ class LoggingLevelTemplateInvocationContext implements ClassTemplateInvocationCo
 
     private final boolean isClassTemplate;
 
+    /**
+     * Creates a new {@link LoggingLevelTemplateInvocationContext}.
+     *
+     * @param loggings        the list of {@link Logging} instances to configure
+     * @param loggerName      the logger names to apply the level to
+     * @param level           the logging level string (e.g. "DEBUG", "INFO")
+     * @param index           the zero-based index of this level in the levels array
+     * @param isClassTemplate {@code true} if this is a class template context
+     *
+     * <h3>Example Usage</h3>
+     * <pre>{@code
+     *   List<Logging> loggings = LoggingUtils.loadAll();
+     *   LoggingLevelTemplateInvocationContext ctx =
+     *       new LoggingLevelTemplateInvocationContext(loggings, new String[]{"io.microsphere"}, "DEBUG", 0, false);
+     * }</pre>
+     */
     LoggingLevelTemplateInvocationContext(List<Logging> loggings, String[] loggerName, String level, int index, boolean isClassTemplate) {
         this.loggins = loggings;
         this.loggerName = loggerName;
@@ -55,11 +71,29 @@ class LoggingLevelTemplateInvocationContext implements ClassTemplateInvocationCo
         this.isClassTemplate = isClassTemplate;
     }
 
+    /**
+     * {@inheritDoc}
+     *
+     * <h3>Example Usage</h3>
+     * <pre>{@code
+     *   LoggingLevelTemplateInvocationContext ctx = ...;
+     *   String displayName = ctx.getDisplayName(1); // e.g. "[DEBUG]"
+     * }</pre>
+     */
     @Override
     public String getDisplayName(int invocationIndex) {
         return "[" + this.level + "]";
     }
 
+    /**
+     * {@inheritDoc}
+     *
+     * <h3>Example Usage</h3>
+     * <pre>{@code
+     *   LoggingLevelTemplateInvocationContext ctx = ...;
+     *   List<Extension> extensions = ctx.getAdditionalExtensions();
+     * }</pre>
+     */
     @Override
     public List<Extension> getAdditionalExtensions() {
         List<Extension> extensions = new ArrayList<>(this.isClassTemplate ? 2 : 1);
@@ -70,6 +104,17 @@ class LoggingLevelTemplateInvocationContext implements ClassTemplateInvocationCo
         return extensions;
     }
 
+    /**
+     * Prepares the invocation context before each test execution.
+     *
+     * @param context the current {@link ExtensionContext}
+     *
+     * <h3>Example Usage</h3>
+     * <pre>{@code
+     *   LoggingLevelTemplateInvocationContext ctx = ...;
+     *   ctx.prepareInvocation(extensionContext);
+     * }</pre>
+     */
     public void prepareInvocation(ExtensionContext context) {
     }
 }
