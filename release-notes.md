@@ -49,4 +49,18 @@
 - Updated versioning scheme post-0.1.7 publication.
 - Routine merges from `main` into release branches for alignment.
 
-**Full Changelog**: https://github.com/microsphere-projects/microsphere-logging/compare/0.1.7...0.1.8
+**Full Changelog**: https://github.com/microsphere-projects/microsphere-logging/compare/0.1.7...0.1.8## v0.1.9
+
+# Release Notes for Version 0.1.9
+
+## Dependency Updates
+- **microsphere-java.version** updated to `0.3.1`. ([cfd6d5d](link))
+
+## Build and Workflow Enhancements
+- Merged `main` into `release`. [skip ci] ([c054e6a](link))
+- Synced `release` back into `main`. [skip ci] ([06427cc](link))
+- Updated version to prepare for next patch after `0.1.8`. ([a28c6ce](link))
+
+---
+
+**Full Changelog**: https://github.com/microsphere-projects/microsphere-logging/compare/0.1.8...0.1.9
