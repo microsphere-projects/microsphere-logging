@@ -56,11 +56,29 @@ public class Log4jLogging implements Logging {
      */
     public static final Set<String> ALL_LEVELS = INSTANCE.resolve(Level.class);
 
+    /**
+     * {@inheritDoc}
+     *
+     * <h3>Example Usage</h3>
+     * <pre>{@code
+     *   Log4jLogging logging = new Log4jLogging();
+     *   String rootName = logging.getRootLoggerName(); // "root"
+     * }</pre>
+     */
     @Override
     public String getRootLoggerName() {
         return ROOT_LOGGER_NAME;
     }
 
+    /**
+     * {@inheritDoc}
+     *
+     * <h3>Example Usage</h3>
+     * <pre>{@code
+     *   Log4jLogging logging = new Log4jLogging();
+     *   List<String> names = logging.getLoggerNames();
+     * }</pre>
+     */
     @Override
     public List<String> getLoggerNames() {
         LoggerRepository loggerRepository = getLoggerRepository();
@@ -71,26 +89,73 @@ public class Log4jLogging implements Logging {
                 .collect(toList());
     }
 
+    /**
+     * {@inheritDoc}
+     *
+     * <h3>Example Usage</h3>
+     * <pre>{@code
+     *   Log4jLogging logging = new Log4jLogging();
+     *   Set<String> levels = logging.getSupportedLoggingLevels();
+     *   // e.g. ["OFF", "FATAL", "ERROR", "WARN", "INFO", "DEBUG", "TRACE", "ALL"]
+     * }</pre>
+     */
     @Override
     public Set<String> getSupportedLoggingLevels() {
         return ALL_LEVELS;
     }
 
+    /**
+     * {@inheritDoc}
+     *
+     * <h3>Example Usage</h3>
+     * <pre>{@code
+     *   Log4jLogging logging = new Log4jLogging();
+     *   String level = logging.getLoggerLevel("io.microsphere"); // e.g. "INFO"
+     * }</pre>
+     */
     @Override
     public String getLoggerLevel(String loggerName) {
         return getLevelString(loggerName);
     }
 
+    /**
+     * {@inheritDoc}
+     *
+     * <h3>Example Usage</h3>
+     * <pre>{@code
+     *   Log4jLogging logging = new Log4jLogging();
+     *   logging.setLoggerLevel("io.microsphere", "DEBUG");
+     * }</pre>
+     */
     @Override
     public void setLoggerLevel(String loggerName, String levelName) {
         Log4jUtils.setLoggerLevel(loggerName, levelName);
     }
 
+    /**
+     * {@inheritDoc}
+     *
+     * <h3>Example Usage</h3>
+     * <pre>{@code
+     *   Log4jLogging logging = new Log4jLogging();
+     *   String name = logging.getName(); // "Log4j"
+     * }</pre>
+     */
     @Override
     public String getName() {
         return "Log4j";
     }
 
+    /**
+     * {@inheritDoc}
+     *
+     * <h3>Example Usage</h3>
+     * <pre>{@code
+     *   Log4jLogging logging = new Log4jLogging();
+     *   int priority = logging.getPriority();
+     *   // returns Log4jLogging.PRIORITY
+     * }</pre>
+     */
     @Override
     public int getPriority() {
         return PRIORITY;

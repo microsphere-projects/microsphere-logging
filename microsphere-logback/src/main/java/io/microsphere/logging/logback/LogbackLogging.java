@@ -52,11 +52,30 @@ public class LogbackLogging implements Logging {
      */
     public static final Set<String> ALL_LEVELS = INSTANCE.resolve(Level.class);
 
+    /**
+     * {@inheritDoc}
+     *
+     * <h3>Example Usage</h3>
+     * <pre>{@code
+     *   LogbackLogging logging = new LogbackLogging();
+     *   String rootName = logging.getRootLoggerName();
+     *   // returns org.slf4j.Logger.ROOT_LOGGER_NAME ("ROOT")
+     * }</pre>
+     */
     @Override
     public String getRootLoggerName() {
         return ROOT_LOGGER_NAME;
     }
 
+    /**
+     * {@inheritDoc}
+     *
+     * <h3>Example Usage</h3>
+     * <pre>{@code
+     *   LogbackLogging logging = new LogbackLogging();
+     *   List<String> names = logging.getLoggerNames();
+     * }</pre>
+     */
     @Override
     public List<String> getLoggerNames() {
         return getLoggerContext()
@@ -65,26 +84,73 @@ public class LogbackLogging implements Logging {
                 .collect(toList());
     }
 
+    /**
+     * {@inheritDoc}
+     *
+     * <h3>Example Usage</h3>
+     * <pre>{@code
+     *   LogbackLogging logging = new LogbackLogging();
+     *   Set<String> levels = logging.getSupportedLoggingLevels();
+     *   // e.g. ["OFF", "ERROR", "WARN", "INFO", "DEBUG", "TRACE", "ALL"]
+     * }</pre>
+     */
     @Override
     public Set<String> getSupportedLoggingLevels() {
         return ALL_LEVELS;
     }
 
+    /**
+     * {@inheritDoc}
+     *
+     * <h3>Example Usage</h3>
+     * <pre>{@code
+     *   LogbackLogging logging = new LogbackLogging();
+     *   String level = logging.getLoggerLevel("io.microsphere"); // e.g. "INFO"
+     * }</pre>
+     */
     @Override
     public String getLoggerLevel(String loggerName) {
         return getLevelString(loggerName);
     }
 
+    /**
+     * {@inheritDoc}
+     *
+     * <h3>Example Usage</h3>
+     * <pre>{@code
+     *   LogbackLogging logging = new LogbackLogging();
+     *   logging.setLoggerLevel("io.microsphere", "DEBUG");
+     * }</pre>
+     */
     @Override
     public void setLoggerLevel(String loggerName, String levelName) {
         LogbackUtils.setLoggerLevel(loggerName, levelName);
     }
 
+    /**
+     * {@inheritDoc}
+     *
+     * <h3>Example Usage</h3>
+     * <pre>{@code
+     *   LogbackLogging logging = new LogbackLogging();
+     *   String name = logging.getName(); // "Logback"
+     * }</pre>
+     */
     @Override
     public String getName() {
         return "Logback";
     }
 
+    /**
+     * {@inheritDoc}
+     *
+     * <h3>Example Usage</h3>
+     * <pre>{@code
+     *   LogbackLogging logging = new LogbackLogging();
+     *   int priority = logging.getPriority();
+     *   // returns LogbackLogging.PRIORITY
+     * }</pre>
+     */
     @Override
     public int getPriority() {
         return PRIORITY;
