@@ -21,7 +21,7 @@ import io.microsphere.lang.DelegatingWrapper;
 import io.microsphere.logging.AbstractLogger;
 import org.apache.log4j.Logger;
 
-import static io.microsphere.logging.log4j.util.LoggerUtils.getLogger;
+import static io.microsphere.logging.log4j.util.Log4jUtils.getLogger;
 import static org.apache.log4j.Level.ERROR;
 import static org.apache.log4j.Level.WARN;
 

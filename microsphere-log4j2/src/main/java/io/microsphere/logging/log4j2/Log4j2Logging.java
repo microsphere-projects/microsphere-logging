@@ -18,7 +18,7 @@
 package io.microsphere.logging.log4j2;
 
 import io.microsphere.logging.Logging;
-import io.microsphere.logging.log4j2.util.LoggerUtils;
+import io.microsphere.logging.log4j2.util.Log4j2Utils;
 import org.apache.logging.log4j.Level;
 import org.apache.logging.log4j.Logger;
 
@@ -26,8 +26,8 @@ import java.util.List;
 import java.util.Set;
 
 import static io.microsphere.logging.DefaultLoggingLevelsResolver.INSTANCE;
-import static io.microsphere.logging.log4j2.util.LoggerUtils.getLevelString;
-import static io.microsphere.logging.log4j2.util.LoggerUtils.getLoggerContext;
+import static io.microsphere.logging.log4j2.util.Log4j2Utils.getLevelString;
+import static io.microsphere.logging.log4j2.util.Log4j2Utils.getLoggers;
 import static java.util.stream.Collectors.toList;
 import static org.apache.logging.log4j.LogManager.ROOT_LOGGER_NAME;
 
@@ -59,9 +59,9 @@ public class Log4j2Logging implements Logging {
 
     @Override
     public List<String> getLoggerNames() {
-        return getLoggerContext()
-                .getLoggers()
-                .stream().map(Logger::getName)
+        return getLoggers()
+                .stream()
+                .map(Logger::getName)
                 .collect(toList());
     }
 
@@ -77,7 +77,7 @@ public class Log4j2Logging implements Logging {
 
     @Override
     public void setLoggerLevel(String loggerName, String levelName) {
-        LoggerUtils.setLoggerLevel(loggerName, levelName);
+        Log4j2Utils.setLoggerLevel(loggerName, levelName);
     }
 
     @Override
