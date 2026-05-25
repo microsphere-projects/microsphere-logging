@@ -92,4 +92,28 @@
 
 **Full Changelog:** [v0.1.9...v0.1.10](#)
 
-**Full Changelog**: https://github.com/microsphere-projects/microsphere-logging/compare/0.1.9...0.1.10
+**Full Changelog**: https://github.com/microsphere-projects/microsphere-logging/compare/0.1.9...0.1.10## v0.1.11
+
+# Release Notes - Version 0.1.11
+
+## New Features
+- Added JavaDoc with example usage to all main source classes and non-private methods. [#30]
+
+## Documentation
+- Updated README to include the DeepWiki badge in the User Guide.
+
+## Test Improvements
+- Added sleep in tests and switched to static `newBuilder` imports for improved consistency.
+
+## Dependency Updates
+- Bumped `microsphere-java` version to `0.3.3`.
+
+## Build and Workflow Enhancements
+- Multiple merges from `main` to `release` branch for keeping consistency. [skip ci]
+- Bumped version to next patch after publishing 0.1.10.
+
+---
+
+**Note**: For full details of changes, refer to the individual commits in the repository.
+
+**Full Changelog**: https://github.com/microsphere-projects/microsphere-logging/compare/0.1.10...0.1.11
