@@ -19,7 +19,6 @@ package io.microsphere.logging.log4j2.appender;
 
 import org.apache.logging.log4j.core.Appender;
 import org.apache.logging.log4j.core.LogEvent;
-import org.apache.logging.log4j.core.impl.Log4jLogEvent;
 import org.apache.logging.log4j.core.layout.PatternLayout;
 import org.apache.logging.log4j.message.SimpleMessage;
 import org.junit.jupiter.api.Test;
@@ -29,7 +28,9 @@ import java.util.List;
 
 import static io.microsphere.logging.log4j2.appender.InMemoryAppender.NAME;
 import static io.microsphere.logging.log4j2.appender.InMemoryAppender.findInMemoryAppender;
+import static java.lang.Thread.sleep;
 import static org.apache.logging.log4j.Level.INFO;
+import static org.apache.logging.log4j.core.impl.Log4jLogEvent.newBuilder;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNull;
@@ -63,7 +64,7 @@ class InMemoryAppenderTest {
     }
 
     @Test
-    void testAppendTransferAndStopClearsEvents() {
+    void testAppendTransferAndStopClearsEvents() throws InterruptedException {
         InMemoryAppender source = new InMemoryAppender();
         CollectingAppender target = new CollectingAppender();
 
@@ -99,8 +100,9 @@ class InMemoryAppenderTest {
         assertTrue(result == null || result instanceof InMemoryAppender);
     }
 
-    private static LogEvent newEvent(String message) {
-        return Log4jLogEvent.newBuilder()
+    private static LogEvent newEvent(String message) throws InterruptedException {
+        sleep(50L);
+        return newBuilder()
                 .setLoggerName("test.logger")
                 .setLoggerFqcn(InMemoryAppenderTest.class.getName())
                 .setLevel(INFO)
