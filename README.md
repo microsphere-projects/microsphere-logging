@@ -1,6 +1,6 @@
 # Microsphere Logging Framework
 
-> Welcome to the Microsphere Logging Framework
+> A unified abstraction layer for runtime logging management across multiple Java logging frameworks
 
 [![Ask DeepWiki](https://deepwiki.com/badge.svg)](https://deepwiki.com/microsphere-projects/microsphere-logging)
 [![Maven Build](https://github.com/microsphere-projects/microsphere-logging/actions/workflows/maven-build.yml/badge.svg)](https://github.com/microsphere-projects/microsphere-logging/actions/workflows/maven-build.yml)
@@ -10,54 +10,57 @@
 
 ## Introduction
 
-Microsphere Logging Framework, a unified abstraction layer designed to simplify logging management across multiple Java
-logging frameworks. This framework provides a consistent API for dynamically managing log levels, querying logger
-information, and integrating with various logging backends including Logback, Log4j2, and Java Logging.
+Microsphere Logging Framework is a unified abstraction layer designed to simplify logging management across multiple
+Java logging frameworks. It provides a consistent API for dynamically managing log levels at runtime, querying logger
+information, exposing logging configuration over JMX, and integrating with various logging backends — all without
+changing your application code or restarting services.
+
+Supported backends: **Java Logging (JUL)**, **Log4j**, **Log4j2**, and **Logback**.
 
 ## Features
 
-- Runtime Log Level Management: Dynamically adjust logging levels in production without restarting services
-- Framework-Agnostic Code: Write management code that works across different logging backends
-- Operational Control: Expose logging configuration through JMX for operations teams
-- Testing Infrastructure: Test logging-dependent behavior across multiple log configurations
-- Multi-Tenant Systems: Apply different logging configurations per tenant or module
+- **Runtime log level management** — Dynamically adjust logging levels in production without restarting services
+- **Framework-agnostic API** — Write management code once; it works across all supported logging backends
+- **JMX integration** — Expose and control logging configuration through JMX for operations teams
+- **Comprehensive testing support** — JUnit 4 and JUnit Jupiter 5 extensions to test behavior across multiple log levels
+- **SPI-based extensibility** — Load the highest-priority `Logging` implementation automatically via Java ServiceLoader
+- **Multi-backend coexistence** — Use multiple logging backends in the same JVM with priority-based resolution
 
 ## Modules
 
-The framework is organized into several key modules:
-
- Module                           | Purpose                                                                 
-----------------------------------|-------------------------------------------------------------------------
- microsphere-logging-parent       | Parent POM with shared configurations.                                  
- microsphere-logging-dependencies | Manages dependency versions across the project.                         
- microsphere-logging-commons      | Provides the commons features for logging.                              
- microsphere-logging-test         | Provides the extensions of JUnit4 or JUnit Jupiter for logging testing. 
- microsphere-logging-examples     | Provides the eamples of Microshere Logging.                             
- microsphere-java-logging         | Provides the extensions features for Java Logging.                      
- microsphere-logback              | Provides the extensions features for logback.                           
- microsphere-log4j                | Provides the extensions features for log4j.                             
- microsphere-log4j2               | Provides the extensions features for log4j2.                            
+| Module | Purpose |
+|---|---|
+| `microsphere-logging-parent` | Parent POM with shared configurations |
+| `microsphere-logging-dependencies` | BOM for managing dependency versions across the project |
+| `microsphere-logging-commons` | Core API: `Logging` interface, `LoggingUtils`, JMX support |
+| `microsphere-java-logging` | Extension for Java Logging (JUL) |
+| `microsphere-logback` | Extension for Logback |
+| `microsphere-log4j` | Extension for Log4j |
+| `microsphere-log4j2` | Extension for Log4j2 |
+| `microsphere-logging-test` | JUnit 4 and JUnit Jupiter 5 test extensions |
+| `microsphere-logging-examples` | Runnable examples |
 
 ## Compatibility
 
-- Java 8+
-- JUnit 4+
-- JUnit Jupiter 5.13+
-- SLF4J 1.7+
-- Log4j 1.2+
-- Logback 1.2+
-- Log4j2 2.4+
+| Requirement | Version |
+|---|---|
+| Java | 8+ |
+| JUnit 4 | 4+ |
+| JUnit Jupiter | 5.13+ |
+| SLF4J | 1.7+ |
+| Log4j | 1.2+ |
+| Logback | 1.2+ |
+| Log4j2 | 2.4+ |
 
 ## Getting Started
 
-The easiest way to get started is by adding the Microsphere Java BOM (Bill of Materials) to your project's pom.xml:
+### 1. Import the BOM
+
+Add the Microsphere Logging BOM to your `pom.xml` to manage all module versions consistently:
 
 ```xml
-
 <dependencyManagement>
     <dependencies>
-        ...
-        <!-- Microsphere Logging Dependencies -->
         <dependency>
             <groupId>io.github.microsphere-projects</groupId>
             <artifactId>microsphere-logging-dependencies</artifactId>
@@ -65,72 +68,47 @@ The easiest way to get started is by adding the Microsphere Java BOM (Bill of Ma
             <type>pom</type>
             <scope>import</scope>
         </dependency>
-        ...
     </dependencies>
 </dependencyManagement>
 ```
 
-Then add the specific modules you need:
+### 2. Add the Backend Module
+
+Pick **one** backend module that matches your logging framework:
 
 ```xml
-
 <dependencies>
-
-    <!-- Microsphere Java Logging -->
+    <!-- Option A: Java Logging (JUL) -->
     <dependency>
         <groupId>io.github.microsphere-projects</groupId>
         <artifactId>microsphere-java-logging</artifactId>
     </dependency>
 
-    <!-- Microsphere Logback -->
+    <!-- Option B: Logback -->
     <dependency>
         <groupId>io.github.microsphere-projects</groupId>
         <artifactId>microsphere-logback</artifactId>
     </dependency>
 
-    <!-- Logback -->
-    <dependency>
-        <groupId>ch.qos.logback</groupId>
-        <artifactId>logback-classic</artifactId>
-        <version>${logback.version}</version>
-    </dependency>
-
-    <!-- Microsphere Log4j -->
-    <dependency>
-        <groupId>io.github.microsphere-projects</groupId>
-        <artifactId>microsphere-log4j</artifactId>
-    </dependency>
-
-    <!-- Log4j-->
-    <dependency>
-        <groupId>log4j</groupId>
-        <artifactId>log4j</artifactId>
-        <version>${log4j.version}</version>
-    </dependency>
-
-    <!-- Microsphere Log4j2 -->
+    <!-- Option C: Log4j2 -->
     <dependency>
         <groupId>io.github.microsphere-projects</groupId>
         <artifactId>microsphere-log4j2</artifactId>
     </dependency>
 
-    <!-- Log4j2 -->
+    <!-- Option D: Log4j -->
     <dependency>
-        <groupId>org.apache.logging.log4j</groupId>
-        <artifactId>log4j-core</artifactId>
-        <version>${log4j2.version}</version>
+        <groupId>io.github.microsphere-projects</groupId>
+        <artifactId>microsphere-log4j</artifactId>
     </dependency>
-
 </dependencies>
 ```
 
-Usually, you only need one of 'microsphere-java-logging' or 'microsphere-logback' or 'microsphere-log4j2' with their
-transitive dependencies. Above dependencies just is an example, you can use the API of the
-'microsphere-logging-commons' module to load the instance of `Logging` that you need:
+### 3. Use the API
+
+#### Load and query the active `Logging` instance
 
 ```java
-package io.microsphere.logging.examples;
-
 import io.microsphere.logging.Logger;
 import io.microsphere.logging.Logging;
 
@@ -142,74 +120,112 @@ public class LoggingExample {
     private static final Logger logger = getLogger(LoggingExample.class);
 
     public static void main(String[] args) {
-        // The highest priority Logging instance will be loaded
+        // Loads the highest-priority Logging implementation available on the classpath
         Logging logging = load();
-        logger.info("The name of Logging : {}", logging.getName());
-
-        // The all logger names of Logging
-        logger.info("All logger names of Logging : {}", logging.getLoggerNames());
+        logger.info("Active logging backend: {}", logging.getName());
+        logger.info("All registered loggers: {}", logging.getLoggerNames());
     }
 }
 ```
 
-The run result:
+Output (with Log4j2 on the classpath):
 
 ```
-[main] INFO io.microsphere.logging.examples.LoggingExample - The name of Logging : Log4j2
-[main] INFO io.microsphere.logging.examples.LoggingExample - All logger names of Logging : ...
+[main] INFO io.microsphere.logging.examples.LoggingExample - Active logging backend: Log4j2
+[main] INFO io.microsphere.logging.examples.LoggingExample - All registered loggers: [...]
 ```
 
-The more examples can be found in the [microsphere-logging-examples](microsphere-logging-examples) module.
+#### Dynamically manage log levels at runtime
+
+```java
+Logging logging = load();
+
+// Read the current level of a logger
+String level = logging.getLoggerLevel("io.microsphere");   // e.g. "INFO"
+
+// Change the level at runtime — no restart needed
+logging.setLoggerLevel("io.microsphere", "DEBUG");
+
+// Revert to inheriting level from the parent logger
+logging.setLoggerLevel("io.microsphere", null);
+```
+
+#### Register logging configuration as JMX MBeans
+
+```java
+import io.microsphere.logging.jmx.LoggingMXBeanRegistrar;
+
+// Registers one MBean per detected Logging backend under the
+// "io.microsphere.logging:type=<BackendName>" ObjectName pattern
+LoggingMXBeanRegistrar.registerAll();
+```
+
+Once registered, you can inspect and change log levels via any JMX client (e.g., JConsole, VisualVM, or
+your operations toolchain).
+
+More examples are available in the [microsphere-logging-examples](microsphere-logging-examples) module.
+
+### Testing Support
+
+#### JUnit Jupiter 5 — `@LoggingLevelsTest`
+
+Run a test method once for each specified log level:
+
+```java
+import io.microsphere.logging.test.jupiter.LoggingLevelsTest;
+
+class MyServiceTest {
+
+    @LoggingLevelsTest(loggingClasses = {MyService.class}, levels = {"TRACE", "DEBUG", "INFO"})
+    void testBehaviorAcrossLogLevels() {
+        // This test body is executed three times, once per level
+    }
+}
+```
+
+#### JUnit 4 — `LoggingLevelsRule`
+
+```java
+import io.microsphere.logging.test.junit4.LoggingLevelsRule;
+import org.junit.ClassRule;
+import org.junit.Test;
+
+public class MyServiceTest {
+
+    @ClassRule
+    public static final LoggingLevelsRule loggingLevelsRule =
+            LoggingLevelsRule.levels("TRACE", "DEBUG", "INFO");
+
+    @Test
+    public void testBehaviorAcrossLogLevels() {
+        // Executed for each log level defined in the rule
+    }
+}
+```
 
 ## Building from Source
 
-You don't need to build from source unless you want to try out the latest code or contribute to the project.
-
-To build the project, follow these steps:
-
-1. Clone the repository:
+You only need to build from source if you want to try out the latest unreleased changes or contribute to the project.
 
 ```bash
+# Clone the repository
 git clone https://github.com/microsphere-projects/microsphere-logging.git
-```
+cd microsphere-logging
 
-2. Build the source:
-
-- Linux/MacOS:
-
-```bash
+# Build (Linux/macOS)
 ./mvnw package
-```
 
-- Windows:
-
-```powershell
+# Build (Windows)
 mvnw.cmd package
 ```
 
-## Contributing
+## Getting Help
 
-We welcome your contributions! Please read [Code of Conduct](./CODE_OF_CONDUCT.md) before submitting a pull request.
-
-## Reporting Issues
-
-* Before you log a bug, please search the [issues](https://github.com/microsphere-projects/microsphere-logging/issues)
-  to
-  see if someone has already reported the problem.
-* If the issue doesn't already
-  exist, [create a new issue](https://github.com/microsphere-projects/microsphere-logging/issues/new).
-* Please provide as much information as possible with the issue report.
-
-## Documentation
-
-## User Guide
-
-[![Ask DeepWiki](https://deepwiki.com/badge.svg)](https://deepwiki.com/microsphere-projects/microsphere-logging)
-
-[![zread](https://img.shields.io/badge/Ask_Zread-_.svg?style=flat&color=00b0aa&labelColor=000000&logo=data%3Aimage%2Fsvg%2Bxml%3Bbase64%2CPHN2ZyB3aWR0aD0iMTYiIGhlaWdodD0iMTYiIHZpZXdCb3g9IjAgMCAxNiAxNiIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHBhdGggZD0iTTQuOTYxNTYgMS42MDAxSDIuMjQxNTZDMS44ODgxIDEuNjAwMSAxLjYwMTU2IDEuODg2NjQgMS42MDE1NiAyLjI0MDFWNC45NjAxQzEuNjAxNTYgNS4zMTM1NiAxLjg4ODEgNS42MDAxIDIuMjQxNTYgNS42MDAxSDQuOTYxNTZDNS4zMTUwMiA1LjYwMDEgNS42MDE1NiA1LjMxMzU2IDUuNjAxNTYgNC45NjAxVjIuMjQwMUM1LjYwMTU2IDEuODg2NjQgNS4zMTUwMiAxLjYwMDEgNC45NjE1NiAxLjYwMDFaIiBmaWxsPSIjZmZmIi8%2BCjxwYXRoIGQ9Ik00Ljk2MTU2IDEwLjM5OTlIMi4yNDE1NkMxLjg4ODEgMTAuMzk5OSAxLjYwMTU2IDEwLjY4NjQgMS42MDE1NiAxMS4wMzk5VjEzLjc1OTlDMS42MDE1NiAxNC4xMTM0IDEuODg4MSAxNC4zOTk5IDIuMjQxNTYgMTQuMzk5OUg0Ljk2MTU2QzUuMzE1MDIgMTQuMzk5OSA1LjYwMTU2IDE0LjExMzQgNS42MDE1NiAxMy43NTk5VjExLjAzOTlDNS42MDE1NiAxMC42ODY0IDUuMzE1MDIgMTAuMzk5OSA0Ljk2MTU2IDEwLjM5OTlaIiBmaWxsPSIjZmZmIi8%2BCjxwYXRoIGQ9Ik0xMy43NTg0IDEuNjAwMUgxMS4wMzg0QzEwLjY4NSAxLjYwMDEgMTAuMzk4NCAxLjg4NjY0IDEwLjM5ODQgMi4yNDAxVjQuOTYwMUMxMC4zOTg0IDUuMzEzNTYgMTAuNjg1IDUuNjAwMSAxMS4wMzg0IDUuNjAwMUgxMy43NTg0QzE0LjExMTkgNS42MDAxIDE0LjM5ODQgNS4zMTM1NiAxNC4zOTg0IDQuOTYwMVYyLjI0MDFDMTQuMzk4NCAxLjg4NjY0IDE0LjExMTkgMS42MDAxIDEzLjc1ODQgMS42MDAxWiIgZmlsbD0iI2ZmZiIvPgo8cGF0aCBkPSJNNCAxMkwxMiA0TDQgMTJaIiBmaWxsPSIjZmZmIi8%2BCjxwYXRoIGQ9Ik00IDEyTDEyIDQiIHN0cm9rZT0iI2ZmZiIgc3Ryb2tlLXdpZHRoPSIxLjUiIHN0cm9rZS1saW5lY2FwPSJyb3VuZCIvPgo8L3N2Zz4K&logoColor=ffffff)](https://zread.ai/microsphere-projects/microsphere-logging)
-### Wiki
-
-[Github Host](https://github.com/microsphere-projects/microsphere-logging/wiki)
+| Resource | Link |
+|---|---|
+| Bug reports & feature requests | [GitHub Issues](https://github.com/microsphere-projects/microsphere-logging/issues) |
+| Project wiki | [GitHub Wiki](https://github.com/microsphere-projects/microsphere-logging/wiki) |
+| AI-powered docs | [![Ask DeepWiki](https://deepwiki.com/badge.svg)](https://deepwiki.com/microsphere-projects/microsphere-logging) [![zread](https://img.shields.io/badge/Ask_Zread-_.svg?style=flat&color=00b0aa&labelColor=000000&logo=data%3Aimage%2Fsvg%2Bxml%3Bbase64%2CPHN2ZyB3aWR0aD0iMTYiIGhlaWdodD0iMTYiIHZpZXdCb3g9IjAgMCAxNiAxNiIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHBhdGggZD0iTTQuOTYxNTYgMS42MDAxSDIuMjQxNTZDMS44ODgxIDEuNjAwMSAxLjYwMTU2IDEuODg2NjQgMS42MDE1NiAyLjI0MDFWNC45NjAxQzEuNjAxNTYgNS4zMTM1NiAxLjg4ODEgNS42MDAxIDIuMjQxNTYgNS42MDAxSDQuOTYxNTZDNS4zMTUwMiA1LjYwMDEgNS42MDE1NiA1LjMxMzU2IDUuNjAxNTYgNC45NjAxVjIuMjQwMUM1LjYwMTU2IDEuODg2NjQgNS4zMTUwMiAxLjYwMDEgNC45NjE1NiAxLjYwMDFaIiBmaWxsPSIjZmZmIi8%2BCjxwYXRoIGQ9Ik00Ljk2MTU2IDEwLjM5OTlIMi4yNDE1NkMxLjg4ODEgMTAuMzk5OSAxLjYwMTU2IDEwLjY4NjQgMS42MDE1NiAxMS4wMzk5VjEzLjc1OTlDMS42MDE1NiAxNC4xMTM0IDEuODg4MSAxNC4zOTk5IDIuMjQxNTYgMTQuMzk5OUg0Ljk2MTU2QzUuMzE1MDIgMTQuMzk5OSA1LjYwMTU2IDE0LjExMzQgNS42MDE1NiAxMy43NTk5VjExLjAzOTlDNS42MDE1NiAxMC42ODY0IDUuMzE1MDIgMTAuMzk5OSA0Ljk2MTU2IDEwLjM5OTlaIiBmaWxsPSIjZmZmIi8%2BCjxwYXRoIGQ9Ik0xMy43NTg0IDEuNjAwMUgxMS4wMzg0QzEwLjY4NSAxLjYwMDEgMTAuMzk4NCAxLjg4NjY0IDEwLjM5ODQgMi4yNDAxVjQuOTYwMUMxMC4zOTg0IDUuMzEzNTYgMTAuNjg1IDUuNjAwMSAxMS4wMzg0IDUuNjAwMUgxMy43NTg0QzE0LjExMTkgNS42MDAxIDE0LjM5ODQgNS4zMTM1NiAxNC4zOTg0IDQuOTYwMVYyLjI0MDFDMTQuMzk4NCAxLjg4NjY0IDE0LjExMTkgMS42MDAxIDEzLjc1ODQgMS42MDAxWiIgZmlsbD0iI2ZmZiIvPgo8cGF0aCBkPSJNNCAxMkwxMiA0TDQgMTJaIiBmaWxsPSIjZmZmIi8%2BCjxwYXRoIGQ9Ik00IDEyTDEyIDQiIHN0cm9rZT0iI2ZmZiIgc3Ryb2tlLXdpZHRoPSIxLjUiIHN0cm9rZS1saW5lY2FwPSJyb3VuZCIvPgo8L3N2Zz4K&logoColor=ffffff)](https://zread.ai/microsphere-projects/microsphere-logging) |
 
 ### JavaDoc
 
@@ -220,6 +236,23 @@ We welcome your contributions! Please read [Code of Conduct](./CODE_OF_CONDUCT.m
 - [microsphere-log4j](https://javadoc.io/doc/io.github.microsphere-projects/microsphere-log4j)
 - [microsphere-log4j2](https://javadoc.io/doc/io.github.microsphere-projects/microsphere-log4j2)
 
+Before opening an issue, please [search existing issues](https://github.com/microsphere-projects/microsphere-logging/issues)
+to see if the problem has already been reported.
+
+## Contributing
+
+Contributions are welcome! To get started:
+
+1. Read the [Code of Conduct](./CODE_OF_CONDUCT.md)
+2. Fork the repository and create a feature branch
+3. Make your changes and add tests
+4. Submit a pull request with a clear description of the change
+
+## Maintainers
+
+Microsphere Logging is developed and maintained by **[Mercy Ma](mailto:mercyblitz@gmail.com)** ([@mercyblitz](https://github.com/mercyblitz))
+at the [Microsphere Projects](https://github.com/microsphere-projects) organization.
+
 ## License
 
-The Microsphere Java is released under the [Apache License 2.0](https://www.apache.org/licenses/LICENSE-2.0).
+Released under the [Apache License 2.0](LICENSE).
