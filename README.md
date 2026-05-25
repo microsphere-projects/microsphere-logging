@@ -250,8 +250,7 @@ Contributions are welcome! To get started:
 
 ## Maintainers
 
-Microsphere Logging is developed and maintained by **[Mercy Ma](mailto:mercyblitz@gmail.com)** ([@mercyblitz](https://github.com/mercyblitz))
-at the [Microsphere Projects](https://github.com/microsphere-projects) organization.
+Microsphere Logging is developed and maintained by the <a href="https://github.com/microsphere-projects">Microsphere Projects</a> organization.
 
 ## License
 
