@@ -24,6 +24,7 @@ import java.lang.reflect.Parameter;
 import java.util.List;
 import java.util.Optional;
 
+import static io.microsphere.collection.Lists.ofList;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
@@ -132,7 +133,7 @@ class LoggingLevelParameterResolverTest {
 
             @Override
             public <A extends Annotation> List<A> findRepeatableAnnotations(Class<A> annotationType) {
-                return List.of();
+                return ofList();
             }
         };
     }
