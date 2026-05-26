@@ -181,6 +181,39 @@ class SmartFileAppenderLayoutTest {
     }
 
     @Test
+    void shouldFallbackToDefaultWhenParentLoggerIsNull() {
+        LoggerContext context = new LoggerContext("smart-layout-null-parent");
+        Configuration configuration = context.getConfiguration();
+
+        // Remove all appenders from root logger and add only InMemory
+        LoggerConfig rootConfig = configuration.getRootLogger();
+        for (String name : new java.util.ArrayList<>(rootConfig.getAppenders().keySet())) {
+            rootConfig.removeAppender(name);
+        }
+        InMemoryAppender inMemoryAppender = new InMemoryAppender();
+        inMemoryAppender.start();
+        rootConfig.addAppender(inMemoryAppender, Level.ALL, null);
+
+        try {
+            context.updateLoggers();
+
+            SmartFileAppenderLayout<Serializable> layout = new SmartFileAppenderLayout<>(context);
+
+            // Root logger has only InMemory appender (removed by NAME), so appendersMap is empty.
+            // Root's parent is null, so selectAppender returns null → DEFAULT_LAYOUT is used.
+            LogEvent rootEvent = event("", "root-message");
+            assertArrayEquals(SmartFileAppenderLayout.DEFAULT_LAYOUT.toByteArray(rootEvent), layout.toByteArray(rootEvent));
+            assertEquals(
+                    String.valueOf(SmartFileAppenderLayout.DEFAULT_LAYOUT.toSerializable(rootEvent)),
+                    String.valueOf(layout.toSerializable(rootEvent))
+            );
+        } finally {
+            inMemoryAppender.stop();
+            context.stop();
+        }
+    }
+
+    @Test
     void shouldFallbackToDefaultWhenAppenderLayoutIsNull() {
         LoggerContext context = new LoggerContext("smart-layout-null-layout");
         Configuration configuration = context.getConfiguration();
