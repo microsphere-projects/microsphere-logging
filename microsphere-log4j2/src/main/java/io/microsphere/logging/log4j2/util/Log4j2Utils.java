@@ -178,12 +178,7 @@ public abstract class Log4j2Utils implements Utils {
      * @return non-null
      */
     public static LoggerContext getLoggerContext() {
-        org.apache.logging.log4j.spi.LoggerContext context = LogManager.getContext(false);
-        if (!(context instanceof LoggerContext)) {
-            throw new IllegalStateException("Log4j2 context is not a core LoggerContext. " +
-                    "Got: " + (context == null ? "null" : context.getClass().getName()));
-        }
-        return (LoggerContext) context;
+        return (LoggerContext) LogManager.getContext(false);
     }
 
     /**
