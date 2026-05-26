@@ -284,9 +284,7 @@ public abstract class Log4j2Utils implements Utils {
             configuration.addAppender(appender);
             for (Logger logger : loggers) {
                 LoggerConfig loggerConfig = logger.get();
-                if (loggerConfig != null) {
-                    loggerConfig.addAppender(appender, null, null);
-                }
+                loggerConfig.addAppender(appender, null, null);
             }
             loggerContext.updateLoggers();
         }
@@ -305,9 +303,7 @@ public abstract class Log4j2Utils implements Utils {
             configuration.getAppenders().remove(appenderName);
             for (Logger logger : loggers) {
                 LoggerConfig loggerConfig = logger.get();
-                if (loggerConfig != null) {
-                    loggerConfig.removeAppender(appenderName);
-                }
+                loggerConfig.removeAppender(appenderName);
             }
             loggerContext.updateLoggers();
         }
