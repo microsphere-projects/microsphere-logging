@@ -23,8 +23,6 @@ import org.apache.logging.log4j.core.Layout;
 import org.apache.logging.log4j.core.LogEvent;
 
 import java.io.Serializable;
-import java.util.Iterator;
-import java.util.Set;
 import java.util.concurrent.ConcurrentSkipListSet;
 
 import static io.microsphere.logging.log4j2.LogEventComparator.INSTANCE;
@@ -33,7 +31,7 @@ import static io.microsphere.logging.log4j2.util.Log4j2Utils.findAppender;
 /**
  * In-Memory {@link Appender} records any {@link LogEvent}
  *
- * @author <a href="mailto:mercyblitz@gmail.com">Mercy<a/>
+ * @author <a href="mailto:mercyblitz@gmail.com">Mercy</a>
  * @see Appender
  * @since 1.0.0
  */
@@ -44,7 +42,7 @@ public class InMemoryAppender extends AbstractLifeCycle implements Appender {
      */
     public static final String NAME = "InMemory";
 
-    private final Set<LogEvent> logEvents = new ConcurrentSkipListSet<>(INSTANCE);
+    private final ConcurrentSkipListSet<LogEvent> logEvents = new ConcurrentSkipListSet<>(INSTANCE);
 
     /**
      * Appends the given {@link LogEvent} to the in-memory collection.
@@ -208,11 +206,9 @@ public class InMemoryAppender extends AbstractLifeCycle implements Appender {
      * }</pre>
      */
     public void transfer(Appender appender) {
-        Iterator<LogEvent> iterator = logEvents.iterator();
-        while (iterator.hasNext()) {
-            LogEvent logEvent = iterator.next();
+        LogEvent logEvent;
+        while ((logEvent = logEvents.pollFirst()) != null) {
             appender.append(logEvent);
-            iterator.remove();
         }
     }
 
