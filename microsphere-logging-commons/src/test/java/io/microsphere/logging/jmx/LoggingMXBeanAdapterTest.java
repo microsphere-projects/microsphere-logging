@@ -26,6 +26,8 @@ import java.util.List;
 
 import static io.microsphere.util.StringUtils.isBlank;
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
@@ -103,6 +105,35 @@ class LoggingMXBeanAdapterTest {
     @Test
     void testEquals() {
         assertTrue(this.loggingMXBeanAdapter.equals(this.logging));
+    }
+
+    @Test
+    void testEqualsSameInstance() {
+        assertEquals(this.loggingMXBeanAdapter, this.loggingMXBeanAdapter);
+    }
+
+    @Test
+    void testEqualsNull() {
+        assertFalse(this.loggingMXBeanAdapter.equals(null));
+    }
+
+    @Test
+    void testEqualsAdapterWithSameLogging() {
+        LoggingMXBeanAdapter other = new LoggingMXBeanAdapter(this.logging);
+        assertEquals(this.loggingMXBeanAdapter, other);
+    }
+
+    @Test
+    void testEqualsAdapterWithDifferentLogging() {
+        TestingLogging otherLogging = new TestingLogging();
+        otherLogging.init("com.example", "ERROR");
+        LoggingMXBeanAdapter other = new LoggingMXBeanAdapter(otherLogging);
+        assertNotEquals(this.loggingMXBeanAdapter, other);
+    }
+
+    @Test
+    void testEqualsDifferentObject() {
+        assertNotEquals(this.loggingMXBeanAdapter, "not-a-logging-instance");
     }
 
     @Test

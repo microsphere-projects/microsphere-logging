@@ -18,9 +18,12 @@
 package io.microsphere.logging.test.junit4;
 
 
+import io.microsphere.annotation.Nullable;
 import org.junit.rules.TestRule;
 import org.junit.runner.Description;
 import org.junit.runners.model.Statement;
+
+import static io.microsphere.util.ArrayUtils.EMPTY_STRING_ARRAY;
 
 /**
  * The {@link TestRule} to iterate Logging levels
@@ -34,7 +37,7 @@ public class LoggingLevelsRule implements TestRule {
 
     private String[] levels;
 
-    protected LoggingLevelsRule(String... levels) {
+    protected LoggingLevelsRule(@Nullable String... levels) {
         this.levels = levels;
     }
 

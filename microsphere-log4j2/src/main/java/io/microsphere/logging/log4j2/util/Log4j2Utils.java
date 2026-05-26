@@ -35,7 +35,7 @@ import static org.apache.logging.log4j.Level.toLevel;
 /**
  * The utilities class for Log4j2
  *
- * @author <a href="mailto:mercyblitz@gmail.com">Mercy<a/>
+ * @author <a href="mailto:mercyblitz@gmail.com">Mercy</a>
  * @see LoggerContext
  * @see Configuration
  * @see Logger
@@ -58,7 +58,7 @@ public abstract class Log4j2Utils implements Utils {
      * Get the Logger by specified name
      *
      * @param loggerName Logger name
-     * @return Logger , maby be null
+     * @return Logger , may be null
      */
     @Nullable
     public static Logger getLogger(@Nonnull String loggerName) {
@@ -69,7 +69,7 @@ public abstract class Log4j2Utils implements Utils {
      * Get the Logger by the request class
      *
      * @param requestClass request class
-     * @return Logger , maby be null
+     * @return Logger , may be null
      */
     @Nullable
     public static Logger getLogger(@Nonnull Class<?> requestClass) {

@@ -154,6 +154,15 @@ public class LoggingMXBeanAdapter implements LoggingMXBean, DelegatingWrapper {
      */
     @Override
     public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null) {
+            return false;
+        }
+        if (obj instanceof LoggingMXBeanAdapter) {
+            return this.logging.equals(((LoggingMXBeanAdapter) obj).logging);
+        }
         return this.logging.equals(obj);
     }
 
