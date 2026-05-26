@@ -22,8 +22,6 @@ import ch.qos.logback.classic.Logger;
 import ch.qos.logback.classic.LoggerContext;
 import io.microsphere.annotation.Nonnull;
 import io.microsphere.annotation.Nullable;
-import org.slf4j.ILoggerFactory;
-
 import static ch.qos.logback.classic.Level.toLevel;
 import static org.slf4j.LoggerFactory.getILoggerFactory;
 
@@ -36,16 +34,7 @@ import static org.slf4j.LoggerFactory.getILoggerFactory;
  */
 public abstract class LogbackUtils {
 
-    static final LoggerContext loggerContext;
-
-    static {
-        ILoggerFactory factory = getILoggerFactory();
-        if (!(factory instanceof LoggerContext)) {
-            throw new IllegalStateException("SLF4J is not bound to Logback. " +
-                    "Expected LoggerContext but got: " + (factory == null ? "null" : factory.getClass().getName()));
-        }
-        loggerContext = (LoggerContext) factory;
-    }
+    static final LoggerContext loggerContext = (LoggerContext) getILoggerFactory();
 
     /**
      * Get the LoggerContext

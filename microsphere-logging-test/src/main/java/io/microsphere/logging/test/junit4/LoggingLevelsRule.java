@@ -32,10 +32,12 @@ import org.junit.runners.model.Statement;
  */
 public class LoggingLevelsRule implements TestRule {
 
+    private static final String[] EMPTY_STRING_ARRAY = new String[0];
+
     private String[] levels;
 
     protected LoggingLevelsRule(String... levels) {
-        this.levels = levels != null ? levels : new String[0];
+        this.levels = levels != null ? levels : EMPTY_STRING_ARRAY;
     }
 
     /**
