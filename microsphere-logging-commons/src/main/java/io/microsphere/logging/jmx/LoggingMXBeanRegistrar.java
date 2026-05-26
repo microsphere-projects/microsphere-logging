@@ -107,7 +107,7 @@ public abstract class LoggingMXBeanRegistrar {
                 instance = mBeanServer.registerMBean(adapter, objectName);
                 logger.info("Registered LoggingMXBean [{}] with ObjectName [{}]", logging, objectName);
             }
-        } catch (Throwable e) {
+        } catch (Exception e) {
             logger.warn("Failed to register LoggingMXBean [{}]", logging, e);
         }
         return instance;

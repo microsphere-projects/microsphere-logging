@@ -35,7 +35,7 @@ public class LoggingLevelsRule implements TestRule {
     private String[] levels;
 
     protected LoggingLevelsRule(String... levels) {
-        this.levels = levels;
+        this.levels = levels != null ? levels : new String[0];
     }
 
     /**

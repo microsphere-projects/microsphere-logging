@@ -35,7 +35,7 @@ import static org.apache.logging.log4j.Level.toLevel;
 /**
  * The utilities class for Log4j2
  *
- * @author <a href="mailto:mercyblitz@gmail.com">Mercy<a/>
+ * @author <a href="mailto:mercyblitz@gmail.com">Mercy</a>
  * @see LoggerContext
  * @see Configuration
  * @see Logger
@@ -58,7 +58,7 @@ public abstract class Log4j2Utils implements Utils {
      * Get the Logger by specified name
      *
      * @param loggerName Logger name
-     * @return Logger , maby be null
+     * @return Logger , may be null
      */
     @Nullable
     public static Logger getLogger(@Nonnull String loggerName) {
@@ -69,7 +69,7 @@ public abstract class Log4j2Utils implements Utils {
      * Get the Logger by the request class
      *
      * @param requestClass request class
-     * @return Logger , maby be null
+     * @return Logger , may be null
      */
     @Nullable
     public static Logger getLogger(@Nonnull Class<?> requestClass) {
@@ -178,7 +178,12 @@ public abstract class Log4j2Utils implements Utils {
      * @return non-null
      */
     public static LoggerContext getLoggerContext() {
-        return (LoggerContext) LogManager.getContext(false);
+        org.apache.logging.log4j.spi.LoggerContext context = LogManager.getContext(false);
+        if (!(context instanceof LoggerContext)) {
+            throw new IllegalStateException("Log4j2 context is not a core LoggerContext. " +
+                    "Got: " + (context == null ? "null" : context.getClass().getName()));
+        }
+        return (LoggerContext) context;
     }
 
     /**
@@ -284,7 +289,9 @@ public abstract class Log4j2Utils implements Utils {
             configuration.addAppender(appender);
             for (Logger logger : loggers) {
                 LoggerConfig loggerConfig = logger.get();
-                loggerConfig.addAppender(appender, null, null);
+                if (loggerConfig != null) {
+                    loggerConfig.addAppender(appender, null, null);
+                }
             }
             loggerContext.updateLoggers();
         }
@@ -303,7 +310,9 @@ public abstract class Log4j2Utils implements Utils {
             configuration.getAppenders().remove(appenderName);
             for (Logger logger : loggers) {
                 LoggerConfig loggerConfig = logger.get();
-                loggerConfig.removeAppender(appenderName);
+                if (loggerConfig != null) {
+                    loggerConfig.removeAppender(appenderName);
+                }
             }
             loggerContext.updateLoggers();
         }
