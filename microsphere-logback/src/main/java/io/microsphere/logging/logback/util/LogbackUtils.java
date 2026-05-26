@@ -22,7 +22,6 @@ import ch.qos.logback.classic.Logger;
 import ch.qos.logback.classic.LoggerContext;
 import io.microsphere.annotation.Nonnull;
 import io.microsphere.annotation.Nullable;
-
 import static ch.qos.logback.classic.Level.toLevel;
 import static org.slf4j.LoggerFactory.getILoggerFactory;
 
@@ -51,7 +50,7 @@ public abstract class LogbackUtils {
      * Get the Logger by specified name
      *
      * @param loggerName Logger name
-     * @return Logger , maby be null
+     * @return Logger , may be null
      */
     @Nullable
     public static Logger getLogger(@Nonnull String loggerName) {
@@ -62,7 +61,7 @@ public abstract class LogbackUtils {
      * Get the Logger by the request class
      *
      * @param requestClass request class
-     * @return Logger , maby be null
+     * @return Logger , may be null
      */
     @Nullable
     public static Logger getLogger(@Nonnull Class<?> requestClass) {
