@@ -149,4 +149,20 @@
 
 ---
 
-**Full Changelog**: https://github.com/microsphere-projects/microsphere-logging/compare/0.1.11...0.1.12
+**Full Changelog**: https://github.com/microsphere-projects/microsphere-logging/compare/0.1.11...0.1.12## v0.1.13
+
+# Release Notes - Version 0.1.13
+
+## Dependency Updates
+- Bumped `microsphere-java.version` to `0.3.5`. ([bbd77e0](#))
+- Updated parent POM version to `0.3.0`. ([9404fd3](#))
+
+## Documentation
+- Fixed formatting in the license section of the `README`. ([06dec31](#))
+
+## Build and Workflow Enhancements
+- Prepared next patch version after publishing `0.1.12`. ([5c95904](#))
+- Merged `main` into `release`. ([074d727](#), [ed5a3b5](#))
+- Merged `release` into `main`. ([df68331](#))
+
+**Full Changelog**: https://github.com/microsphere-projects/microsphere-logging/compare/0.1.12...0.1.13
