@@ -116,4 +116,37 @@
 
 **Note**: For full details of changes, refer to the individual commits in the repository.
 
-**Full Changelog**: https://github.com/microsphere-projects/microsphere-logging/compare/0.1.10...0.1.11
+**Full Changelog**: https://github.com/microsphere-projects/microsphere-logging/compare/0.1.10...0.1.11## v0.1.12
+
+# Release Notes - Version 0.1.12
+
+## New Features
+- Introduced `LogEventComparatorTest` to enhance log event sorting functionality.  
+- Added new tests for `SmartFileAppenderLayout` and `LoggingLevelParameterResolverTest`.
+
+## Bug Fixes
+- Fixed redundant code issues and improved exception handling across modules.  
+- Adjusted `LoggerConfig` to eliminate redundant null checks for cleaner logic.
+
+## Documentation
+- Comprehensive rewrite of `README.md` with improved formatting and expanded content.  
+- Updated maintainer details to reflect Microsphere Projects organization.
+
+## Dependency Updates
+- Bumped dependency on `microsphere-java` to version `0.3.4`.
+
+## Test Improvements
+- Enhanced test coverage by adding missing branches and scenarios.  
+- Refactored test logic for consistency and readability.
+
+## Build and Workflow Enhancements
+- Integrated `.github` prompt templates for better collaboration.  
+- Optimized integration with project branches by merging changes from `main` and cleaning up workflows.
+
+## Other Changes
+- Refactored code structure to replace `List.of()` with `Lists.ofList()` for better compatibility.  
+- Rolled back certain changes in `LogbackUtils` and `getLoggerContext()` for stability.
+
+---
+
+**Full Changelog**: https://github.com/microsphere-projects/microsphere-logging/compare/0.1.11...0.1.12
