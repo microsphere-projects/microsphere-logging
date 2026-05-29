@@ -43,7 +43,6 @@ import static org.apache.logging.log4j.Level.toLevel;
  */
 public abstract class Log4j2Utils implements Utils {
 
-
     /**
      * Get the {@link Configuration}
      *

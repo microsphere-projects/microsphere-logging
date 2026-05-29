@@ -17,7 +17,6 @@
 
 package io.microsphere.logging.log4j2.util;
 
-
 import org.apache.logging.log4j.Level;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.core.Appender;
