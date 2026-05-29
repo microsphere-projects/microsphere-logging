@@ -17,7 +17,6 @@
 
 package io.microsphere.logging.jmx;
 
-
 import io.microsphere.logging.TestingLogging;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;

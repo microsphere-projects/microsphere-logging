@@ -17,7 +17,6 @@
 
 package io.microsphere.logging.log4j.util;
 
-
 import io.microsphere.annotation.Nonnull;
 import io.microsphere.annotation.Nullable;
 import org.apache.log4j.Level;
