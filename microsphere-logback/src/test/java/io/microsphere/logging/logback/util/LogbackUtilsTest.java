@@ -17,7 +17,6 @@
 
 package io.microsphere.logging.logback.util;
 
-
 import ch.qos.logback.classic.Level;
 import ch.qos.logback.classic.Logger;
 import org.junit.jupiter.api.Test;

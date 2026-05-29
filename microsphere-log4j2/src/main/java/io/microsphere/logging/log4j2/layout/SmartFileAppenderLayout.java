@@ -111,7 +111,6 @@ public class SmartFileAppenderLayout<T extends Serializable> implements Layout<T
         return targetAppender;
     }
 
-
     /**
      * {@inheritDoc}
      *
