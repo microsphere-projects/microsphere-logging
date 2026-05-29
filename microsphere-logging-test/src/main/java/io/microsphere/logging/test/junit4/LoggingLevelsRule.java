@@ -17,7 +17,6 @@
 
 package io.microsphere.logging.test.junit4;
 
-
 import io.microsphere.annotation.Nullable;
 import org.junit.rules.TestRule;
 import org.junit.runner.Description;

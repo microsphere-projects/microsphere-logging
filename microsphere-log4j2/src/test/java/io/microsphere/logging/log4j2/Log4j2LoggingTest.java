@@ -17,7 +17,6 @@
 
 package io.microsphere.logging.log4j2;
 
-
 import io.microsphere.logging.Logger;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;

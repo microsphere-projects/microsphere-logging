@@ -17,7 +17,6 @@
 
 package io.microsphere.logging.log4j;
 
-
 import io.microsphere.logging.Logger;
 import io.microsphere.logging.LoggerFactory;
 import org.junit.jupiter.api.BeforeEach;
