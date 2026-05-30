@@ -58,6 +58,7 @@ public class InMemoryAppender extends AbstractLifeCycle implements Appender {
      *       .build();
      *   appender.append(event);
      * }</pre>
+     *
      * @param event the {@link LogEvent} to record
      *
      */
@@ -74,6 +75,7 @@ public class InMemoryAppender extends AbstractLifeCycle implements Appender {
      *   InMemoryAppender appender = new InMemoryAppender();
      *   String name = appender.getName(); // "InMemory"
      * }</pre>
+     *
      * @return the constant name {@value #NAME}
      *
      */
@@ -90,6 +92,7 @@ public class InMemoryAppender extends AbstractLifeCycle implements Appender {
      *   InMemoryAppender appender = new InMemoryAppender();
      *   Layout<?> layout = appender.getLayout(); // null
      * }</pre>
+     *
      * @return always {@code null}
      *
      */
@@ -106,6 +109,7 @@ public class InMemoryAppender extends AbstractLifeCycle implements Appender {
      *   InMemoryAppender appender = new InMemoryAppender();
      *   boolean ignore = appender.ignoreExceptions(); // false
      * }</pre>
+     *
      * @return always {@code false}
      *
      */
@@ -122,6 +126,7 @@ public class InMemoryAppender extends AbstractLifeCycle implements Appender {
      *   InMemoryAppender appender = new InMemoryAppender();
      *   ErrorHandler handler = appender.getHandler(); // null
      * }</pre>
+     *
      * @return always {@code null}
      *
      */
@@ -138,6 +143,7 @@ public class InMemoryAppender extends AbstractLifeCycle implements Appender {
      *   InMemoryAppender appender = new InMemoryAppender();
      *   appender.setHandler(null); // no-op
      * }</pre>
+     *
      * @param handler ignored
      *
      */
@@ -202,6 +208,7 @@ public class InMemoryAppender extends AbstractLifeCycle implements Appender {
      *   FileAppender target = ...;
      *   source.transfer(target);
      * }</pre>
+     *
      * @param appender another {@link Appender}
      *
      */
@@ -223,6 +230,7 @@ public class InMemoryAppender extends AbstractLifeCycle implements Appender {
      *     appender.transfer(anotherAppender);
      *   }
      * }</pre>
+     *
      * @return the registered {@link InMemoryAppender}, or {@code null} if not found
      *
      */

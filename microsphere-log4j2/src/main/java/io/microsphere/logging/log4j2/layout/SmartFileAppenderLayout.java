@@ -58,6 +58,7 @@ public class SmartFileAppenderLayout<T extends Serializable> implements Layout<T
      *   LoggerContext context = (LoggerContext) LogManager.getContext(false);
      *   SmartFileAppenderLayout<?> layout = new SmartFileAppenderLayout<>(context);
      * }</pre>
+     *
      * @param context the {@link LoggerContext} used to discover file appenders
      *
      */

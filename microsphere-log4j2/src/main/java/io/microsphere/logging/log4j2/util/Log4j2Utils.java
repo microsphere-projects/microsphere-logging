@@ -196,6 +196,7 @@ public abstract class Log4j2Utils implements Utils {
      * <pre>{@code
      *   Log4j2Utils.doInLogger(logger -> logger.setLevel(Level.DEBUG));
      * }</pre>
+     *
      * @param loggerConsumer the consumer to apply
      *
      */
@@ -212,6 +213,7 @@ public abstract class Log4j2Utils implements Utils {
      *   Collection<Logger> loggers = Log4j2Utils.getLoggers();
      *   Log4j2Utils.addAppender(appender, loggers);
      * }</pre>
+     *
      * @param appender the {@link Appender} to add
      * @param loggers  the {@link Logger} instances to which the appender is added
      *
@@ -229,6 +231,7 @@ public abstract class Log4j2Utils implements Utils {
      *   InMemoryAppender appender = new InMemoryAppender();
      *   Log4j2Utils.addAppenderForAllLoggers(appender);
      * }</pre>
+     *
      * @param appender the {@link Appender} to add to all loggers
      *
      */
@@ -246,6 +249,7 @@ public abstract class Log4j2Utils implements Utils {
      *   Collection<Logger> loggers = Log4j2Utils.getLoggers();
      *   Log4j2Utils.removeAppender(appender, loggers);
      * }</pre>
+     *
      * @param appender the {@link Appender} to remove
      * @param loggers  the {@link Logger} instances from which the appender is removed
      *
@@ -263,6 +267,7 @@ public abstract class Log4j2Utils implements Utils {
      *   InMemoryAppender appender = Log4j2Utils.findAppender(InMemoryAppender.NAME);
      *   Log4j2Utils.removeAppenderForAllLoggers(appender);
      * }</pre>
+     *
      * @param appender the {@link Appender} to remove from all loggers
      *
      */

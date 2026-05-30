@@ -56,6 +56,7 @@ class LoggingLevelTemplateInvocationContext implements ClassTemplateInvocationCo
      *   LoggingLevelTemplateInvocationContext ctx =
      *       new LoggingLevelTemplateInvocationContext(loggings, new String[]{"io.microsphere"}, "DEBUG", 0, false);
      * }</pre>
+     *
      * @param loggings        the list of {@link Logging} instances to configure
      * @param loggerName      the logger names to apply the level to
      * @param level           the logging level string (e.g. "DEBUG", "INFO")
@@ -112,6 +113,7 @@ class LoggingLevelTemplateInvocationContext implements ClassTemplateInvocationCo
      *   LoggingLevelTemplateInvocationContext ctx = ...;
      *   ctx.prepareInvocation(extensionContext);
      * }</pre>
+     *
      * @param context the current {@link ExtensionContext}
      *
      */

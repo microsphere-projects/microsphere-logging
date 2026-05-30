@@ -49,6 +49,7 @@ public class LogEventComparator implements Comparator<LogEvent> {
      *   int result = LogEventComparator.INSTANCE.compare(event1, event2);
      *   // result < 0 means event1 occurred before event2
      * }</pre>
+     *
      * @param o1 the first {@link LogEvent}
      * @param o2 the second {@link LogEvent}
      * @return a negative integer, zero, or positive integer
