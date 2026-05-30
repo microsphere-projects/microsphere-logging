@@ -17,7 +17,6 @@
 
 package io.microsphere.logging.log4j2.appender;
 
-import io.microsphere.collection.ListUtils;
 import org.apache.logging.log4j.core.Appender;
 import org.apache.logging.log4j.core.LogEvent;
 import org.apache.logging.log4j.core.layout.PatternLayout;

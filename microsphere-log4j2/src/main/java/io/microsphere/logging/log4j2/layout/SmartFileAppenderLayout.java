@@ -17,7 +17,6 @@
 package io.microsphere.logging.log4j2.layout;
 
 import io.microsphere.logging.log4j2.appender.InMemoryAppender;
-import io.microsphere.collection.MapUtils;
 import org.apache.logging.log4j.core.Appender;
 import org.apache.logging.log4j.core.Layout;
 import org.apache.logging.log4j.core.LogEvent;

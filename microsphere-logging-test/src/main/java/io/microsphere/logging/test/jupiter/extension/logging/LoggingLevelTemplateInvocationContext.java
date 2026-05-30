@@ -17,7 +17,6 @@
 
 package io.microsphere.logging.test.jupiter.extension.logging;
 
-import io.microsphere.collection.ListUtils;
 import io.microsphere.logging.Logging;
 import org.junit.jupiter.api.extension.ClassTemplateInvocationContext;
 import org.junit.jupiter.api.extension.Extension;

@@ -19,7 +19,6 @@ package io.microsphere.logging.jmx;
 
 import io.microsphere.annotation.Nonnull;
 import io.microsphere.annotation.Nullable;
-import io.microsphere.collection.ListUtils;
 import io.microsphere.logging.Logger;
 import io.microsphere.logging.Logging;
 
