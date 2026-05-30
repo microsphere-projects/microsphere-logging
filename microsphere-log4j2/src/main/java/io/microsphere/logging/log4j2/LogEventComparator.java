@@ -42,10 +42,6 @@ public class LogEventComparator implements Comparator<LogEvent> {
      * Returns a negative integer, zero, or a positive integer if the first event's time
      * is earlier than, equal to, or later than the second.
      *
-     * @param o1 the first {@link LogEvent}
-     * @param o2 the second {@link LogEvent}
-     * @return a negative integer, zero, or positive integer
-     *
      * <h3>Example Usage</h3>
      * <pre>{@code
      *   LogEvent event1 = ...; // earlier event
@@ -53,6 +49,10 @@ public class LogEventComparator implements Comparator<LogEvent> {
      *   int result = LogEventComparator.INSTANCE.compare(event1, event2);
      *   // result < 0 means event1 occurred before event2
      * }</pre>
+     * @param o1 the first {@link LogEvent}
+     * @param o2 the second {@link LogEvent}
+     * @return a negative integer, zero, or positive integer
+     *
      */
     @Override
     public int compare(LogEvent o1, LogEvent o2) {

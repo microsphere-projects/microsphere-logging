@@ -40,12 +40,12 @@ class Log4jLogger extends AbstractLogger implements DelegatingWrapper {
     /**
      * Creates a new {@link Log4jLogger} for the given logger name.
      *
-     * @param loggerName the name of the logger
-     *
      * <h3>Example Usage</h3>
      * <pre>{@code
      *   Log4jLogger logger = new Log4jLogger("io.microsphere");
      * }</pre>
+     * @param loggerName the name of the logger
+     *
      */
     public Log4jLogger(String loggerName) {
         super(loggerName);

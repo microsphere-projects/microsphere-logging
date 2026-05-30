@@ -37,13 +37,13 @@ public class DelegatingLayout<T extends Serializable> implements Layout<T> {
     /**
      * Creates a new {@link DelegatingLayout} wrapping the given delegate {@link Layout}.
      *
-     * @param delegate the {@link Layout} to delegate to
-     *
      * <h3>Example Usage</h3>
      * <pre>{@code
      *   Layout<String> patternLayout = PatternLayout.newBuilder().withPattern("%m").build();
      *   DelegatingLayout<String> layout = new DelegatingLayout<>(patternLayout);
      * }</pre>
+     * @param delegate the {@link Layout} to delegate to
+     *
      */
     public DelegatingLayout(Layout<T> delegate) {
         this.delegate = delegate;
@@ -163,13 +163,13 @@ public class DelegatingLayout<T extends Serializable> implements Layout<T> {
     /**
      * Returns the underlying delegate {@link Layout}.
      *
-     * @return the delegate {@link Layout}
-     *
      * <h3>Example Usage</h3>
      * <pre>{@code
      *   DelegatingLayout<String> layout = new DelegatingLayout<>(patternLayout);
      *   Layout<String> delegate = layout.getDelegate();
      * }</pre>
+     * @return the delegate {@link Layout}
+     *
      */
     public Layout<T> getDelegate() {
         return delegate;
@@ -178,13 +178,13 @@ public class DelegatingLayout<T extends Serializable> implements Layout<T> {
     /**
      * Sets a new delegate {@link Layout}.
      *
-     * @param delegate the new delegate {@link Layout}
-     *
      * <h3>Example Usage</h3>
      * <pre>{@code
      *   DelegatingLayout<String> layout = new DelegatingLayout<>();
      *   layout.setDelegate(PatternLayout.newBuilder().withPattern("%d %m").build());
      * }</pre>
+     * @param delegate the new delegate {@link Layout}
+     *
      */
     public void setDelegate(Layout<T> delegate) {
         this.delegate = delegate;

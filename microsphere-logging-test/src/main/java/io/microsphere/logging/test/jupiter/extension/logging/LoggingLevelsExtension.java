@@ -124,15 +124,15 @@ public abstract class LoggingLevelsExtension<A extends Annotation> implements Cl
     /**
      * Resolves the {@link LoggingLevelsAttributes} from the annotation on the test class or method.
      *
-     * @param context         the current {@link ExtensionContext}
-     * @param isClassTemplate {@code true} if resolving from a class template; {@code false} for a test template
-     * @return the resolved {@link LoggingLevelsAttributes}
-     *
      * <h3>Example Usage</h3>
      * <pre>{@code
      *   LoggingLevelsAttributes attrs = extension.getLoggingLevelsAttributes(context, false);
      *   String[] levels = attrs.levels; // e.g. ["TRACE", "DEBUG", "INFO"]
      * }</pre>
+     * @param context         the current {@link ExtensionContext}
+     * @param isClassTemplate {@code true} if resolving from a class template; {@code false} for a test template
+     * @return the resolved {@link LoggingLevelsAttributes}
+     *
      */
     protected LoggingLevelsAttributes getLoggingLevelsAttributes(ExtensionContext context, boolean isClassTemplate) {
         AnnotatedElement annotatedElement = isClassTemplate ? context.getRequiredTestClass() : context.getRequiredTestMethod();
@@ -165,15 +165,15 @@ public abstract class LoggingLevelsExtension<A extends Annotation> implements Cl
     /**
      * Builds the stream of {@link LoggingLevelTemplateInvocationContext} instances for the given levels.
      *
-     * @param context         the current {@link ExtensionContext}
-     * @param isClassTemplate {@code true} for class templates; {@code false} for test templates
-     * @return a {@link Stream} of invocation contexts, one per logging level
-     *
      * <h3>Example Usage</h3>
      * <pre>{@code
      *   Stream<LoggingLevelTemplateInvocationContext> stream =
      *       extension.provideInvocationContexts(context, false);
      * }</pre>
+     * @param context         the current {@link ExtensionContext}
+     * @param isClassTemplate {@code true} for class templates; {@code false} for test templates
+     * @return a {@link Stream} of invocation contexts, one per logging level
+     *
      */
     protected Stream<LoggingLevelTemplateInvocationContext> provideInvocationContexts(ExtensionContext context, boolean isClassTemplate) {
         ClassLoader classLoader = getClassLoader(getClass());
@@ -197,15 +197,15 @@ public abstract class LoggingLevelsExtension<A extends Annotation> implements Cl
     /**
      * Resolves the logger names from the annotation attributes or falls back to the test class package name.
      *
-     * @param context    the current {@link ExtensionContext}
-     * @param attributes the resolved {@link LoggingLevelsAttributes}
-     * @return an array of logger names
-     *
      * <h3>Example Usage</h3>
      * <pre>{@code
      *   String[] loggerNames = extension.getLoggerNames(context, attributes);
      *   // If loggingClasses is empty, returns [testClass.getPackage().getName()]
      * }</pre>
+     * @param context    the current {@link ExtensionContext}
+     * @param attributes the resolved {@link LoggingLevelsAttributes}
+     * @return an array of logger names
+     *
      */
     protected String[] getLoggerNames(ExtensionContext context, LoggingLevelsAttributes attributes) {
         Class<?>[] loggingClasses = attributes.loggingClasses;

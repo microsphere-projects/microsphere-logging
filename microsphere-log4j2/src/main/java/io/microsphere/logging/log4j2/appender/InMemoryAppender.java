@@ -47,8 +47,6 @@ public class InMemoryAppender extends AbstractLifeCycle implements Appender {
     /**
      * Appends the given {@link LogEvent} to the in-memory collection.
      *
-     * @param event the {@link LogEvent} to record
-     *
      * <h3>Example Usage</h3>
      * <pre>{@code
      *   InMemoryAppender appender = new InMemoryAppender();
@@ -60,6 +58,8 @@ public class InMemoryAppender extends AbstractLifeCycle implements Appender {
      *       .build();
      *   appender.append(event);
      * }</pre>
+     * @param event the {@link LogEvent} to record
+     *
      */
     @Override
     public void append(LogEvent event) {
@@ -69,13 +69,13 @@ public class InMemoryAppender extends AbstractLifeCycle implements Appender {
     /**
      * Returns the name of this appender, which is {@value #NAME}.
      *
-     * @return the constant name {@value #NAME}
-     *
      * <h3>Example Usage</h3>
      * <pre>{@code
      *   InMemoryAppender appender = new InMemoryAppender();
      *   String name = appender.getName(); // "InMemory"
      * }</pre>
+     * @return the constant name {@value #NAME}
+     *
      */
     @Override
     public String getName() {
@@ -85,13 +85,13 @@ public class InMemoryAppender extends AbstractLifeCycle implements Appender {
     /**
      * Returns {@code null} because this appender does not use a {@link Layout}.
      *
-     * @return always {@code null}
-     *
      * <h3>Example Usage</h3>
      * <pre>{@code
      *   InMemoryAppender appender = new InMemoryAppender();
      *   Layout<?> layout = appender.getLayout(); // null
      * }</pre>
+     * @return always {@code null}
+     *
      */
     @Override
     public Layout<? extends Serializable> getLayout() {
@@ -101,13 +101,13 @@ public class InMemoryAppender extends AbstractLifeCycle implements Appender {
     /**
      * Returns {@code false} because this appender does not silently ignore exceptions.
      *
-     * @return always {@code false}
-     *
      * <h3>Example Usage</h3>
      * <pre>{@code
      *   InMemoryAppender appender = new InMemoryAppender();
      *   boolean ignore = appender.ignoreExceptions(); // false
      * }</pre>
+     * @return always {@code false}
+     *
      */
     @Override
     public boolean ignoreExceptions() {
@@ -117,13 +117,13 @@ public class InMemoryAppender extends AbstractLifeCycle implements Appender {
     /**
      * Returns {@code null} because this appender does not use an {@link ErrorHandler}.
      *
-     * @return always {@code null}
-     *
      * <h3>Example Usage</h3>
      * <pre>{@code
      *   InMemoryAppender appender = new InMemoryAppender();
      *   ErrorHandler handler = appender.getHandler(); // null
      * }</pre>
+     * @return always {@code null}
+     *
      */
     @Override
     public ErrorHandler getHandler() {
@@ -133,13 +133,13 @@ public class InMemoryAppender extends AbstractLifeCycle implements Appender {
     /**
      * No-op: this appender does not support setting an {@link ErrorHandler}.
      *
-     * @param handler ignored
-     *
      * <h3>Example Usage</h3>
      * <pre>{@code
      *   InMemoryAppender appender = new InMemoryAppender();
      *   appender.setHandler(null); // no-op
      * }</pre>
+     * @param handler ignored
+     *
      */
     @Override
     public void setHandler(ErrorHandler handler) {
@@ -194,8 +194,6 @@ public class InMemoryAppender extends AbstractLifeCycle implements Appender {
     /**
      * Transfer all log events to another {@link Appender}
      *
-     * @param appender another {@link Appender}
-     *
      * <h3>Example Usage</h3>
      * <pre>{@code
      *   InMemoryAppender source = new InMemoryAppender();
@@ -204,6 +202,8 @@ public class InMemoryAppender extends AbstractLifeCycle implements Appender {
      *   FileAppender target = ...;
      *   source.transfer(target);
      * }</pre>
+     * @param appender another {@link Appender}
+     *
      */
     public void transfer(Appender appender) {
         LogEvent logEvent;
@@ -216,8 +216,6 @@ public class InMemoryAppender extends AbstractLifeCycle implements Appender {
      * Finds and returns the {@link InMemoryAppender} registered in the current Log4j2 configuration,
      * or {@code null} if none is registered.
      *
-     * @return the registered {@link InMemoryAppender}, or {@code null} if not found
-     *
      * <h3>Example Usage</h3>
      * <pre>{@code
      *   InMemoryAppender appender = InMemoryAppender.findInMemoryAppender();
@@ -225,6 +223,8 @@ public class InMemoryAppender extends AbstractLifeCycle implements Appender {
      *     appender.transfer(anotherAppender);
      *   }
      * }</pre>
+     * @return the registered {@link InMemoryAppender}, or {@code null} if not found
+     *
      */
     public static InMemoryAppender findInMemoryAppender() {
         return findAppender(NAME);
