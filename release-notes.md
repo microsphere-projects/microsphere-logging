@@ -165,4 +165,25 @@
 - Merged `main` into `release`. ([074d727](#), [ed5a3b5](#))
 - Merged `release` into `main`. ([df68331](#))
 
-**Full Changelog**: https://github.com/microsphere-projects/microsphere-logging/compare/0.1.12...0.1.13
+**Full Changelog**: https://github.com/microsphere-projects/microsphere-logging/compare/0.1.12...0.1.13## v0.1.14
+
+# Release Notes - Version 0.1.14
+
+## New Features
+- **Refactoring:** Refactored collection constructors to use `ListUtils` and `MapUtils` factory methods for improved clarity and performance. (#37)
+
+## Bug Fixes
+- Fixed JavaDoc formatting issues and removed unused imports. (#36)  
+- Removed unnecessary imports and eliminated duplicated line separators and trailing whitespace. (#34)
+
+## Documentation
+- Improved JavaDoc structure: moved "Example Usage" section above `@param` tags for better readability. (#36)  
+
+## Dependency Updates
+- Bumped `microsphere-java` dependency version to `0.3.6`.  
+
+## Other Changes
+- General code cleanup and maintenance tasks.  
+- Integrated multiple main branch updates into the release branch.  
+
+**Full Changelog**: https://github.com/microsphere-projects/microsphere-logging/compare/0.1.13...0.1.14
