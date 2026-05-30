@@ -97,8 +97,7 @@ class LoggingLevelTemplateInvocationContext implements ClassTemplateInvocationCo
      */
     @Override
     public List<Extension> getAdditionalExtensions() {
-        List<Extension> extensions = newArrayList();
-        extensions.ensureCapacity(this.isClassTemplate ? 2 : 1);
+        List<Extension> extensions = newArrayList(this.isClassTemplate ? 2 : 1);
         extensions.add(new LoggingLevelCallback(this.loggins, this.loggerName, this.level));
         if (this.isClassTemplate) {
             extensions.add(new LoggingLevelParameterResolver(this.level, this.index));
