@@ -23,9 +23,9 @@ import org.apache.logging.log4j.core.layout.PatternLayout;
 import org.apache.logging.log4j.message.SimpleMessage;
 import org.junit.jupiter.api.Test;
 
-import java.util.ArrayList;
 import java.util.List;
 
+import static io.microsphere.collection.ListUtils.newArrayList;
 import static io.microsphere.logging.log4j2.appender.InMemoryAppender.NAME;
 import static io.microsphere.logging.log4j2.appender.InMemoryAppender.findInMemoryAppender;
 import static java.lang.Thread.sleep;
@@ -111,7 +111,7 @@ class InMemoryAppenderTest {
     }
 
     private static class CollectingAppender implements Appender {
-        private final List<LogEvent> events = new ArrayList<>();
+        private final List<LogEvent> events = newArrayList();
 
         @Override
         public void append(LogEvent event) {

@@ -25,6 +25,7 @@ import org.apache.logging.log4j.core.LogEvent;
 import java.io.Serializable;
 import java.util.concurrent.ConcurrentSkipListSet;
 
+import static io.microsphere.collection.SetUtils.newConcurrentSkipListSet;
 import static io.microsphere.logging.log4j2.LogEventComparator.INSTANCE;
 import static io.microsphere.logging.log4j2.util.Log4j2Utils.findAppender;
 
@@ -42,7 +43,7 @@ public class InMemoryAppender extends AbstractLifeCycle implements Appender {
      */
     public static final String NAME = "InMemory";
 
-    private final ConcurrentSkipListSet<LogEvent> logEvents = new ConcurrentSkipListSet<>(INSTANCE);
+    private final ConcurrentSkipListSet<LogEvent> logEvents = newConcurrentSkipListSet(INSTANCE);
 
     /**
      * Appends the given {@link LogEvent} to the in-memory collection.

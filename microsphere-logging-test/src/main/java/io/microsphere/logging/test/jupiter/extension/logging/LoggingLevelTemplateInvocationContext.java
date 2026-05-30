@@ -23,8 +23,9 @@ import org.junit.jupiter.api.extension.Extension;
 import org.junit.jupiter.api.extension.ExtensionContext;
 import org.junit.jupiter.api.extension.TestTemplateInvocationContext;
 
-import java.util.ArrayList;
 import java.util.List;
+
+import static io.microsphere.collection.ListUtils.newArrayList;
 
 /**
  * The facade class of {@link ClassTemplateInvocationContext} and {@link TestTemplateInvocationContext} to set the
@@ -96,7 +97,7 @@ class LoggingLevelTemplateInvocationContext implements ClassTemplateInvocationCo
      */
     @Override
     public List<Extension> getAdditionalExtensions() {
-        List<Extension> extensions = new ArrayList<>(this.isClassTemplate ? 2 : 1);
+        List<Extension> extensions = newArrayList(this.isClassTemplate ? 2 : 1);
         extensions.add(new LoggingLevelCallback(this.loggins, this.loggerName, this.level));
         if (this.isClassTemplate) {
             extensions.add(new LoggingLevelParameterResolver(this.level, this.index));
