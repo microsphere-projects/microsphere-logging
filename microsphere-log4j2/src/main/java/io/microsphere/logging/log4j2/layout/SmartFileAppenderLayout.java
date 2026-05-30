@@ -17,6 +17,7 @@
 package io.microsphere.logging.log4j2.layout;
 
 import io.microsphere.logging.log4j2.appender.InMemoryAppender;
+import io.microsphere.collection.MapUtils;
 import org.apache.logging.log4j.core.Appender;
 import org.apache.logging.log4j.core.Layout;
 import org.apache.logging.log4j.core.LogEvent;
@@ -27,9 +28,9 @@ import org.apache.logging.log4j.core.appender.RollingFileAppender;
 import org.apache.logging.log4j.core.layout.ByteBufferDestination;
 
 import java.io.Serializable;
-import java.util.HashMap;
 import java.util.Map;
 
+import static io.microsphere.collection.MapUtils.newHashMap;
 import static io.microsphere.logging.log4j2.appender.InMemoryAppender.NAME;
 import static org.apache.logging.log4j.core.layout.PatternLayout.newBuilder;
 
@@ -66,7 +67,7 @@ public class SmartFileAppenderLayout<T extends Serializable> implements Layout<T
     }
 
     private Map<String, Layout> initDelegatingLayouts(LoggerContext context) {
-        Map<String, Layout> delegatingLayouts = new HashMap<>();
+        Map<String, Layout> delegatingLayouts = newHashMap();
         for (Logger logger : context.getLoggers()) {
             String loggerName = logger.getName();
             Layout layout = selectLayout(logger);
@@ -91,7 +92,7 @@ public class SmartFileAppenderLayout<T extends Serializable> implements Layout<T
 
     private Appender selectAppender(Logger logger, Class<? extends Appender> appenderClass) {
         Appender targetAppender = null;
-        Map<String, Appender> appendersMap = new HashMap<>(logger.getAppenders());
+        Map<String, Appender> appendersMap = newHashMap(logger.getAppenders());
         appendersMap.remove(NAME);
         if (appendersMap.isEmpty()) {
             Logger parentLogger = logger.getParent();

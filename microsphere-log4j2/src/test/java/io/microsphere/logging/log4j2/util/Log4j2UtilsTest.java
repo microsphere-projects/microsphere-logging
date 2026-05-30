@@ -17,6 +17,7 @@
 
 package io.microsphere.logging.log4j2.util;
 
+import io.microsphere.collection.ListUtils;
 import org.apache.logging.log4j.Level;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.core.Appender;
@@ -31,10 +32,10 @@ import org.apache.logging.log4j.core.layout.PatternLayout;
 import org.junit.jupiter.api.Test;
 
 import java.io.Serializable;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.atomic.AtomicInteger;
 
+import static io.microsphere.collection.ListUtils.newArrayList;
 import static io.microsphere.logging.log4j2.util.Log4j2Utils.addAppender;
 import static io.microsphere.logging.log4j2.util.Log4j2Utils.findAppender;
 import static io.microsphere.logging.log4j2.util.Log4j2Utils.getLevel;
@@ -172,7 +173,7 @@ class Log4j2UtilsTest {
     @Test
     void shouldCoverAddRemoveAppenderStaticHelpers() {
         LoggerContext context = (LoggerContext) LogManager.getContext(false);
-        List<Logger> targets = new ArrayList<>();
+        List<Logger> targets = newArrayList();
         targets.add(context.getRootLogger());
 
         TestAppender appender = new TestAppender("helperAppender");
@@ -197,7 +198,7 @@ class Log4j2UtilsTest {
     @Test
     void shouldCoverAddRemoveAppenderNullGuardsAndLifecycleBranches() {
         LoggerContext context = (LoggerContext) LogManager.getContext(false);
-        List<Logger> targets = new ArrayList<>();
+        List<Logger> targets = newArrayList();
         targets.add(context.getRootLogger());
 
         // null guard branches

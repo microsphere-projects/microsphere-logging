@@ -19,6 +19,7 @@ package io.microsphere.logging.jmx;
 
 import io.microsphere.annotation.Nonnull;
 import io.microsphere.annotation.Nullable;
+import io.microsphere.collection.ListUtils;
 import io.microsphere.logging.Logger;
 import io.microsphere.logging.Logging;
 
@@ -26,12 +27,12 @@ import javax.management.MBeanServer;
 import javax.management.MalformedObjectNameException;
 import javax.management.ObjectInstance;
 import javax.management.ObjectName;
-import java.util.LinkedList;
 import java.util.List;
 import java.util.ServiceLoader;
 import java.util.Set;
 import java.util.logging.LoggingMXBean;
 
+import static io.microsphere.collection.ListUtils.newLinkedList;
 import static io.microsphere.lang.function.ThrowableSupplier.execute;
 import static io.microsphere.logging.LoggerFactory.getLogger;
 import static io.microsphere.logging.LoggingUtils.loadAll;
@@ -75,7 +76,7 @@ public abstract class LoggingMXBeanRegistrar {
      */
     @Nonnull
     public static List<ObjectInstance> registerAll(ClassLoader classLoader) {
-        List<ObjectInstance> instances = new LinkedList<>();
+        List<ObjectInstance> instances = newLinkedList();
         Iterable<Logging> loggings = loadAll(classLoader);
         for (Logging logging : loggings) {
             ObjectInstance instance = register(logging);
