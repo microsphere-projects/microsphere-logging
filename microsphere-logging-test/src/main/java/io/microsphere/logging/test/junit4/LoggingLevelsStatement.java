@@ -49,14 +49,14 @@ public class LoggingLevelsStatement extends Statement {
     /**
      * Creates a new {@link LoggingLevelsStatement} with the specified statement, description, and logging levels.
      *
-     * @param next        the original JUnit {@link Statement} to wrap
-     * @param description the test {@link Description}
-     * @param levels      the logging level names to iterate
-     *
      * <h3>Example Usage</h3>
      * <pre>{@code
      *   LoggingLevelsStatement statement = new LoggingLevelsStatement(base, description, "TRACE", "DEBUG", "INFO");
      * }</pre>
+     * @param next        the original JUnit {@link Statement} to wrap
+     * @param description the test {@link Description}
+     * @param levels      the logging level names to iterate
+     *
      */
     protected LoggingLevelsStatement(Statement next, Description description, String... levels) {
         this.next = next;

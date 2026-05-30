@@ -52,15 +52,15 @@ class LoggingLevelCallback implements BeforeEachCallback, AfterEachCallback {
     /**
      * Creates a new {@link LoggingLevelCallback}.
      *
-     * @param loggings    the list of {@link Logging} instances to configure
-     * @param loggerNames the logger names to set the level on
-     * @param level       the logging level string to apply (e.g. "DEBUG", "INFO")
-     *
      * <h3>Example Usage</h3>
      * <pre>{@code
      *   List<Logging> loggings = LoggingUtils.loadAll();
      *   LoggingLevelCallback callback = new LoggingLevelCallback(loggings, new String[]{"io.microsphere"}, "DEBUG");
      * }</pre>
+     * @param loggings    the list of {@link Logging} instances to configure
+     * @param loggerNames the logger names to set the level on
+     * @param level       the logging level string to apply (e.g. "DEBUG", "INFO")
+     *
      */
     LoggingLevelCallback(List<Logging> loggings, String[] loggerNames, String level) {
         this.loggings = loggings;
@@ -73,13 +73,13 @@ class LoggingLevelCallback implements BeforeEachCallback, AfterEachCallback {
      * Sets the logging level for each logger name before each test method executes,
      * storing the original levels for later restoration.
      *
-     * @param context the current {@link ExtensionContext}
-     *
      * <h3>Example Usage</h3>
      * <pre>{@code
      *   // Called automatically by JUnit 5 before each test method in a @LoggingLevelsTest template
      *   callback.beforeEach(extensionContext);
      * }</pre>
+     * @param context the current {@link ExtensionContext}
+     *
      */
     @Override
     public void beforeEach(ExtensionContext context) {
@@ -98,13 +98,13 @@ class LoggingLevelCallback implements BeforeEachCallback, AfterEachCallback {
     /**
      * Restores the original logging levels for each logger name after each test method completes.
      *
-     * @param context the current {@link ExtensionContext}
-     *
      * <h3>Example Usage</h3>
      * <pre>{@code
      *   // Called automatically by JUnit 5 after each test method in a @LoggingLevelsTest template
      *   callback.afterEach(extensionContext);
      * }</pre>
+     * @param context the current {@link ExtensionContext}
+     *
      */
     @Override
     public void afterEach(ExtensionContext context) {

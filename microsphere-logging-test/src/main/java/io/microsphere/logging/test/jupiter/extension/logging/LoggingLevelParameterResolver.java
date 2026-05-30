@@ -41,13 +41,13 @@ class LoggingLevelParameterResolver implements ParameterResolver {
     /**
      * Creates a new {@link LoggingLevelParameterResolver} with the given level and index.
      *
-     * @param level the logging level string (e.g. "DEBUG", "INFO")
-     * @param index the zero-based index of the level in the levels array
-     *
      * <h3>Example Usage</h3>
      * <pre>{@code
      *   LoggingLevelParameterResolver resolver = new LoggingLevelParameterResolver("DEBUG", 0);
      * }</pre>
+     * @param level the logging level string (e.g. "DEBUG", "INFO")
+     * @param index the zero-based index of the level in the levels array
+     *
      */
     LoggingLevelParameterResolver(String level, int index) {
         this.level = level;

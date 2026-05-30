@@ -50,18 +50,18 @@ class LoggingLevelTemplateInvocationContext implements ClassTemplateInvocationCo
     /**
      * Creates a new {@link LoggingLevelTemplateInvocationContext}.
      *
-     * @param loggings        the list of {@link Logging} instances to configure
-     * @param loggerName      the logger names to apply the level to
-     * @param level           the logging level string (e.g. "DEBUG", "INFO")
-     * @param index           the zero-based index of this level in the levels array
-     * @param isClassTemplate {@code true} if this is a class template context
-     *
      * <h3>Example Usage</h3>
      * <pre>{@code
      *   List<Logging> loggings = LoggingUtils.loadAll();
      *   LoggingLevelTemplateInvocationContext ctx =
      *       new LoggingLevelTemplateInvocationContext(loggings, new String[]{"io.microsphere"}, "DEBUG", 0, false);
      * }</pre>
+     * @param loggings        the list of {@link Logging} instances to configure
+     * @param loggerName      the logger names to apply the level to
+     * @param level           the logging level string (e.g. "DEBUG", "INFO")
+     * @param index           the zero-based index of this level in the levels array
+     * @param isClassTemplate {@code true} if this is a class template context
+     *
      */
     LoggingLevelTemplateInvocationContext(List<Logging> loggings, String[] loggerName, String level, int index, boolean isClassTemplate) {
         this.loggins = loggings;
@@ -107,13 +107,13 @@ class LoggingLevelTemplateInvocationContext implements ClassTemplateInvocationCo
     /**
      * Prepares the invocation context before each test execution.
      *
-     * @param context the current {@link ExtensionContext}
-     *
      * <h3>Example Usage</h3>
      * <pre>{@code
      *   LoggingLevelTemplateInvocationContext ctx = ...;
      *   ctx.prepareInvocation(extensionContext);
      * }</pre>
+     * @param context the current {@link ExtensionContext}
+     *
      */
     public void prepareInvocation(ExtensionContext context) {
     }

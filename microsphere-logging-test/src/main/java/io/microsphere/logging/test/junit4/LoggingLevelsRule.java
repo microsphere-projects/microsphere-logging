@@ -57,14 +57,14 @@ public class LoggingLevelsRule implements TestRule {
     /**
      * Creates a new {@link LoggingLevelsRule} for the given logging levels.
      *
-     * @param levels the logging levels to iterate through (e.g. "TRACE", "DEBUG", "INFO")
-     * @return a new {@link LoggingLevelsRule}
-     *
      * <h3>Example Usage</h3>
      * <pre>{@code
      *   @ClassRule
      *   public static final LoggingLevelsRule loggingLevelsRule = LoggingLevelsRule.levels("TRACE", "DEBUG", "INFO");
      * }</pre>
+     * @param levels the logging levels to iterate through (e.g. "TRACE", "DEBUG", "INFO")
+     * @return a new {@link LoggingLevelsRule}
+     *
      */
     public static LoggingLevelsRule levels(String... levels) {
         return new LoggingLevelsRule(levels);

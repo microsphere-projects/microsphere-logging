@@ -38,13 +38,13 @@ public class LoggingMXBeanAdapter implements LoggingMXBean, DelegatingWrapper {
     /**
      * Creates a new {@link LoggingMXBeanAdapter} wrapping the given {@link Logging} instance.
      *
-     * @param logging the {@link Logging} delegate; must not be {@code null}
-     *
      * <h3>Example Usage</h3>
      * <pre>{@code
      *   Logging logging = LoggingUtils.load();
      *   LoggingMXBeanAdapter adapter = new LoggingMXBeanAdapter(logging);
      * }</pre>
+     * @param logging the {@link Logging} delegate; must not be {@code null}
+     *
      */
     public LoggingMXBeanAdapter(Logging logging) {
         this.logging = logging;
