@@ -45,6 +45,7 @@ class LoggingLevelParameterResolver implements ParameterResolver {
      * <pre>{@code
      *   LoggingLevelParameterResolver resolver = new LoggingLevelParameterResolver("DEBUG", 0);
      * }</pre>
+     *
      * @param level the logging level string (e.g. "DEBUG", "INFO")
      * @param index the zero-based index of the level in the levels array
      *

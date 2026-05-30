@@ -42,6 +42,7 @@ class Log4j2Logger extends AbstractLogger implements DelegatingWrapper {
      * <pre>{@code
      *   Log4j2Logger logger = new Log4j2Logger("io.microsphere");
      * }</pre>
+     *
      * @param loggerName the name of the logger
      *
      */

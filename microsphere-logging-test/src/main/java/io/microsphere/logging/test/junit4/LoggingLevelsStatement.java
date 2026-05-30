@@ -53,6 +53,7 @@ public class LoggingLevelsStatement extends Statement {
      * <pre>{@code
      *   LoggingLevelsStatement statement = new LoggingLevelsStatement(base, description, "TRACE", "DEBUG", "INFO");
      * }</pre>
+     *
      * @param next        the original JUnit {@link Statement} to wrap
      * @param description the test {@link Description}
      * @param levels      the logging level names to iterate

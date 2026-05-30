@@ -22,8 +22,6 @@ import org.junit.rules.TestRule;
 import org.junit.runner.Description;
 import org.junit.runners.model.Statement;
 
-import static io.microsphere.util.ArrayUtils.EMPTY_STRING_ARRAY;
-
 /**
  * The {@link TestRule} to iterate Logging levels
  *
@@ -62,6 +60,7 @@ public class LoggingLevelsRule implements TestRule {
      *   @ClassRule
      *   public static final LoggingLevelsRule loggingLevelsRule = LoggingLevelsRule.levels("TRACE", "DEBUG", "INFO");
      * }</pre>
+     *
      * @param levels the logging levels to iterate through (e.g. "TRACE", "DEBUG", "INFO")
      * @return a new {@link LoggingLevelsRule}
      *
