@@ -57,6 +57,7 @@ class LoggingLevelCallback implements BeforeEachCallback, AfterEachCallback {
      *   List<Logging> loggings = LoggingUtils.loadAll();
      *   LoggingLevelCallback callback = new LoggingLevelCallback(loggings, new String[]{"io.microsphere"}, "DEBUG");
      * }</pre>
+     *
      * @param loggings    the list of {@link Logging} instances to configure
      * @param loggerNames the logger names to set the level on
      * @param level       the logging level string to apply (e.g. "DEBUG", "INFO")
@@ -78,6 +79,7 @@ class LoggingLevelCallback implements BeforeEachCallback, AfterEachCallback {
      *   // Called automatically by JUnit 5 before each test method in a @LoggingLevelsTest template
      *   callback.beforeEach(extensionContext);
      * }</pre>
+     *
      * @param context the current {@link ExtensionContext}
      *
      */
@@ -103,6 +105,7 @@ class LoggingLevelCallback implements BeforeEachCallback, AfterEachCallback {
      *   // Called automatically by JUnit 5 after each test method in a @LoggingLevelsTest template
      *   callback.afterEach(extensionContext);
      * }</pre>
+     *
      * @param context the current {@link ExtensionContext}
      *
      */

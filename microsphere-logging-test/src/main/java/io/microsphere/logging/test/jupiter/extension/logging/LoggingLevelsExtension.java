@@ -129,6 +129,7 @@ public abstract class LoggingLevelsExtension<A extends Annotation> implements Cl
      *   LoggingLevelsAttributes attrs = extension.getLoggingLevelsAttributes(context, false);
      *   String[] levels = attrs.levels; // e.g. ["TRACE", "DEBUG", "INFO"]
      * }</pre>
+     *
      * @param context         the current {@link ExtensionContext}
      * @param isClassTemplate {@code true} if resolving from a class template; {@code false} for a test template
      * @return the resolved {@link LoggingLevelsAttributes}
@@ -170,6 +171,7 @@ public abstract class LoggingLevelsExtension<A extends Annotation> implements Cl
      *   Stream<LoggingLevelTemplateInvocationContext> stream =
      *       extension.provideInvocationContexts(context, false);
      * }</pre>
+     *
      * @param context         the current {@link ExtensionContext}
      * @param isClassTemplate {@code true} for class templates; {@code false} for test templates
      * @return a {@link Stream} of invocation contexts, one per logging level
@@ -202,6 +204,7 @@ public abstract class LoggingLevelsExtension<A extends Annotation> implements Cl
      *   String[] loggerNames = extension.getLoggerNames(context, attributes);
      *   // If loggingClasses is empty, returns [testClass.getPackage().getName()]
      * }</pre>
+     *
      * @param context    the current {@link ExtensionContext}
      * @param attributes the resolved {@link LoggingLevelsAttributes}
      * @return an array of logger names
