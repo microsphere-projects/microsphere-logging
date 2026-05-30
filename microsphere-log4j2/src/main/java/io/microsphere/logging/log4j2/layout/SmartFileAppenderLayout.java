@@ -53,13 +53,13 @@ public class SmartFileAppenderLayout<T extends Serializable> implements Layout<T
      * Creates a new {@link SmartFileAppenderLayout} that inspects the given {@link LoggerContext}
      * to select the appropriate delegating {@link Layout} per logger name.
      *
-     * @param context the {@link LoggerContext} used to discover file appenders
-     *
      * <h3>Example Usage</h3>
      * <pre>{@code
      *   LoggerContext context = (LoggerContext) LogManager.getContext(false);
      *   SmartFileAppenderLayout<?> layout = new SmartFileAppenderLayout<>(context);
      * }</pre>
+     * @param context the {@link LoggerContext} used to discover file appenders
+     *
      */
     public SmartFileAppenderLayout(LoggerContext context) {
         this.delegatingLayouts = initDelegatingLayouts(context);
