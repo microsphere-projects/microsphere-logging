@@ -186,4 +186,19 @@
 - General code cleanup and maintenance tasks.  
 - Integrated multiple main branch updates into the release branch.  
 
-**Full Changelog**: https://github.com/microsphere-projects/microsphere-logging/compare/0.1.13...0.1.14
+**Full Changelog**: https://github.com/microsphere-projects/microsphere-logging/compare/0.1.13...0.1.14## v0.1.15
+
+# Release Notes - Version 0.1.15
+
+## Dependency Updates
+- Bumped `microsphere-java` to `0.3.7`.  
+- Updated parent project version to `0.3.1`.
+
+## Build and Workflow Enhancements
+- Synced `main` with `release` branch.  
+- Automated version bump to `0.1.15`.  
+
+---  
+No new features, bug fixes, or documentation changes in this release.
+
+**Full Changelog**: https://github.com/microsphere-projects/microsphere-logging/compare/0.1.14...0.1.15
