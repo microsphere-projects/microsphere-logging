@@ -276,4 +276,19 @@ No new features, bug fixes, or documentation changes in this release.
 ## Other Changes
 - Bumped version to the next patch after publishing `0.1.19`.  
 
-**Full Changelog**: https://github.com/microsphere-projects/microsphere-logging/compare/0.1.19...0.1.20
+**Full Changelog**: https://github.com/microsphere-projects/microsphere-logging/compare/0.1.19...0.1.20## v0.1.21
+
+# Release Notes - Version 0.1.21
+
+## Dependency Updates
+- Upgraded `microsphere-java` to version `0.3.14`. ([e8a83c8](#))
+- Updated `microsphere-build` parent to version `0.3.7`. ([be68044](#))
+
+## Build and Workflow Enhancements
+- Merged `main` into `release` branch. ([5af7e64](#), [cfd486a](#))
+- Synced `release` into `main` branch. ([5889d97](#))
+- Bumped version to the next patch post `0.1.20` release. ([d399459](#))
+
+---
+
+**Full Changelog**: https://github.com/microsphere-projects/microsphere-logging/compare/0.1.20...0.1.21
