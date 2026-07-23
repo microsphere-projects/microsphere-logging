@@ -27,6 +27,13 @@
             <version>${revision}</version>
         </dependency>
 
+        <!-- Microsphere Java -->
+        <dependency>
+            <groupId>io.github.microsphere-projects</groupId>
+            <artifactId>microsphere-java-core</artifactId>
+            <optional>true</optional>
+        </dependency>
+
         <!-- Log4j-->
         <dependency>
             <groupId>log4j</groupId>
