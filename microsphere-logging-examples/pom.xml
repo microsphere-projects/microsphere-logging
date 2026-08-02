@@ -34,6 +34,12 @@
     </dependencyManagement>
 
     <dependencies>
+        <!-- Microsphere Java Core -->
+        <dependency>
+            <groupId>io.github.microsphere-projects</groupId>
+            <artifactId>microsphere-java-core</artifactId>
+        </dependency>
+
         <!-- Microsphere Java Logging -->
         <dependency>
             <groupId>io.github.microsphere-projects</groupId>
