@@ -1,0 +1,82 @@
+# Example GitHub Actions workflow for using the release notes generator
+# This workflow demonstrates how to integrate the generate-release-notes.py script
+# into your release process using GitHub Models API (free tier with GPT-4o)
+
+name: Generate Release Notes Example
+
+# Trigger on tag creation (e.g., when you create a release tag like v1.0.0)
+on:
+  push:
+    tags:
+      - 'v*'
+  workflow_dispatch:
+    inputs:
+      from_tag:
+        description: 'Previous tag (optional - will auto-detect if omitted)'
+        required: false
+      to_tag:
+        description: 'Current tag (required)'
+        required: true
+
+permissions:
+  contents: write
+  
+jobs:
+  generate-release-notes:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0  # Full history needed for commit analysis
+      
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.11'
+      
+      - name: Determine tags
+        id: tags
+        run: |
+          # Use workflow input if provided, otherwise use push event ref
+          TO_TAG="${{ github.event.inputs.to_tag || github.ref_name }}"
+          
+          # If no FROM_TAG specified, find the previous tag
+          if [ -z "${{ github.event.inputs.from_tag }}" ]; then
+            FROM_TAG=$(git describe --tags --abbrev=0 --exclude="${TO_TAG}" HEAD 2>/dev/null || echo "")
+          else
+            FROM_TAG="${{ github.event.inputs.from_tag }}"
+          fi
+          
+          echo "to_tag=${TO_TAG}" >> $GITHUB_OUTPUT
+          echo "from_tag=${FROM_TAG}" >> $GITHUB_OUTPUT
+          
+          echo "Generating release notes from ${FROM_TAG} to ${TO_TAG}"
+      
+      - name: Generate Release Notes
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          python3 .github/scripts/generate-release-notes.py \
+            --from "${{ steps.tags.outputs.from_tag }}" \
+            --to "${{ steps.tags.outputs.to_tag }}" \
+            --output release-notes.md
+      
+      - name: Commit release notes
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          
+          if git diff --quiet release-notes.md; then
+            echo "No changes to release notes"
+          else
+            git add release-notes.md
+            git commit -m "docs: update release notes for ${{ steps.tags.outputs.to_tag }}"
+            git push
+          fi
+      
+      - name: Display Release Notes
+        run: |
+          echo "Generated Release Notes:"
+          echo "========================"
+          tail -n +2 release-notes.md | head -50  # Show latest section
