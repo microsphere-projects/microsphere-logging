@@ -43,9 +43,11 @@ The `generate-release-notes.py` script:
 
 ### Setup
 
+The script is located at `.github/scripts/generate-release-notes.py`
+
 ```bash
 # No external dependencies - uses Python standard library!
-python3 generate-release-notes.py --help
+python3 .github/scripts/generate-release-notes.py --help
 ```
 
 ## Usage
@@ -56,7 +58,7 @@ Generate release notes between two tags:
 
 ```bash
 export GH_TOKEN="your-github-token"
-python3 generate-release-notes.py --from v1.0.0 --to v1.1.0
+python3 .github/scripts/generate-release-notes.py --from v1.0.0 --to v1.1.0
 ```
 
 ### Auto-Detect Previous Tag
@@ -65,7 +67,7 @@ If you don't specify `--from`, the script finds the most recent previous tag:
 
 ```bash
 export GH_TOKEN="your-github-token"
-python3 generate-release-notes.py --to v1.1.0
+python3 .github/scripts/generate-release-notes.py --to v1.1.0
 ```
 
 ### Save to File
@@ -74,7 +76,7 @@ Append generated notes to `release-notes.md`:
 
 ```bash
 export GH_TOKEN="your-github-token"
-python3 generate-release-notes.py --from v1.0.0 --to v1.1.0 --output release-notes.md
+python3 .github/scripts/generate-release-notes.py --from v1.0.0 --to v1.1.0 --output release-notes.md
 ```
 
 ### Dry-Run Mode
@@ -83,14 +85,14 @@ Preview the generated notes without saving to a file:
 
 ```bash
 export GH_TOKEN="your-github-token"
-python3 generate-release-notes.py --from v1.0.0 --to v1.1.0 --dry-run
+python3 .github/scripts/generate-release-notes.py --from v1.0.0 --to v1.1.0 --dry-run
 ```
 
 ### Custom Repository Path
 
 ```bash
 export GH_TOKEN="your-github-token"
-python3 generate-release-notes.py --from v1.0.0 --to v1.1.0 --repo /path/to/repo
+python3 .github/scripts/generate-release-notes.py --from v1.0.0 --to v1.1.0 --repo /path/to/repo
 ```
 
 ## Command-Line Options
@@ -195,7 +197,7 @@ jobs:
       - name: Generate Release Notes
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        run: python3 generate-release-notes.py --to ${{ github.ref_name }}
+        run: python3 .github/scripts/generate-release-notes.py --to ${{ github.ref_name }}
       
       - name: Commit and Push
         run: |
