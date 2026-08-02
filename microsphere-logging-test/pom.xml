@@ -27,10 +27,10 @@
             <version>${revision}</version>
         </dependency>
 
-        <!-- Microsphere Java Annotations -->
+        <!-- Microsphere Java Core -->
         <dependency>
             <groupId>io.github.microsphere-projects</groupId>
-            <artifactId>microsphere-java-annotations</artifactId>
+            <artifactId>microsphere-java-core</artifactId>
             <optional>true</optional>
         </dependency>
 
