@@ -307,4 +307,26 @@ No new features, bug fixes, or documentation changes in this release.
 
 **Note:** This release focuses primarily on dependency updates and minor build adjustments.
 
-**Full Changelog**: https://github.com/microsphere-projects/microsphere-logging/compare/0.1.21...0.1.22
+**Full Changelog**: https://github.com/microsphere-projects/microsphere-logging/compare/0.1.21...0.1.22## v0.1.23
+
+_Release notes generation failed. Raw commits since 0.1.22:_
+
+```
+efb4752 chore: merge main into release [skip ci]
+2483a1a Add microsphere-java-core to examples
+1ce9d24 chore: merge main into release [skip ci]
+d0bdb79 Use microsphere-java-core in test module
+70b4a35 chore: merge main into release [skip ci]
+df315df Update pom.xml
+647bc74 Update pom.xml
+57ad533 chore: merge main into release [skip ci]
+27ec7f7 chore: merge main into release [skip ci]
+32c6a2e Add optional microsphere-java-core dependency
+5246c65 Bump parent to microsphere-build 0.3.10
+df4110a chore: merge main into release [skip ci]
+9f3979f Mark microsphere-java-core as optional
+7e6b332 chore: merge release into main [skip ci]
+584e746 chore: bump version to next patch after publishing 0.1.22
+```
+
+**Full Changelog**: https://github.com/microsphere-projects/microsphere-logging/compare/0.1.22...0.1.23
