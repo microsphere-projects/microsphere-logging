@@ -329,4 +329,21 @@ df4110a chore: merge main into release [skip ci]
 584e746 chore: bump version to next patch after publishing 0.1.22
 ```
 
-**Full Changelog**: https://github.com/microsphere-projects/microsphere-logging/compare/0.1.22...0.1.23
+**Full Changelog**: https://github.com/microsphere-projects/microsphere-logging/compare/0.1.22...0.1.23## v0.2.0
+
+_Release notes generation failed. Raw commits since 0.1.23:_
+
+```
+5ab5aa6 chore: merge main into release [skip ci]
+a7a274a Remove release notes example workflow
+55eaa71 chore: merge main into release [skip ci]
+bfd135d Bump microsphere-java to 0.3.17
+7ae4db2 chore: merge main into release [skip ci]
+cb9f7af Merge pull request #39 from microsphere-projects/copilot/create-release-notes-script
+27e94c7 docs: update release notes generator documentation with correct script location
+e061726 Create Python script to generate release notes between git tags using GitHub Models API
+cc7b3cf chore: merge release into main [skip ci]
+43509a8 chore: bump version to next patch after publishing 0.1.23
+```
+
+**Full Changelog**: https://github.com/microsphere-projects/microsphere-logging/compare/0.1.23...0.2.0
