@@ -32,6 +32,7 @@ import static org.apache.logging.log4j.LogManager.ROOT_LOGGER_NAME;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNull;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 /**
  * {@link Log4j2Logging} Test
@@ -89,9 +90,13 @@ class Log4j2LoggingTest {
     @Test
     void testSetLoggerLevel() {
         String loggerName = "io.microsphere.logging.log4j2.Log4j2Logging";
+        Logger logger = getLogger(loggerName);
+        assertFalse(logger.isDebugEnabled());
+
         String level = "DEBUG";
         this.logging.setLoggerLevel(loggerName, level);
         assertEquals(level, this.logging.getLoggerLevel(loggerName));
+        assertTrue(logger.isDebugEnabled());
     }
 
     @Test
