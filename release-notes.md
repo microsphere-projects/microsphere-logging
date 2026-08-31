@@ -366,4 +366,15 @@ e73a425 chore: merge release into main [skip ci]
 dcdb923 chore: bump version to next patch after publishing 0.2.0
 ```
 
-**Full Changelog**: https://github.com/microsphere-projects/microsphere-logging/compare/0.2.0...0.2.1
+**Full Changelog**: https://github.com/microsphere-projects/microsphere-logging/compare/0.2.0...0.2.1## v0.2.2
+
+_Release notes generation failed. Raw commits since 0.2.1:_
+
+```
+6937e98 chore: merge main into release [skip ci]
+1fd1cc4 Bump microsphere-java to 0.3.19
+63a109b chore: merge release into main [skip ci]
+58544e7 chore: bump version to next patch after publishing 0.2.1
+```
+
+**Full Changelog**: https://github.com/microsphere-projects/microsphere-logging/compare/0.2.1...0.2.2
