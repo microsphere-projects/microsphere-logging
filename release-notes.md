@@ -346,4 +346,24 @@ cc7b3cf chore: merge release into main [skip ci]
 43509a8 chore: bump version to next patch after publishing 0.1.23
 ```
 
-**Full Changelog**: https://github.com/microsphere-projects/microsphere-logging/compare/0.1.23...0.2.0
+**Full Changelog**: https://github.com/microsphere-projects/microsphere-logging/compare/0.1.23...0.2.0## v0.2.1
+
+_Release notes generation failed. Raw commits since 0.2.0:_
+
+```
+cb8fa5b chore: merge main into release [skip ci]
+703032e Bump microsphere-java to 0.3.18
+55062ee chore: merge main into release [skip ci]
+73b5764 Merge pull request #40 from microsphere-projects/dependabot/maven/org.apache.maven-apache-maven-3.9.16
+f7eda19 chore: merge main into release [skip ci]
+34c782b Update microsphere-build to 0.3.14
+decde78 Bump org.apache.maven:apache-maven from 3.9.15 to 3.9.16
+8929f93 chore: merge main into release [skip ci]
+de41454 Bump microsphere-build to 0.3.12
+a310470 chore: merge main into release [skip ci]
+eb11d4f Strengthen Log4j2 logger level test
+e73a425 chore: merge release into main [skip ci]
+dcdb923 chore: bump version to next patch after publishing 0.2.0
+```
+
+**Full Changelog**: https://github.com/microsphere-projects/microsphere-logging/compare/0.2.0...0.2.1
