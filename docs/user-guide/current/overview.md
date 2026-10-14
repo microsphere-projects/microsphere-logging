@@ -123,6 +123,41 @@ Logging logback = LoggingUtils.loadAll().stream()
         .orElseThrow();
 ```
 
+## Level semantics across backends
+
+The `Logging` interface promises one behaviour, but the four adapters sit on frameworks with different native
+semantics. The table below is the contract you can rely on when you call the API (each claim is asserted by the
+module's own tests).
+
+| Behaviour | `JavaLogging` | `LogbackLogging` | `Log4jLogging` | `Log4j2Logging` |
+|-----------|---------------|------------------|----------------|-----------------|
+| Root logger name | `""` | `"ROOT"` | `"root"` | `""` |
+| Supported levels | OFF, SEVERE, WARNING, INFO, CONFIG, FINE, FINER, FINEST, ALL | OFF, ERROR, WARN, INFO, DEBUG, TRACE, ALL | OFF, FATAL, ERROR, WARN, INFO, DEBUG, TRACE, ALL | OFF, FATAL, ERROR, WARN, INFO, DEBUG, TRACE, ALL |
+| `getLoggerLevel("not.declared.Anywhere")` | `IllegalArgumentException: Logger … does not exist` | a level string — Logback creates the logger on demand | a level string — Log4j creates the logger on demand | a level string — Log4j2 creates the logger on demand |
+| `getLoggerLevel` for a logger with no declared level | inherited value reported by JUL | effective level | effective level | `null` (Log4j2 keeps the declared level, which may be unset) |
+| `setLoggerLevel(name, null)` | `Level` set to `null` ⇒ **real inheritance** | parsed by `Level.toLevel(null)` ⇒ **DEBUG** | `Level.toLevel(null)` ⇒ **DEBUG** | `Level.toLevel(null)` ⇒ **DEBUG** |
+| `setLoggerLevel(name, "BOGUS")` | `IllegalArgumentException: Unknown level "BOGUS"` | silently **DEBUG** | silently **DEBUG** | silently **DEBUG** |
+| `setLoggerLevel(rootName, level)` | works | works | works | works |
+| `getParentLoggerName(rootName)` | delegates to the JDK ⇒ `""` | `null` | `null` | `null` |
+| `getParentLoggerName("nodots")` | JDK behaviour | `"ROOT"` | `"root"` | `""` |
+
+Three consequences worth memorising:
+
+1. **`null` means "inherit" only on JUL.** Everywhere else it means "set to DEBUG", and so does any level string the
+   backend cannot parse. Validate the level name yourself (against `getSupportedLoggingLevels()`) before calling
+   `setLoggerLevel` if you need the `IllegalArgumentException` the javadoc advertises.
+2. **A level string of `"null"` may come back from Log4j2.** `Log4j2Utils.getLevel` returns
+   `logger.getLevel()`, which is the *declared* level and can be unset; the other adapters fall back to the
+   effective level. Treat a `null` return as "inherited".
+3. **`getLoggerNames()` is a snapshot of live loggers, and it can omit the root logger** — Logback's
+   `getLoggerList()` does not contain `"ROOT"` even though `getRootLoggerName()` returns it.
+
+```java
+// test-case evidence — LogbackLoggingTest.java:106-107
+assertEquals(ROOT_LOGGER_NAME, logging.getParentLoggerName("io")); // "ROOT"
+assertNull(logging.getParentLoggerName(ROOT_LOGGER_NAME));         // not ""
+```
+
 ## Reading Paths
 
 - **New users**: this page → your backend module document → [logging-commons.md](./logging-commons.md).

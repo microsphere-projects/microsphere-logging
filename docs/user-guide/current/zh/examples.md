@@ -62,10 +62,12 @@ public class LoggingExample {
 
 要点：
 
-1. `LoggingUtils.load()` 依据 `Prioritized` 优先级选择唯一一个 `Logging` 实现。四个适配模块都在 classpath 上时，
-   `JavaLogging` 胜出（优先级 `+10`）——见 [logging-commons.md](./logging-commons.md#后端优先级汇总)。
+1. `LoggingUtils.load()` 依据 `Prioritized` 优先级（数值**升序**比较）选择唯一一个 `Logging` 实现。四个适配模块
+   都在 classpath 上时，**`Log4j2Logging` 胜出**（优先级 `-5`，`MAX_PRIORITY` 即 `Integer.MIN_VALUE`）——见
+   [logging-commons.md](./logging-commons.md#后端优先级汇总)。因此示例打印 `The name of Logging : Log4j2`。
 2. `LoggerFactory.getLogger(...)`（来自 `microsphere-java-core`，通过 Log4j 与 Log4j2 适配模块注册的
-   `LoggerFactory` SPI 解析）提供与框架无关的 `io.microsphere.logging.Logger`。
+   `LoggerFactory` SPI 解析）提供与框架无关的 `io.microsphere.logging.Logger`；同一套优先级数值也作用于它，
+   所以示例里的日志输出同样走 Log4j2。
 3. 打印出的后端名称与实时 logger 清单，正是运行时级别管理与 JMX 注册的起点。
 
 ## 扩展示例

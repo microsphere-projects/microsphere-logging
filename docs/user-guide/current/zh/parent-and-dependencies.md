@@ -18,13 +18,33 @@
 
 两个模块都是 `<packaging>pom</packaging>`：不含 Java 代码，也不会成为应用逻辑的编译依赖，只负责版本与构建设置。
 
+## POM 结构
+
+三个 POM 构成一条继承链：
+
+```
+microsphere-build（外部）                  <- Java 8 编译基线、插件、发布工具链
+   ^
+microsphere-logging（根聚合 POM，pom.xml）   <- 声明 <revision>0.2.3-SNAPSHOT</revision> 与全部模块
+   ^
+microsphere-logging-parent                 <- 导入 microsphere-java-dependencies 0.3.19
+   ^
+microsphere-logging-dependencies           <- BOM
+```
+
+根聚合 POM（`io.github.microsphere-projects:microsphere-logging`）声明的 reactor 成员为：
+`microsphere-logging-parent`、`microsphere-logging-dependencies`、`microsphere-logging-commons`、
+`microsphere-java-logging`、`microsphere-log4j`、`microsphere-log4j2`、`microsphere-logback`、
+`microsphere-logging-test`、`microsphere-logging-examples`。
+
 ## `microsphere-logging-parent` 提供的能力
 
-- 继承自 `io.github.microsphere-projects:microsphere-build`（构建插件管理、Java 8 编译基线、发布工具链）。
+- 继承根 POM `microsphere-logging`，后者再继承 `io.github.microsphere-projects:microsphere-build`
+  （构建插件管理、Java 8 编译基线、发布工具链）。
 - 通过属性 `microsphere-java.version = 0.3.19` 导入
   `io.github.microsphere-projects:microsphere-java-dependencies`，使本仓库各日志模块使用的
   `microsphere-java-*` 构件版本对齐。
-- 作为本仓库所有模块的 `<parent>`。
+- 作为 BOM 与各库模块的 `<parent>`。
 
 ## BOM 管理的构件
 

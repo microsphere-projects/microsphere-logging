@@ -63,11 +63,13 @@ public class LoggingExample {
 
 Key take-aways:
 
-1. `LoggingUtils.load()` picks one `Logging` implementation by `Prioritized` order. With all four adapters present,
-   `JavaLogging` wins (priority `+10`) — see
-   [logging-commons.md](./logging-commons.md#backend-priority-summary).
+1. `LoggingUtils.load()` picks one `Logging` implementation by `Prioritized` order, ascending by value. With all
+   four adapters present, **`Log4j2Logging` wins** (priority `-5`; `MAX_PRIORITY` is `Integer.MIN_VALUE`) — see
+   [logging-commons.md](./logging-commons.md#backend-priority-summary). The example therefore prints
+   `The name of Logging : Log4j2`.
 2. `LoggerFactory.getLogger(...)` (from `microsphere-java-core`, resolved through the `LoggerFactory` SPIs that the
-   Log4j and Log4j2 adapters register) gives a framework-agnostic `io.microsphere.logging.Logger`.
+   Log4j and Log4j2 adapters register) gives a framework-agnostic `io.microsphere.logging.Logger`. The same priority
+   values apply, so log statements in this example also go to Log4j2.
 3. The printed backend name and live logger inventory are the starting point for runtime level management and JMX
    registration.
 

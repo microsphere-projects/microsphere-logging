@@ -46,7 +46,7 @@ SPI 注册：`META-INF/services/io.microsphere.logging.Logging` → `io.microsph
 | 常量 / 行为 | 值 |
 |-------------|-----|
 | `ROOT_LOGGER_NAME` | `""`（空字符串，JUL 约定） |
-| `PRIORITY` | `NORMAL_PRIORITY + 10`（即 `10`），内置后端中**最高** |
+| `PRIORITY` | `NORMAL_PRIORITY + 10`（即 `10`）——四个内置适配器中优先级**最低**（SPI 列表按升序排序） |
 | `ALL_LEVELS` | 由 `DefaultLoggingLevelsResolver` 解析自 `java.util.logging.Level` |
 | `getName()` | `"Java Logging"` |
 | `getRootLoggerName()` | `""` |
@@ -55,8 +55,16 @@ SPI 注册：`META-INF/services/io.microsphere.logging.Logging` → `io.microsph
 JUL 在此不暴露 `TRACE`/`DEBUG` 名称——`FINEST` 对应 trace 语义、`FINE` 对应 debug 语义，
 因此级别名称**不能**与其他后端互换。
 
-由于优先级最高，只要本模块在 classpath 上，`LoggingUtils.load()` 就会优先返回 `JavaLogging`，
-即使同时存在 Logback 或 Log4j2。若实际使用的是其他后端，请用 `loadAll()` 按名称筛选
+```java
+// 测试用例证据 —— JavaLoggingTest.java:58-60
+assertEquals("", ROOT_LOGGER_NAME);
+assertEquals(10, PRIORITY);
+assertEquals(JAVA_LOGGING_LEVELS, ALL_LEVELS);
+```
+
+`JavaLoggingTest` 把 `load()` 直接强转为 `JavaLogging`，这**只在**该模块 classpath 上仅有这一个适配器时才成立。
+一旦 `microsphere-log4j2` 或 `microsphere-log4j` 也在 classpath 上，`load()` 返回的就是它们
+（优先级 `-5` / `-3` 胜过 `10`）。若实际使用的是其他后端，请用 `loadAll()` 按名称筛选
 （示例见 [logging-commons.md](./logging-commons.md)）。
 
 ## 使用示例
@@ -65,21 +73,23 @@ JUL 在此不暴露 `TRACE`/`DEBUG` 名称——`FINEST` 对应 trace 语义、`
 import io.microsphere.logging.Logging;
 import static io.microsphere.logging.LoggingUtils.load;
 
-Logging logging = load();  // 本模块占优时返回 JavaLogging
+// 当 classpath 上只有本模块时：
+Logging logging = load();  // -> JavaLogging
 
 // 当前 JUL LogManager 中注册的全部 logger 名
 List<String> names = logging.getLoggerNames();
 
-// 读取级别：logger 不存在返回 null；Level 为 null（继承态）时返回空字符串
+// 读取级别：返回级别名；Level 为 null（继承态）时返回空字符串
+// logger 名未知时抛 IllegalArgumentException("Logger … does not exist")
 String level = logging.getLoggerLevel("io.microsphere");
 
 // 按名称设置级别（使用 JUL 名称：FINE，而非 DEBUG）
 logging.setLoggerLevel("io.microsphere", "FINE");
 
-// 恢复继承（JUL 语义：级别设为 null）
+// 恢复继承——JUL 特有语义：把 Level 置为 null
 logging.setLoggerLevel("io.microsphere", null);
 
-// 父级名称按点号层级推导
+// 父级名称委托给 JDK MXBean（根 logger 返回 ""）
 String parent = logging.getParentLoggerName("io.microsphere.logging"); // "io.microsphere"
 ```
 
@@ -92,6 +102,14 @@ LoggingMXBeanRegistrar.registerAll();
 
 ## 注意事项
 
+- JUL 的级别名与其他后端不同：这里没有 Logback 语义的 `TRACE`/`DEBUG`——`FINEST` 对应 trace、`FINE` 对应 debug。
 - `setLoggerLevel` 在 logger 未注册于 `LogManager`、或级别名不是合法 JUL 级别时抛 `IllegalArgumentException`。
+  这是**唯一**遵守 `Logging` javadoc 该校验约定的适配器——Logback / Log4j / Log4j2 经 `Level.toLevel(…)`
+  解析并回退到 DEBUG。
 - `getLoggerNames()` 只反映调用时 `LogManager` 中已存在的 logger；JUL 首次 `Logger.getLogger(...)` 时才创建。
+- `getParentLoggerName` 是 `JavaLogging` 唯一覆写的方法；其余适配器都沿用接口的词法默认实现，
+  其对根 logger 名返回 `null`（而非 `""`）。
+- 由于 `getName()` 返回 `"Java Logging"`（含空格），注册的 `ObjectName` 为
+  `io.microsphere.logging:type=Java Logging`；严格的 JMX 客户端在查询时需要加引号。
+- 完整对照见[后端级别语义对照](./overview.md#后端级别语义对照)。
 - 与 Logback/Log4j2 混用时，跨后端公共级别名基本只有 `INFO` 与 `OFF`，批量操作请按后端分别处理。
