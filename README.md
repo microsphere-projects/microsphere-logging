@@ -40,6 +40,20 @@ Supported backends: **Java Logging (JUL)**, **Log4j**, **Log4j2**, and **Logback
 | `microsphere-logging-test`         | JUnit 4 and JUnit Jupiter 5 test extensions                |
 | `microsphere-logging-examples`     | Runnable examples                                          |
 
+## Documentation
+
+Documentation is organized by guide type, then by branch (`release` → `current`), then by language
+(English is the default; Chinese mirrors live in a parallel `zh/` directory).
+
+| Guide | English | 中文 | Contents |
+|-------|---------|------|----------|
+| Documentation index | [docs/README.md](docs/README.md) | [docs/zh/README.md](docs/zh/README.md) | Entry point, branch and language layout |
+| User Guide | [docs/user-guide/README.md](docs/user-guide/README.md) | [docs/user-guide/zh/README.md](docs/user-guide/zh/README.md) | Per-module APIs, code examples from the test cases, version information and compatibility ranges |
+| Developer Guide | [docs/developer-guide/README.md](docs/developer-guide/README.md) | [docs/developer-guide/zh/README.md](docs/developer-guide/zh/README.md) | Architecture, source-code analysis, design patterns, and flowcharts for complex flows |
+
+Only the `release` branch is documented. The `release-1.x` branch does not exist in this repository, so no `1.x`
+document set is produced.
+
 ## Compatibility
 
 | Requirement   | Version |
