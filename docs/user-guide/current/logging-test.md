@@ -54,26 +54,18 @@ extensions resolve levels through `LoggingUtils.loadAll()`, so they act on **eve
 ### `@LoggingLevelsTest` — per-method level matrix
 
 `@Target({METHOD, ANNOTATION_TYPE})`, applied together with `@Test`; it auto-registers
-`LoggingLevelsTestExtension` via `@ExtendWith`.
+`LoggingLevelsTestExtension` via `@ExtendWith`. The annotated method becomes a JUnit **test template** and runs
+once per entry in `levels`; the active level is observable through the `Logging` API, not through parameters
+(see [Parameter injection](#parameter-injection)).
 
 ```java
-import io.microsphere.logging.test.jupiter.LoggingLevelsTest;
-import org.junit.jupiter.api.Test;
-
-class MyServiceTest {
-
-    @Test
-    @LoggingLevelsTest(loggingClasses = {MyService.class}, levels = {"TRACE", "DEBUG", "INFO"})
-    void testBehaviorAcrossLogLevels(String level, int index) {
-        // Runs three times: ("TRACE", 0), ("DEBUG", 1), ("INFO", 2)
-        assertEquals(new String[]{"TRACE", "DEBUG", "INFO"}[index], level);
-    }
-
-    @Test
-    @LoggingLevelsTest(levels = {"DEBUG"})   // loggingClasses omitted -> the test class' package is used
-    void onlyNeedsDebug(String level) {
-        // ...
-    }
+// test-case evidence — LoggingLevelsTestTest
+@Test
+@LoggingLevelsTest(levels = {"WARN", "ERROR"})
+void test() {
+    Logging logging = load();
+    String loggerName = LoggingLevelsTestTest.class.getPackage().getName();
+    assertNotEquals("INFO", logging.getLoggerLevel(loggerName));
 }
 ```
 
@@ -86,32 +78,47 @@ Attributes:
 
 ### `@LoggingLevelsClass` — whole class per level
 
-`@Target({TYPE, ANNOTATION_TYPE})`; registers `LoggingLevelsClassExtension`, which turns each test method of the
-annotated class into a per-level repetition. It is designed to be **composed** into your own class-level annotation:
+`@Target({TYPE, ANNOTATION_TYPE})`; registers `LoggingLevelsClassExtension`, which repeats the **entire test class**
+once per level. It is designed to be **composed** into your own class-level annotation:
 
 ```java
-@LoggingLevelsClass(loggingClasses = {MyService.class}, levels = {"DEBUG", "INFO"})
-@Retention(RUNTIME)
+// test-case evidence — DefaultLoggingLevelsClass.java
 @Target(TYPE)
+@Retention(RUNTIME)
+@LoggingLevelsClass(levels = {"TRACE", "INFO", "WARN"})
 public @interface DefaultLoggingLevelsClass {
 }
 ```
 
 ```java
+// test-case evidence — LoggingLevelsClassTest
 @DefaultLoggingLevelsClass          // meta-annotation carrying the level matrix
-class MyServiceIT {
+class LoggingLevelsClassTest {
 
     @Test
-    void a(String level, int index) {   // runs under DEBUG, then INFO
-        // ...
+    void test(String level, int index) {
+        LoggingLevelsClass annotation = findMetaAnnotation(LoggingLevelsClassTest.class, LoggingLevelsClass.class);
+        String[] levels = annotation.levels();
+        assertEquals(levels[index], level);   // runs as TRACE/0, INFO/1, WARN/2
     }
 }
 ```
 
+Note the `@Test` method above is **not** annotated with `@LoggingLevelsClass` directly — the extension finds the
+annotation through the meta-annotation on `@DefaultLoggingLevelsClass`. Any attributes you set on the composed
+annotation are what the extension reads.
+
 ### Parameter injection
 
-`LoggingLevelParameterResolver` resolves `String` parameters to the active level name and `int` parameters to the
-level index, in any parameter order. Only those two types are supported.
+`LoggingLevelParameterResolver` resolves a `String` parameter to the active level name and an `int` parameter to
+the zero-based level index, in any order. It is registered **only** for class templates
+(`LoggingLevelTemplateInvocationContext.getAdditionalExtensions()` adds it when `isClassTemplate` is `true`), so:
+
+- `@LoggingLevelsClass` (or a composed annotation) — `void test(String level, int index)` works;
+- `@LoggingLevelsTest` on a method — parameters are **not** injected; declare a no-argument test method and read
+  the level back through `Logging.getLoggerLevel(...)`.
+
+Each invocation is displayed as `[LEVEL]` (for example `[TRACE]`, `[INFO]`, `[WARN]`).
 
 Internals you may see in stack traces: `LoggingLevelsExtension` (abstract base), `LoggingLevelsTestExtension`,
 `LoggingLevelsClassExtension`, `LoggingLevelCallback` (set + restore), `LoggingLevelTemplateInvocationContext`,
@@ -119,28 +126,35 @@ Internals you may see in stack traces: `LoggingLevelsExtension` (abstract base),
 
 ## JUnit 4
 
-`LoggingLevelsRule` implements `TestRule` / `@ClassRule`:
+`LoggingLevelsRule` implements `TestRule` and is usable as either `@Rule` or `@ClassRule`. Its factory takes level
+names only — there is no `loggingClasses` equivalent:
 
 ```java
-import io.microsphere.logging.test.junit4.LoggingLevelsRule;
-import org.junit.ClassRule;
-import org.junit.Test;
-
-public class MyServiceTest {
+// test-case evidence — LoggingLevelsRuleTest
+public class LoggingLevelsRuleTest {
 
     @ClassRule
-    public static final LoggingLevelsRule loggingLevelsRule =
-            LoggingLevelsRule.levels("TRACE", "DEBUG", "INFO");
+    public static final LoggingLevelsRule loggingLevelsRule = levels("TRACE", "DEBUG", "INFO");
 
     @Test
-    public void testBehaviorAcrossLogLevels() {
-        // Executed for each level declared in the rule
+    public void test() {
+        assertNotNull(loggingLevelsRule);
     }
 }
 ```
 
-The rule wraps the test statement with `LoggingLevelsStatement`, which loads all `Logging` implementations for the
-test class' class loader and applies/restores the levels around each run.
+The rule wraps the test statement in `LoggingLevelsStatement`, which:
+
+1. de-duplicates the level names (`ofSet(levels)`), so `"DEBUG", "DEBUG"` yields one iteration;
+2. resolves the single target logger name as **`testClass.getPackage().getName()`**;
+3. loads every `Logging` implementation visible to the test class' class loader;
+4. for **each backend** (outer loop): records the current level, then for **each level** (inner loop) registers a
+   child test description, applies the level and evaluates the wrapped statement, and finally restores the original
+   level in a `finally` block.
+
+Consequence: the test body runs **backends × levels** times, not `levels` times. With three levels and one backend
+you get three runs; with three levels and two backends you get six. Use `@Rule` for per-method iteration and
+`@ClassRule` when the whole class should repeat per level.
 
 ## Notes
 
@@ -148,6 +162,21 @@ test class' class loader and applies/restores the levels around each run.
   all loaded backends. The four backends only share `INFO` and `OFF` by name (JUL uses `SEVERE`/`WARNING`/`FINE`,
   Logback has no `FATAL`, Log4j/Log4j2 do). Safest practice: keep a **single** backend module on the test classpath,
   or limit `levels` to names that backend supports.
-- Levels are restored after every invocation, so tests stay order-independent and do not leak into each other.
+- Levels are restored after every invocation, so tests stay order-independent and do not leak into each other —
+  **but the restore is not always neutral**. `LoggingLevelCallback` records whatever `getLoggerLevel()` returned and
+  feeds it straight back to `setLoggerLevel()`:
+  - on Log4j2 an inherited logger reports `null`, and `null` is parsed to **`DEBUG`**, so the logger ends up pinned
+    at DEBUG instead of inheriting;
+  - on JUL an inherited logger reports `""`, and `Level.parse("")` fails, so the restore throws
+    `IllegalArgumentException` for a logger that had no declared level.
+  This is why the shipped tests only assert on levels they explicitly set.
+- The class-template flavour (`@LoggingLevelsClass`) relies on JUnit Jupiter's
+  `ClassTemplateInvocationContextProvider`, which is why this module requires **Jupiter 5.13+**; the method-level
+  flavour only needs the classic `TestTemplateInvocationContextProvider`.
+- The repository's CI runs `mvn test --activate-profiles test,coverage`, so these templates execute in the build;
+  locally a plain `mvn test` in the module directory is enough.
+- The extension logs each switch through the `microsphere-java-core` logger; the message is worded
+  `Set logger[name :'{}']s' level ['{}' -> '{}] via {}` (the closing quote is missing in the source), so don't grep
+  for a well-formed pattern when building log-parsing rules around it.
 - Capturing output while iterating levels pairs well with `InMemoryAppender` from
   [microsphere-log4j2](./log4j2.md).
