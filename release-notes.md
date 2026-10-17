@@ -377,4 +377,28 @@ _Release notes generation failed. Raw commits since 0.2.1:_
 58544e7 chore: bump version to next patch after publishing 0.2.1
 ```
 
-**Full Changelog**: https://github.com/microsphere-projects/microsphere-logging/compare/0.2.1...0.2.2
+**Full Changelog**: https://github.com/microsphere-projects/microsphere-logging/compare/0.2.1...0.2.2## v0.2.3
+
+_Release notes generation failed. Raw commits since 0.2.2:_
+
+```
+c2f061d chore: merge main into release [skip ci]
+8809e6d Upgrade microsphere-java to 0.3.20
+97a7b32 chore: merge main into release [skip ci]
+c6dd1d0 Reorganize docs and fix priority semantics
+86ee5eb chore: merge main into release [skip ci]
+be9923c Add bilingual user guide for current release
+84e7354 chore: merge main into release [skip ci]
+2d0ae46 Merge pull request #41 from microsphere-projects/dependabot/github_actions/actions/setup-python-7
+cbe9ca4 Bump actions/setup-python from 5 to 7
+4428211 chore: merge main into release [skip ci]
+a389ebb Add GitHub Actions updates to Dependabot
+b1f4b1d chore: merge main into release [skip ci]
+22d5f6f Bump GitHub Actions workflow versions
+e2686ec chore: merge main into release [skip ci]
+6181d59 Bump microsphere-build to 0.3.15
+71c0915 chore: merge release into main [skip ci]
+56e8ae9 chore: bump version to next patch after publishing 0.2.2
+```
+
+**Full Changelog**: https://github.com/microsphere-projects/microsphere-logging/compare/0.2.2...0.2.3
