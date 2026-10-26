@@ -36,6 +36,9 @@ public class DefaultLoggingLevelsResolver implements LoggingLevelsResolver {
 
     public static DefaultLoggingLevelsResolver INSTANCE = new DefaultLoggingLevelsResolver();
 
+    /**
+     * Protected constructor for singleton instance.
+     */
     protected DefaultLoggingLevelsResolver() {
     }
 
