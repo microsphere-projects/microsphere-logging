@@ -26,7 +26,10 @@ import org.junit.jupiter.api.Test;
 import java.util.List;
 
 import static io.microsphere.collection.ListUtils.newArrayList;
+import static io.microsphere.logging.log4j2.appender.InMemoryAppender.DEFAULT_LOG_EVENTS_MAX_CAPACITY;
+import static io.microsphere.logging.log4j2.appender.InMemoryAppender.LOG_EVENTS_MAX_CAPACITY_PROPERTY_NAME;
 import static io.microsphere.logging.log4j2.appender.InMemoryAppender.NAME;
+import static io.microsphere.logging.log4j2.appender.InMemoryAppender.PROPERTY_NAME_PREFIX;
 import static io.microsphere.logging.log4j2.appender.InMemoryAppender.findInMemoryAppender;
 import static java.lang.Thread.sleep;
 import static org.apache.logging.log4j.Level.INFO;
@@ -44,6 +47,14 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
  * @since 1.0.0
  */
 class InMemoryAppenderTest {
+
+    @Test
+    void testConstants() {
+        assertEquals("InMemory", NAME);
+        assertEquals("microsphere.logging.log4j2.appender.in-memory.", PROPERTY_NAME_PREFIX);
+        assertEquals("microsphere.logging.log4j2.appender.in-memory.max-capacity", LOG_EVENTS_MAX_CAPACITY_PROPERTY_NAME);
+        assertEquals("99999", DEFAULT_LOG_EVENTS_MAX_CAPACITY);
+    }
 
     @Test
     void testBasicMethodsAndLifecycle() {
@@ -98,6 +109,25 @@ class InMemoryAppenderTest {
         InMemoryAppender result = findInMemoryAppender();
         // no strict assertion on value to keep test environment-agnostic
         assertTrue(result == null || result instanceof InMemoryAppender);
+    }
+
+    @Test
+    void testMaxCapacity() throws InterruptedException {
+        InMemoryAppender appender = new InMemoryAppender();
+        assertEquals(99999, appender.getMaxCapacity());
+        appender.setMaxCapacity(1);
+        assertEquals(1, appender.getMaxCapacity());
+
+        LogEvent event1 = newEvent("message-1");
+        LogEvent event2 = newEvent("message-2");
+
+        appender.append(event1);
+        appender.append(event2);
+
+        CollectingAppender target = new CollectingAppender();
+        appender.transfer(target);
+        assertEquals(1, target.events.size());
+        assertTrue(target.events.contains(event2));
     }
 
     private static LogEvent newEvent(String message) throws InterruptedException {

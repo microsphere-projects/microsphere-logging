@@ -16,6 +16,7 @@
  */
 package io.microsphere.logging.log4j2.appender;
 
+import io.microsphere.annotation.ConfigurationProperty;
 import org.apache.logging.log4j.core.AbstractLifeCycle;
 import org.apache.logging.log4j.core.Appender;
 import org.apache.logging.log4j.core.ErrorHandler;
@@ -25,8 +26,12 @@ import org.apache.logging.log4j.core.LogEvent;
 import java.io.Serializable;
 import java.util.concurrent.ConcurrentSkipListSet;
 
+import static io.microsphere.annotation.ConfigurationProperty.SYSTEM_PROPERTIES_SOURCE;
 import static io.microsphere.logging.log4j2.LogEventComparator.INSTANCE;
+import static io.microsphere.logging.log4j2.constants.PropertyConstants.MICROSPHERE_LOG4J2_APPENDER_PROPERTY_NAME_PREFIX;
 import static io.microsphere.logging.log4j2.util.Log4j2Utils.findAppender;
+import static java.lang.Integer.parseInt;
+import static java.lang.System.getProperty;
 
 /**
  * In-Memory {@link Appender} records any {@link LogEvent}
@@ -42,7 +47,63 @@ public class InMemoryAppender extends AbstractLifeCycle implements Appender {
      */
     public static final String NAME = "InMemory";
 
+    /**
+     * The property name prefix of {@link InMemoryAppender}: "microsphere.logging.log4j2.appender.in-memory."
+     */
+    public static final String PROPERTY_NAME_PREFIX = MICROSPHERE_LOG4J2_APPENDER_PROPERTY_NAME_PREFIX + "in-memory.";
+
+    /**
+     * The property name of the maximum capacity of log events: "microsphere.logging.log4j2.appender.in-memory.max-capacity"
+     */
+    public static final String LOG_EVENTS_MAX_CAPACITY_PROPERTY_NAME = PROPERTY_NAME_PREFIX + "max-capacity";
+
+    /**
+     * The default value of the maximum capacity of log events: "99999"
+     */
+    public static final String DEFAULT_LOG_EVENTS_MAX_CAPACITY = "99999";
+
     private final ConcurrentSkipListSet<LogEvent> logEvents = new ConcurrentSkipListSet<>(INSTANCE);
+
+    /**
+     * The maximum capacity of log events to be recorded in memory. When the capacity is exceeded, the oldest log event will be evicted.
+     */
+    @ConfigurationProperty(
+            name = LOG_EVENTS_MAX_CAPACITY_PROPERTY_NAME,
+            type = int.class,
+            defaultValue = DEFAULT_LOG_EVENTS_MAX_CAPACITY,
+            source = SYSTEM_PROPERTIES_SOURCE
+    )
+    private int maxCapacity = parseInt(getProperty(LOG_EVENTS_MAX_CAPACITY_PROPERTY_NAME, DEFAULT_LOG_EVENTS_MAX_CAPACITY));
+
+    /**
+     * Sets the maximum capacity of log events to be recorded in memory. When the capacity is exceeded, the oldest log event will be evicted.
+     *
+     * <h3>Example Usage</h3>
+     * <pre>{@code
+     *   InMemoryAppender appender = new InMemoryAppender();
+     *   appender.setMaxCapacity(1000);
+     * }</pre>
+     *
+     * @param maxCapacity the maximum capacity of log events
+     */
+    public void setMaxCapacity(int maxCapacity) {
+        this.maxCapacity = maxCapacity;
+    }
+
+    /**
+     * Returns the maximum capacity of log events to be recorded in memory.
+     *
+     * <h3>Example Usage</h3>
+     * <pre>{@code
+     *   InMemoryAppender appender = new InMemoryAppender();
+     *   int capacity = appender.getMaxCapacity();
+     * }</pre>
+     *
+     * @return the maximum capacity of log events
+     */
+    public int getMaxCapacity() {
+        return maxCapacity;
+    }
 
     /**
      * Appends the given {@link LogEvent} to the in-memory collection.
@@ -60,10 +121,12 @@ public class InMemoryAppender extends AbstractLifeCycle implements Appender {
      * }</pre>
      *
      * @param event the {@link LogEvent} to record
-     *
      */
     @Override
     public void append(LogEvent event) {
+        if (logEvents.size() >= maxCapacity) {
+            logEvents.pollFirst();  // Evict oldest
+        }
         logEvents.add(event);
     }
 
