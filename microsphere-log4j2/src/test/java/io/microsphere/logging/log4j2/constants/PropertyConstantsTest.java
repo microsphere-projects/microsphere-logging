@@ -21,6 +21,7 @@ package io.microsphere.logging.log4j2.constants;
 import org.junit.jupiter.api.Test;
 
 import static io.microsphere.logging.constants.PropertyConstants.MICROSPHERE_LOGGING_PROPERTY_NAME_PREFIX;
+import static io.microsphere.logging.log4j2.constants.PropertyConstants.MICROSPHERE_LOG4J2_APPENDER_PROPERTY_NAME_PREFIX;
 import static io.microsphere.logging.log4j2.constants.PropertyConstants.MICROSPHERE_LOG4J2_PROPERTY_NAME_PREFIX;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
@@ -36,5 +37,6 @@ class PropertyConstantsTest {
     @Test
     void testConstants() {
         assertEquals("microsphere.logging.log4j2.", MICROSPHERE_LOG4J2_PROPERTY_NAME_PREFIX);
+        assertEquals("microsphere.logging.log4j2.appender.", MICROSPHERE_LOG4J2_APPENDER_PROPERTY_NAME_PREFIX);
     }
 }

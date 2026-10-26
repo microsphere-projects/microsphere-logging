@@ -32,4 +32,9 @@ public interface PropertyConstants {
      * The property name prefix of Microsphere Log4j2: "microsphere.logging.log4j2."
      */
     String MICROSPHERE_LOG4J2_PROPERTY_NAME_PREFIX = MICROSPHERE_LOGGING_PROPERTY_NAME_PREFIX + "log4j2.";
+
+    /**
+     * The property name prefix of Microsphere Log4j2 Appender: "microsphere.logging.log4j2.appender."
+     */
+    String MICROSPHERE_LOG4J2_APPENDER_PROPERTY_NAME_PREFIX = MICROSPHERE_LOG4J2_PROPERTY_NAME_PREFIX + "appender.";
 }
