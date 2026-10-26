@@ -24,6 +24,7 @@ import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
 import org.apache.log4j.spi.LoggerRepository;
 
+import static io.microsphere.util.Assert.assertNotNull;
 import static org.apache.log4j.Level.toLevel;
 import static org.apache.log4j.LogManager.getRootLogger;
 
@@ -61,6 +62,7 @@ public abstract class Log4jUtils {
      */
     @Nullable
     public static Logger getLogger(@Nonnull String loggerName) {
+        assertNotNull(loggerName, () -> "The 'loggerName' must not be null");
         return loggerRepository.getLogger(loggerName);
     }
 
