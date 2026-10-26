@@ -43,6 +43,8 @@ import static org.apache.logging.log4j.Level.toLevel;
  */
 public abstract class Log4j2Utils implements Utils {
 
+    private static final Object mutex = new Object();
+
     /**
      * Get the {@link Configuration}
      *
@@ -281,7 +283,7 @@ public abstract class Log4j2Utils implements Utils {
             return;
         }
         Configuration configuration = loggerContext.getConfiguration();
-        synchronized (loggerContext) {
+        synchronized (mutex) {
             if (!appender.isStarted()) {
                 appender.start();
             }
