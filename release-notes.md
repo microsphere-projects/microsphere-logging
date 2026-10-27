@@ -401,4 +401,33 @@ e2686ec chore: merge main into release [skip ci]
 56e8ae9 chore: bump version to next patch after publishing 0.2.2
 ```
 
-**Full Changelog**: https://github.com/microsphere-projects/microsphere-logging/compare/0.2.2...0.2.3
+**Full Changelog**: https://github.com/microsphere-projects/microsphere-logging/compare/0.2.2...0.2.3## v0.3.0
+
+_Release notes generation failed. Raw commits since 0.2.3:_
+
+```
+36dde30 chore: merge main into release [skip ci]
+40728f5 Remove annotation processor dependency
+a98e0e1 chore: merge main into release [skip ci]
+0e13387 Validate class arguments in Log4jUtils
+ce68a92 chore: merge main into release [skip ci]
+5136d07 Merge pull request #43 from microsphere-projects/dependabot/github_actions/actions/setup-java-6.1.0
+2a83441 chore: merge main into release [skip ci]
+a82a9da Update DefaultLoggingLevelsResolver.java
+42892e6 chore: merge main into release [skip ci]
+6ba43f0 Synchronize Log4j2 appender startup globally
+98bbd6b Add optional annotation processor dependency
+1ebe94a Bound in-memory Log4j2 appender capacity
+1af0522 Add Log4j2 appender property prefix
+4fc5549 Add Log4j2 property name prefix
+1e26698 Add logging property prefix constant
+e238f1b chore: merge main into release [skip ci]
+dc63a32 Validate logger names in Log4jUtils
+9065708 chore: merge main into release [skip ci]
+441ffb5 Update .gitignore
+6415a41 Bump actions/setup-java from 6.0.1 to 6.1.0
+cbaf521 chore: merge release into main [skip ci]
+b1513ca chore: bump version to next patch after publishing 0.2.3
+```
+
+**Full Changelog**: https://github.com/microsphere-projects/microsphere-logging/compare/0.2.3...0.3.0
