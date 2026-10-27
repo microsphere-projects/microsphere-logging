@@ -74,6 +74,7 @@ public abstract class Log4jUtils {
      */
     @Nullable
     public static Logger getLogger(@Nonnull Class<?> requestClass) {
+        assertNotNull(requestClass, () -> "The 'requestClass' must not be null");
         return getLogger(requestClass.getName());
     }
 
