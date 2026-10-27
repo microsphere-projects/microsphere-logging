@@ -68,5 +68,8 @@ compiler/.gradle/*
 # sonar
 .sonar/
 
+# Python
+__pycache__
+
 # others
 build.txt
