@@ -53,8 +53,8 @@ class Log4jUtilsTest {
     void testGetLogger() {
         assertNotNull(getLogger("test"));
         assertNotNull(getLogger(Log4jUtilsTest.class));
-        assertThrows(NullPointerException.class, () -> getLogger((Class<?>) null));
-        assertThrows(NullPointerException.class, () -> getLogger((String) null));
+        assertThrows(IllegalArgumentException.class, () -> getLogger((Class<?>) null));
+        assertThrows(IllegalArgumentException.class, () -> getLogger((String) null));
     }
 
     @Test
