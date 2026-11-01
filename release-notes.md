@@ -430,4 +430,15 @@ cbaf521 chore: merge release into main [skip ci]
 b1513ca chore: bump version to next patch after publishing 0.2.3
 ```
 
-**Full Changelog**: https://github.com/microsphere-projects/microsphere-logging/compare/0.2.3...0.3.0
+**Full Changelog**: https://github.com/microsphere-projects/microsphere-logging/compare/0.2.3...0.3.0## v0.3.1
+
+## Dependency Updates
+- Bump Microsphere Java to 0.3.21
+- Upgrade microsphere-build parent to 1.0.1
+
+## Build and Workflow Enhancements
+- Switch release notes to DeepSeek
+- Ignore Python bytecode caches
+- Bump version to next patch after publishing 0.3.0
+
+**Full Changelog**: https://github.com/microsphere-projects/microsphere-logging/compare/0.3.0...0.3.1
